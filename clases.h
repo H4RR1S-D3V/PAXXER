@@ -51,5 +51,62 @@ class TakeAway : Mesa
         void mostrarTakeAway();
 };
 
+class Usuario
+{
+    private:
+        char _nombre[50];
+        int _id;
+        int _dni;
+    public:
+        void cargar();
+        void mostrar();
+};
+
+class Credencial
+{
+    private:
+        char _password[12];
+    public:
+        void setPassword(char* newPassword[12]);
+        char* getPassword();
+};
+
+class Producto
+{
+    private:
+        int _id;
+        char _nombre[50];
+        int _tipo; /// 1-ENTRADA | 2-PLATO PRINCIPAL | 3-POSTRE | 4-BEBIDA
+        float _precio;
+        bool _estado = true; /// ACTIVO O NO
+    public:
+        void cargarItem();
+        void mostrarItem();
+        void setEstado(bool valor);
+        void setPrecio(float nuevoPrecio);
+        void setNombre (const char* nuevoNombre);
+        float getPrecio();
+        char* getNombre();
+};
+
+class Pedido
+{
+    private:
+        int _id;
+        Producto _productos[1];
+        ///Fecha _fecha;
+        int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
+        int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+        float _importeTotal;
+    public:
+        void cargarItem();
+        void quitarItem();
+        void mostrarPedido();
+        /// generar id automaticamente
+        float getImporteTotal();
+        void cerrarPedido();
+        char getTipo();
+        void aplicarDescuento(int tipo, float descuento);
+};
 
 #endif // CLASES_H_INCLUDED

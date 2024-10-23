@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include "clases.h"
 
@@ -90,4 +91,141 @@ void TakeAway::mostrarTakeAway()
 
     //cout << "HORA DE RETIRO: " << _horaRetiro;
     cout << "NOMBRE DEL CLIENTE: " << _nombreCliente;
+}
+
+/// CLASE BASE USUARIO
+
+void Usuario::cargar()
+{
+    cout << "INGRESE NOMBRE COMPLETO: " << endl;
+    cin >> _nombre;
+
+    cout << "INGRESE DNI: " << endl;
+    cin >> _nombre;
+
+    // generar id automaticamente
+}
+
+void Usuario::mostrar()
+{
+    cout << "NOMBRE: " << _nombre << endl;
+    cout << "DNI: " << _dni << endl;
+    cout << "ID: " << _id << endl;
+}
+
+/// CLASE BASE CREDENCIAL
+
+void Credencial::setPassword(char* newPassword[12])
+{
+    strcpy(_password, *newPassword);
+}
+
+char* Credencial::getPassword()
+{
+    return _password;
+}
+
+/// CLASE BASE PEDIDO
+
+// FUNCIONES DEL ARRAY _PRODUCTOS
+
+void Pedido::cargarItem()
+{
+    /// cargar producto al array _productos
+}
+
+void Pedido::quitarItem()
+{
+    /// pide contraseÑa y borra item del array _productos
+}
+
+void Pedido::mostrarPedido()
+{
+    /// listar items del array _productos
+}
+// FIN FUNCIONES _PRODUCTOS
+
+/// generar id automaticamente
+
+float Pedido::getImporteTotal()
+{
+    return _importeTotal;
+}
+
+void Pedido::cerrarPedido()
+{
+    /// guardar pedido en archivo y cerrar mesa
+}
+
+char Pedido::getTipo()
+{
+    return _tipo;
+}
+
+void Pedido::aplicarDescuento(int tipo, float descuento)
+{
+    /// tipo: 1-Fijo / 2-Porcentaje
+
+    /// pedir contraseÑa maestra
+
+    if(tipo == 1)
+    {
+        _importeTotal -= descuento;
+    }
+    else
+    {
+        _importeTotal -= ((_importeTotal * descuento) / 100 );
+    }
+}
+
+/// CLASE BASE PRODUCTO
+
+void Producto::cargarItem()
+{
+    cout << "INGRESE NOMBRE: " << endl;
+    cin >> _nombre;
+    cout << "INGRESE TIPO: (1-ENTRADA | 2-PLATO PRINCIPAL | 3-POSTRE | 4-BEBIDA)"<< endl;
+    cin >> _tipo;
+    cout << "INGRESE PRECIO: " << endl;
+    cin >> _precio;
+
+    /// generar id automaticamente
+
+}
+
+void Producto::mostrarItem()
+{
+    cout << "ID: "<< _id << endl;
+    cout << _nombre << endl;
+    cout << " $" << _precio << endl;
+}
+
+void Producto::setEstado(bool valor)
+{
+    _estado = valor;
+}
+
+void Producto::setPrecio(float nuevoPrecio)
+{
+    _precio = nuevoPrecio;
+}
+
+void Producto::setNombre (const char* nuevoNombre)
+{
+    if(strlen(nuevoNombre) > 50)
+    {
+        cout << "EL NOMBRE NO PUEDE TENER MAS DE 50 CARACTERES" << endl;
+        return;
+    }
+    strcpy(_nombre, nuevoNombre);
+}
+
+float Producto::getPrecio()
+{
+    return _precio;
+}
+
+char* Producto::getNombre()
+{
+    return _nombre;
 }
