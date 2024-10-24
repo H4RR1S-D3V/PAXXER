@@ -1,11 +1,20 @@
 #include <iostream>
+
+#include <cstring>
+
+#include "constantes.h"
+#include "clases.h"
+#include "generadorIDs.h"
+=======
 #include "rlutil.h"
 
-using namespace std;
+
 
 
 #include "dibujarBordes.h"
 #include "menuPrincipal.h"
+
+using namespace std;
 
 int main()
 {

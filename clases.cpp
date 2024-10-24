@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstring>
+using namespace std;
 
 #include "clases.h"
 
-using namespace std;
 
 /// CLASE BASE MESA
 
