@@ -7,18 +7,30 @@ using namespace std;
 
 /// CLASE BASE MESA
 
+Mesa::Mesa()
+{
+    _numero = 0;
+    _disponible = true;
+}
+
+Mesa::Mesa(int numero)
+{
+    _numero = numero;
+    _disponible = true;
+}
+
 void Mesa::cargarMesa()
 {
     // FALTA SETEAR EL NUMERO DE MESA
-    _disponible = false;
+    _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
 }
 
 void Mesa::mostrarMesa()
 {
     cout << "N° " << _numero << endl;
-    // cout << Pedido << endl;
-    cout << "TOTAL: ";// <<  SUBTOTAL << endl;
-    cout << "SUBTOTAL POR PERSONA: "; // SUBTOTAL / _comensales << endl;
+    //_pedido.mostrarPedido();
+    //cout << "TOTAL: " <<  _pedido.getImporteTotal() << endl;
+    cout << "DISPONIBLE: " << _disponible << endl;
 }
 
 void Mesa::cerrarMesa()
@@ -27,6 +39,10 @@ void Mesa::cerrarMesa()
     _disponible = true;
 }
 
+void Mesa::setNumero(int numero)
+{
+    _numero = numero;
+}
 /// CLASE HEREDADA LOCAL
 
 void Local::cargarLocal()
@@ -41,12 +57,15 @@ void Local::cargarLocal()
 
     // _horaApertura = (hora())
 }
+
 void Local::mostrarLocal()
 {
     Mesa::mostrarMesa();
     //cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
     cout << "COMENZALES: " << _comensales << endl;
+    //cout << "TOTAL: " << Mesa::_pedido.getImporteTotal() << endl;
+    //cout << "SUBTOTAL POR PERSONA: " << Mesa::_pedido.getImporteTotal() / _comensales << endl;
 }
 
 /// CLASE HEREDADA DELIVERY
@@ -64,6 +83,7 @@ void Delivery::cargarDelivery()
     cout << "INGRESE LA HORA DE ENTREGA: ";
     //_horaEntrega.cargarHora();
 }
+
 void Delivery::mostrarDelivery()
 {
     Mesa::mostrarMesa();
@@ -142,6 +162,7 @@ void Pedido::quitarItem()
 void Pedido::mostrarPedido()
 {
     /// listar items del array _productos
+    cout << "MOSTRANDO VECTOR DE PEDIDOS." << endl;
 }
 // FIN FUNCIONES _PRODUCTOS
 
