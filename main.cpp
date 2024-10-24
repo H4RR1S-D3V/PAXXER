@@ -1,11 +1,16 @@
 #include <iostream>
-
-#include "clases.h"
+#include "rlutil.h"
 
 using namespace std;
 
+
+#include "dibujarBordes.h"
+#include "menuPrincipal.h"
+
 int main()
 {
-    /// IMPLPEMENTACION DE CLASES LISTA (23/10/2024)
-	return 0;
+
+mostrarMenuPrincipal();
+
+   return 0;
 }
