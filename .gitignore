@@ -20,3 +20,6 @@
 *.swp
 *.swo
 .DS_Store
+
+#ignorar archivos percistentes
+*.dat

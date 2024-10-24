@@ -1,15 +1,25 @@
 #include <iostream>
 
-using namespace std;
 #include <cstring>
 
 #include "constantes.h"
 #include "clases.h"
 #include "generadorIDs.h"
+=======
+#include "rlutil.h"
 
+
+
+
+#include "dibujarBordes.h"
+#include "menuPrincipal.h"
+
+using namespace std;
 
 int main()
 {
-    /// IMPLPEMENTACION DE CLASES LISTA (23/10/2024)
-	return 0;
+
+mostrarMenuPrincipal();
+
+   return 0;
 }
