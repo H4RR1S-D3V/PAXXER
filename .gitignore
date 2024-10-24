@@ -1,0 +1,22 @@
+# Ignorar archivos temporales de Code::Blocks
+*.layout
+*.depend
+
+# Ignorar archivos binarios
+*.o
+*.so
+*.dll
+*.exe
+
+# Ignorar carpetas de compilación
+/bin/
+/obj/
+
+# Ignorar archivos de registro y de salida
+*.log
+*.out
+
+# Ignorar archivos temporales de editores
+*.swp
+*.swo
+.DS_Store
