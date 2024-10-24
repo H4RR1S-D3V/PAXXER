@@ -1,8 +1,12 @@
 #include <iostream>
 
-#include "clases.h"
-
 using namespace std;
+#include <cstring>
+
+#include "constantes.h"
+#include "clases.h"
+#include "generadorIDs.h"
+
 
 int main()
 {

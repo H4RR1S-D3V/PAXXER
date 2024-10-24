@@ -34,8 +34,9 @@
 		</Compiler>
 		<Unit filename="clases.cpp" />
 		<Unit filename="clases.h" />
-		<Unit filename="clasesArchivos.cpp" />
-		<Unit filename="clasesArchivos.h" />
+		<Unit filename="constantes.h" />
+		<Unit filename="generadorIDs.cpp" />
+		<Unit filename="generadorIDs.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
