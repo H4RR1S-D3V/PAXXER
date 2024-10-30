@@ -1,12 +1,14 @@
 #include <iostream>
 
 #include <cstring>
+#include <ctime>
 
 #include "constantes.h"
 #include "clases.h"
+
 #include "generadorIDs.h"
-=======
 #include "rlutil.h"
+
 
 
 
@@ -19,7 +21,9 @@ using namespace std;
 int main()
 {
 
-mostrarMenuPrincipal();
+
+///mostrarMenuPrincipal();
+
 
    return 0;
 }
