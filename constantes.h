@@ -1,3 +1,4 @@
+#pragma once
 /// ARCHIVOS DE TEXTO
 
 /// IDS

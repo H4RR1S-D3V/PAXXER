@@ -1,8 +1,45 @@
-#include <iostream>
-#include <cstring>
-using namespace std;
+
 
 #include "clases.h"
+#include "funciones.h"
+
+
+/// CLASES AUXILIARES
+
+
+    void Fecha::Cargar(){
+        cin>>_dia;
+        cin>>_mes;
+        cin>>_anio;
+    }
+    void Fecha::Mostrar(){
+        cout<<_dia<<"/";
+        cout<<_mes<<"/";
+        cout<<_anio<<endl;
+    }
+
+    int Fecha::getDia(){return _dia;}
+    int Fecha::getMes(){return _mes;}
+    int Fecha::getAnio(){return _anio;}
+
+    void Fecha::setDia(int d){_dia=d;}
+    void Fecha::setMes(int m){_mes=m;}
+    void Fecha::setAnio(int a){_anio=a;}
+
+
+int Tiempo::getHora(){
+    return _local->tm_hour;
+}
+
+
+Fecha Tiempo::getFecha(){
+    Fecha fecha;
+    fecha.setDia(_local->tm_mday);
+    fecha.setMes(_local->tm_mon+1);
+    fecha.setAnio(_local->tm_year + 1900);
+
+    return fecha;
+}
 
 
 /// CLASE BASE MESA
@@ -54,18 +91,17 @@ void Local::cargarLocal()
 
     cout << "INGRESE LA CANTIDAD DE COMENSALES: ";
     cin >> _comensales;
-
-    // _horaApertura = (hora())
+    _horaApertura = horaActual();
 }
 
 void Local::mostrarLocal()
 {
     Mesa::mostrarMesa();
-    //cout << "HORA DE APERTURA: " << _horaApertura << endl;
+    cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
     cout << "COMENZALES: " << _comensales << endl;
-    //cout << "TOTAL: " << Mesa::_pedido.getImporteTotal() << endl;
-    //cout << "SUBTOTAL POR PERSONA: " << Mesa::_pedido.getImporteTotal() / _comensales << endl;
+    ///cout << "TOTAL: " << Mesa::_pedido.getImporteTotal() << endl;
+    ///cout << "SUBTOTAL POR PERSONA: " << Mesa::_pedido.getImporteTotal() / _comensales << endl;
 }
 
 /// CLASE HEREDADA DELIVERY
@@ -81,7 +117,8 @@ void Delivery::cargarDelivery()
     cin.getline(_deliveryAsignado, 20);
 
     cout << "INGRESE LA HORA DE ENTREGA: ";
-    //_horaEntrega.cargarHora();
+
+    _horaEntrega = horaActual();
 }
 
 void Delivery::mostrarDelivery()
@@ -99,7 +136,8 @@ void TakeAway::cargarTakeAway()
     Mesa::cargarMesa();
 
     cout << "INGRESE LA HORA DE RETIRO: ";
-    // _horaRetiro.cargarHora();
+
+    _horaRetiro = horaActual();
 
     cout << "INGRESE EL NOMBRE DEL CLIENTE: ";
     cin.getline(_nombreCliente, 50);
@@ -109,7 +147,7 @@ void TakeAway::mostrarTakeAway()
 {
     Mesa::mostrarMesa();
 
-    //cout << "HORA DE RETIRO: " << _horaRetiro;
+    cout << "HORA DE RETIRO: " << _horaRetiro;
     cout << "NOMBRE DEL CLIENTE: " << _nombreCliente;
 }
 
@@ -123,7 +161,8 @@ void Usuario::cargar()
     cout << "INGRESE DNI: " << endl;
     cin >> _nombre;
 
-    // generar id automaticamente
+    _id=generarId(1);// generar id automaticamente
+    mostrar();
 }
 
 void Usuario::mostrar()
@@ -146,6 +185,22 @@ char* Credencial::getPassword()
 }
 
 /// CLASE BASE PEDIDO
+
+Pedido::Pedido(int hora, int tipo){
+    _id = generarId(3);
+    _turno; ///sacar el turno de la hora local
+    _tipo = tipo;
+    _importeTotal = 0;
+    _fecha = fechaActual();
+
+    if(hora >= 9 && hora <= 14){
+        _turno = 1;
+    } else if (hora >= 15 && hora <= 20){
+        _turno = 2;
+    } else {_turno = 3;}
+
+}
+
 
 // FUNCIONES DEL ARRAY _PRODUCTOS
 
@@ -209,8 +264,7 @@ void Producto::cargarItem()
     cin >> _tipo;
     cout << "INGRESE PRECIO: " << endl;
     cin >> _precio;
-
-    /// generar id automaticamente
+    _id = generarId(2);/// generar id automaticamente
 
 }
 
@@ -250,3 +304,4 @@ char* Producto::getNombre()
 {
     return _nombre;
 }
+

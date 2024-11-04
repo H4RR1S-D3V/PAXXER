@@ -35,7 +35,7 @@ bool ArchivoId::grabarRegistro(int nuevaId){
 }
 
 int generarId(int tipo){
-    /// TIPO = 1 - EMPLEADOS | 2- PRODUCTOS | 3- FACTURAS
+      /// TIPO = 1 - EMPLEADOS | 2- PRODUCTOS | 3- FACTURAS
 int nuevaId = 0;
 char nombreArchivo[30];
 
