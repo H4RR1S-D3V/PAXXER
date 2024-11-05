@@ -100,8 +100,8 @@ void Local::mostrarLocal()
     cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
     cout << "COMENZALES: " << _comensales << endl;
-    ///cout << "TOTAL: " << Mesa::_pedido.getImporteTotal() << endl;
-    ///cout << "SUBTOTAL POR PERSONA: " << Mesa::_pedido.getImporteTotal() / _comensales << endl;
+    /// buscar el id asignado a _IDpedido en el archivo de pedidos y sacar el total
+    /// lo de arriba / _comensales
 }
 
 /// CLASE HEREDADA DELIVERY
@@ -161,7 +161,7 @@ void Usuario::cargar()
     cout << "INGRESE DNI: " << endl;
     cin >> _nombre;
 
-    _id=generarId(1);// generar id automaticamente
+    _id=generarId(1);
     mostrar();
 }
 
@@ -192,7 +192,9 @@ Pedido::Pedido(int hora, int tipo){
     _tipo = tipo;
     _importeTotal = 0;
     _fecha = fechaActual();
+    vector<Producto*> _productos;
 
+    /// Logica del turno;
     if(hora >= 9 && hora <= 14){
         _turno = 1;
     } else if (hora >= 15 && hora <= 20){
@@ -204,20 +206,32 @@ Pedido::Pedido(int hora, int tipo){
 
 // FUNCIONES DEL ARRAY _PRODUCTOS
 
-void Pedido::cargarItem()
+void Pedido::cargarItem(Producto *nuevoProducto)
 {
-    /// cargar producto al array _productos
+    _productos.push_back(nuevoProducto);
+
+    /// agregar los cambios en el archivo segun id.
+
 }
 
-void Pedido::quitarItem()
+void Pedido::quitarItem(int pos)
 {
-    /// pide contraseÑa y borra item del array _productos
+    /// pide contraseÑa
+    _productos.erase(_productos.begin()+pos-1);
+    /// agregar los cambios en el archivo segun id.
+
+
 }
+
 
 void Pedido::mostrarPedido()
 {
-    /// listar items del array _productos
-    cout << "MOSTRANDO VECTOR DE PEDIDOS." << endl;
+    for (int i = 0; i < _productos.size(); i++){
+        cout << i+1 << " - " << endl;
+        _productos.at(i)->mostrarItem();
+        cout << "------------------" << endl;
+
+    }
 }
 // FIN FUNCIONES _PRODUCTOS
 
@@ -240,9 +254,7 @@ char Pedido::getTipo()
 
 void Pedido::aplicarDescuento(int tipo, float descuento)
 {
-    /// tipo: 1-Fijo / 2-Porcentaje
-
-    /// pedir contraseÑa maestra
+        /// pedir contraseÑa maestra
 
     if(tipo == 1)
     {

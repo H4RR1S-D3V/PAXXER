@@ -63,3 +63,9 @@ int ArchivoMesas::setearCantMesas(int cant)
     cant = contarRegistros();
     return cant;
 }
+
+
+
+
+
+
