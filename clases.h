@@ -47,17 +47,26 @@ class Producto
     private:
         int _id;
         char _nombre[50];
-        int _tipo; /// 1-ENTRADA | 2-PLATO PRINCIPAL | 3-POSTRE | 4-BEBIDA
         float _precio;
-        bool _estado = true; /// ACTIVO O NO
+        bool _disponible;
+        char _tipo[10]; /// ENTRADA - PLATO - POSTRE - BEBIDA - ALCOHOL
     public:
-        void cargarItem();
-        void mostrarItem();
-        void setEstado(bool valor);
-        void setPrecio(float nuevoPrecio);
-        void setNombre (const char* nuevoNombre);
+        /// SETTERS
+        void setId(int id);
+        void setNombre(const char* nombre);
+        void setPrecio(float precio);
+        void setTipo(const char *tipo);
+        void Deshabilitar();
+        void Habilitar();
+        /// GETTERS
+        int getId();
+        const char* getNombre();
         float getPrecio();
-        char* getNombre();
+        bool getDisponibilidad();
+        const char* getTipo();
+        /// METHODS
+        void Cargar();
+        void Mostrar();
 };
 
 class Pedido
