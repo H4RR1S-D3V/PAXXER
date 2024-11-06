@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <ctime>
+#include <vector>
 using namespace std;
 
 
@@ -63,20 +64,21 @@ class Pedido
 {
     private:
         int _id;
-        Producto _productos[1];
+        vector<Producto*> _productos;
         Fecha _fecha;
         int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
         int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
         float _importeTotal;
     public:
+        Pedido();
         Pedido(int hora, int tipo);
-        void cargarItem();
-        void quitarItem();
+        void cargarItem(Producto *nuevoProducto);
+        void quitarItem(int pos);
         void mostrarPedido();
-        /// generar id automaticamente
         float getImporteTotal();
         void cerrarPedido();
         char getTipo();
+        int getId();
         void aplicarDescuento(int tipo, float descuento);
 };
 
@@ -94,6 +96,7 @@ class Mesa
         void mostrarMesa();
         void cerrarMesa();
         void setNumero(int numero);
+        int getNumero();
 };
 
 class Local : Mesa

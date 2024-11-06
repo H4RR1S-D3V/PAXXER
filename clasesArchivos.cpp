@@ -9,6 +9,7 @@ using namespace std;
 ArchivoMesas::ArchivoMesas(const char* n)
 {
     strcpy(nombre, n);
+    tamanioRegistro=sizeof(Mesa);
 }
 
 int ArchivoMesas::contarRegistros()
@@ -63,3 +64,105 @@ int ArchivoMesas::setearCantMesas(int cant)
     cant = contarRegistros();
     return cant;
 }
+
+bool ArchivoMesas::actualizarMesa(Mesa mesa)
+{
+
+    FILE *p;
+        p=fopen(nombre, "rb+");
+        if(p==NULL){
+            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
+            return false;
+        }
+        fseek(p,tamanioRegistro,mesa.getNumero());
+        bool escribio=fwrite(&mesa, tamanioRegistro,1, p);
+        fclose(p);
+        return escribio;
+}
+
+/// Archivo Factura
+
+
+ArchivoFactura::ArchivoFactura(const char* n)
+{
+    strcpy(nombre, n);
+    tamanioRegistro=sizeof(Pedido);
+}
+
+int ArchivoFactura::contarRegistros()
+{
+    FILE *p;
+    p=fopen(nombre, "rb");
+    if(p==NULL){
+        return -1;
+    }
+    fseek(p, 0, 2);
+    int tam=ftell(p);
+    fclose(p);
+    return tam/sizeof (Pedido);
+}
+
+bool ArchivoFactura::listarRegistros()
+{
+    FILE *p;
+        Pedido factura;
+        p=fopen(nombre, "rb");
+        if(p==NULL){
+            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
+            return false;
+        }
+
+        while(fread(&factura,tamanioRegistro,1,p)==1){
+            factura.mostrarPedido();
+            cout<<endl;
+        }
+
+        fclose(p);
+        return true;
+}
+
+
+bool ArchivoFactura::actualizarFactura(Pedido factura)
+{
+
+    FILE *p;
+        p=fopen(nombre, "rb+");
+        if(p==NULL){
+            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
+            return false;
+        }
+        fseek(p,tamanioRegistro, factura.getId());
+        bool escribio=fwrite(&factura, tamanioRegistro,1, p);
+        fclose(p);
+        return escribio;
+}
+
+int ArchivoFactura::buscarFactura(int id){
+        FILE *p;
+        Pedido factura;
+        int pos=0;
+        p=fopen(nombre, "rb");
+        if(p==NULL){
+            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
+            return -2;
+        }
+
+           while(fread(&factura,tamanioRegistro,1,p)==1){
+                if(factura.getId()==id){
+                fclose(p);
+                return pos;
+                }
+            pos++;
+            }
+        fclose(p);
+        return -1;
+        }
+
+
+
+
+
+
+
+
+

@@ -65,7 +65,6 @@ void Mesa::cargarMesa()
 void Mesa::mostrarMesa()
 {
     cout << "N° " << _numero << endl;
-    //_pedido.mostrarPedido();
     //cout << "TOTAL: " <<  _pedido.getImporteTotal() << endl;
     cout << "DISPONIBLE: " << _disponible << endl;
 }
@@ -80,6 +79,12 @@ void Mesa::setNumero(int numero)
 {
     _numero = numero;
 }
+
+int Mesa::getNumero()
+{
+    return _numero;
+}
+
 /// CLASE HEREDADA LOCAL
 
 void Local::cargarLocal()
@@ -100,8 +105,8 @@ void Local::mostrarLocal()
     cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
     cout << "COMENZALES: " << _comensales << endl;
-    ///cout << "TOTAL: " << Mesa::_pedido.getImporteTotal() << endl;
-    ///cout << "SUBTOTAL POR PERSONA: " << Mesa::_pedido.getImporteTotal() / _comensales << endl;
+    /// buscar el id asignado a _IDpedido en el archivo de pedidos y sacar el total
+    /// lo de arriba / _comensales
 }
 
 /// CLASE HEREDADA DELIVERY
@@ -161,7 +166,7 @@ void Usuario::cargar()
     cout << "INGRESE DNI: " << endl;
     cin >> _nombre;
 
-    _id=generarId(1);// generar id automaticamente
+    _id=generarId(1);
     mostrar();
 }
 
@@ -185,6 +190,14 @@ char* Credencial::getPassword()
 }
 
 /// CLASE BASE PEDIDO
+Pedido::Pedido(){
+    _id ;
+    _turno; ///sacar el turno de la hora local
+    _tipo;
+    _importeTotal = 0;
+    _fecha;
+    vector<Producto*> _productos;
+}
 
 Pedido::Pedido(int hora, int tipo){
     _id = generarId(3);
@@ -192,7 +205,9 @@ Pedido::Pedido(int hora, int tipo){
     _tipo = tipo;
     _importeTotal = 0;
     _fecha = fechaActual();
+    vector<Producto*> _productos;
 
+    /// Logica del turno;
     if(hora >= 9 && hora <= 14){
         _turno = 1;
     } else if (hora >= 15 && hora <= 20){
@@ -204,22 +219,34 @@ Pedido::Pedido(int hora, int tipo){
 
 // FUNCIONES DEL ARRAY _PRODUCTOS
 
-void Pedido::cargarItem()
+void Pedido::cargarItem(Producto *nuevoProducto)
 {
-    /// cargar producto al array _productos
+    _productos.push_back(nuevoProducto);
+
+    /// agregar los cambios en el archivo segun id.
+
 }
 
-void Pedido::quitarItem()
+void Pedido::quitarItem(int pos)
 {
-    /// pide contraseÑa y borra item del array _productos
+    /// pide contraseÑa
+    _productos.erase(_productos.begin()+pos-1);
+    /// agregar los cambios en el archivo segun id.
+
+
 }
+
 
 void Pedido::mostrarPedido()
 {
-    /// listar items del array _productos
-    cout << "MOSTRANDO VECTOR DE PEDIDOS." << endl;
+    for (int i = 0; i < _productos.size(); i++){
+        cout << i+1 << " - " << endl;
+        _productos.at(i)->mostrarItem();
+        cout << "------------------" << endl;
+
+    }
 }
-// FIN FUNCIONES _PRODUCTOS
+// FIN FUNCIONES ARRAY _PRODUCTOS
 
 /// generar id automaticamente
 
@@ -238,11 +265,13 @@ char Pedido::getTipo()
     return _tipo;
 }
 
+int Pedido::getId(){
+    return _id;
+}
+
 void Pedido::aplicarDescuento(int tipo, float descuento)
 {
-    /// tipo: 1-Fijo / 2-Porcentaje
-
-    /// pedir contraseÑa maestra
+        /// pedir contraseÑa maestra
 
     if(tipo == 1)
     {
@@ -264,8 +293,7 @@ void Producto::cargarItem()
     cin >> _tipo;
     cout << "INGRESE PRECIO: " << endl;
     cin >> _precio;
-    _id = generarId(2);/// generar id automaticamente
-
+    _id = generarId(2);
 }
 
 void Producto::mostrarItem()
