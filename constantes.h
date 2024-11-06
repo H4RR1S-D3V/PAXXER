@@ -10,3 +10,5 @@ const char ARCHIVO_ID_FACTURAS[30] = "id_facturas.txt";
 const char ARCHIVO_EMPLEADOS[30] = "empleados.txt";
 const char ARCHIVO_PRODUCTOS[30] = "productos.txt";
 const char ARCHIVO_FACTURAS[30] = "facturas.txt";
+const char ARCHIVO_MESAS[30] = "mesas.txt";
+

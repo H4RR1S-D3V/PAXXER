@@ -65,7 +65,6 @@ void Mesa::cargarMesa()
 void Mesa::mostrarMesa()
 {
     cout << "N° " << _numero << endl;
-    //_pedido.mostrarPedido();
     //cout << "TOTAL: " <<  _pedido.getImporteTotal() << endl;
     cout << "DISPONIBLE: " << _disponible << endl;
 }
@@ -80,6 +79,12 @@ void Mesa::setNumero(int numero)
 {
     _numero = numero;
 }
+
+int Mesa::getNumero()
+{
+    return _numero;
+}
+
 /// CLASE HEREDADA LOCAL
 
 void Local::cargarLocal()
@@ -185,6 +190,14 @@ char* Credencial::getPassword()
 }
 
 /// CLASE BASE PEDIDO
+Pedido::Pedido(){
+    _id ;
+    _turno; ///sacar el turno de la hora local
+    _tipo;
+    _importeTotal = 0;
+    _fecha;
+    vector<Producto*> _productos;
+}
 
 Pedido::Pedido(int hora, int tipo){
     _id = generarId(3);
@@ -233,7 +246,7 @@ void Pedido::mostrarPedido()
 
     }
 }
-// FIN FUNCIONES _PRODUCTOS
+// FIN FUNCIONES ARRAY _PRODUCTOS
 
 /// generar id automaticamente
 
@@ -250,6 +263,10 @@ void Pedido::cerrarPedido()
 char Pedido::getTipo()
 {
     return _tipo;
+}
+
+int Pedido::getId(){
+    return _id;
 }
 
 void Pedido::aplicarDescuento(int tipo, float descuento)
@@ -276,8 +293,7 @@ void Producto::cargarItem()
     cin >> _tipo;
     cout << "INGRESE PRECIO: " << endl;
     cin >> _precio;
-    _id = generarId(2);/// generar id automaticamente
-
+    _id = generarId(2);
 }
 
 void Producto::mostrarItem()

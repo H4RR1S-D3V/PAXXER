@@ -70,6 +70,7 @@ class Pedido
         int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
         float _importeTotal;
     public:
+        Pedido();
         Pedido(int hora, int tipo);
         void cargarItem(Producto *nuevoProducto);
         void quitarItem(int pos);
@@ -77,6 +78,7 @@ class Pedido
         float getImporteTotal();
         void cerrarPedido();
         char getTipo();
+        int getId();
         void aplicarDescuento(int tipo, float descuento);
 };
 
@@ -94,6 +96,7 @@ class Mesa
         void mostrarMesa();
         void cerrarMesa();
         void setNumero(int numero);
+        int getNumero();
 };
 
 class Local : Mesa
