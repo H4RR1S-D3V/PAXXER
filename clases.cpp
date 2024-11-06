@@ -241,7 +241,7 @@ void Pedido::mostrarPedido()
 {
     for (int i = 0; i < _productos.size(); i++){
         cout << i+1 << " - " << endl;
-        _productos.at(i)->mostrarItem();
+        _productos.at(i)->Mostrar();
         cout << "------------------" << endl;
 
     }
@@ -285,51 +285,86 @@ void Pedido::aplicarDescuento(int tipo, float descuento)
 
 /// CLASE BASE PRODUCTO
 
-void Producto::cargarItem()
+void Producto::Cargar()
 {
-    cout << "INGRESE NOMBRE: " << endl;
-    cin >> _nombre;
-    cout << "INGRESE TIPO: (1-ENTRADA | 2-PLATO PRINCIPAL | 3-POSTRE | 4-BEBIDA)"<< endl;
-    cin >> _tipo;
-    cout << "INGRESE PRECIO: " << endl;
+    cout << "NOMBRE: ";
+    cin.getline(_nombre, 30);
+
+    cout << "PRECIO: ";
     cin >> _precio;
+
+    cout << "TIPO: ";
+    cin.ignore();
+    cin.getline(_tipo, 10);
+
     _id = generarId(2);
 }
-
-void Producto::mostrarItem()
+void Producto::Mostrar()
 {
-    cout << "ID: "<< _id << endl;
-    cout << _nombre << endl;
-    cout << " $" << _precio << endl;
+    cout << "ID: " << _id << endl;
+
+    cout << "NOMBRE: " << _nombre << endl;
+
+    cout << "PRECIO: $" << _precio << endl;
+
+    cout << "TIPO: " << _tipo << endl;
+
+    if(_disponible)
+    {
+        cout << "DISPONIBLE" << endl;
+    }
+    else
+    {
+        cout << "NO DISPONIBLE" << endl;
+    }
 }
-
-void Producto::setEstado(bool valor)
+void Producto::Deshabilitar()
 {
-    _estado = valor;
+    _disponible = false;
 }
-
-void Producto::setPrecio(float nuevoPrecio)
+void Producto::Habilitar()
 {
-    _precio = nuevoPrecio;
+    _disponible = true;
 }
-
-void Producto::setNombre (const char* nuevoNombre)
+void Producto::setId(int id)
 {
-    if(strlen(nuevoNombre) > 50)
+    _id = id;
+}
+void Producto::setPrecio(float precio)
+{
+    _precio = precio;
+}
+void Producto::setNombre(const char* nombre)
+{
+    if(strlen(nombre) > 50)
     {
         cout << "EL NOMBRE NO PUEDE TENER MAS DE 50 CARACTERES" << endl;
         return;
     }
-    strcpy(_nombre, nuevoNombre);
+    strcpy(_nombre, nombre);
 }
-
+void Producto::setTipo(const char *tipo)
+{
+    strcpy(_tipo, tipo);
+}
 float Producto::getPrecio()
 {
     return _precio;
 }
-
-char* Producto::getNombre()
+const char* Producto::getNombre()
 {
     return _nombre;
+}
+int Producto::getId()
+{
+    return _id;
+}
+bool Producto::getDisponibilidad()
+{
+    return _disponible;
+}
+const char* Producto::getTipo()
+{
+    return _tipo;
 }
 
