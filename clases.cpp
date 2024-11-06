@@ -326,6 +326,10 @@ void Producto::Habilitar()
 {
     _disponible = true;
 }
+void Producto::setId(int id)
+{
+    _id = id;
+}
 void Producto::setPrecio(float precio)
 {
     _precio = precio;
