@@ -158,7 +158,258 @@ int ArchivoFactura::buscarFactura(int id){
         return -1;
         }
 
+ArchivoProducto::ArchivoProducto(const char* nombre)
+{
+    strcpy(_nombre, nombre);
+}
 
+void ArchivoProducto::eliminarRegistro(int id)
+{
+    // AUN NO LISTO
+    // ELIMINA TODO EL ARCHIVO
+    FILE *p;
+    p = fopen("productos.dat", "wb");
+    if(p == nullptr)
+    {
+        return;
+    }
+    Producto obj;
+
+    int cant = contarRegistros();
+
+    for(int i = 0; i < cant; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getId() != id)
+        {
+            fseek(p, sizeof(Producto) * i, 0);
+            fwrite(&obj, sizeof(Producto), 1, p);
+        }
+    }
+    fclose(p);
+}
+
+void ArchivoProducto::listarRegistrosPorTipo(const char *tipo)
+{
+    FILE *p;
+    p = fopen("productos.dat", "rb");
+    if(p == nullptr)
+    {
+        return;
+    }
+    Producto obj;
+
+    while(fread(&obj, sizeof(Producto), 1, p))
+    {
+        if(!strcmp(obj.getTipo(), tipo))
+        {
+            cout << "---------------" << endl;
+            obj.Mostrar();
+        }
+    }
+}
+
+void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
+{
+    // PROBAR IMPLEMENTAR GETCHAR() O GETCH() PARA ACTUALIZAR EN TIEMPO REAL
+    FILE *p;
+    p = fopen("productos.dat", "rb");
+    if(p == nullptr)
+    {
+        return;
+    }
+    Producto obj;
+
+    while(fread(&obj, sizeof(Producto), 1, p))
+    {
+        if(strstr(obj.getNombre(), nombre))
+        {
+            cout << "---------------" << endl;
+            obj.Mostrar();
+        }
+    }
+}
+
+bool ArchivoProducto::modificarTipoRegistro(const char *tipo, int id)
+{
+    FILE *p;
+    p = fopen("productos.dat", "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    Producto obj;
+    int pos = buscarRegistroPorId(id);
+
+    obj = leerRegistro(pos);
+    obj.setTipo(tipo);
+
+    fseek(p, sizeof(Producto) * pos, 0);
+    bool modifico = fwrite(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return modifico;
+}
+
+bool ArchivoProducto::modificarNombreRegistro(const char *nombre, int id)
+{
+    FILE *p;
+    p = fopen("productos.dat", "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    Producto obj;
+    int pos = buscarRegistroPorId(id);
+
+    obj = leerRegistro(pos);
+    obj.setNombre(nombre);
+
+    fseek(p, sizeof(Producto) * pos, 0);
+    bool modifico = fwrite(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return modifico;
+}
+
+int ArchivoProducto::contarRegistros()
+{
+    FILE *p = fopen("productos.dat", "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    fseek(p, 0, 2);
+    int tam = ftell(p);
+    fclose(p);
+    return tam / sizeof(Producto);
+}
+
+void ArchivoProducto::listarRegistros()
+{
+    FILE *p = fopen("productos.dat", "rb");
+
+    Producto obj;
+    int cant = contarRegistros();
+
+    for(int i = 0; i < cant; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getDisponibilidad())
+        {
+            cout << "---------------" << endl;
+            obj.Mostrar();
+        }
+    }
+}
+
+bool ArchivoProducto::habilitarRegistro(int id)
+{
+    int pos = buscarRegistroPorId(id);
+    Producto obj;
+
+    FILE* p = fopen("productos.dat", "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    obj = leerRegistro(pos);
+    obj.Habilitar();
+
+    fseek(p, sizeof(Producto) * pos, 0);
+    bool modifico = fwrite(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return modifico;
+}
+
+bool ArchivoProducto::deshabilitarRegistro(int id)
+{
+    int pos = buscarRegistroPorId(id);
+    Producto obj;
+
+    FILE* p = fopen("productos.dat", "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    obj = leerRegistro(pos);
+    obj.Deshabilitar();
+
+    fseek(p, sizeof(Producto) * pos, 0);
+    bool modifico = fwrite(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return modifico;
+}
+
+int ArchivoProducto::buscarRegistroPorId(int id)
+{
+    FILE *p;
+    p = fopen("productos.dat", "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    Producto obj;
+    int pos = 0;
+
+    while(fread(&obj, sizeof(Producto), 1, p))
+    {
+        if(obj.getId() == id)
+        {
+            return pos;
+        }
+        pos++;
+    }
+    return -2;
+}
+
+bool ArchivoProducto::modificarPrecioRegistro(float precio, int id)
+{
+    FILE *p;
+    p = fopen("productos.dat", "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    Producto obj;
+    int pos = buscarRegistroPorId(id);
+
+    obj = leerRegistro(pos);
+    obj.setPrecio(precio);
+
+    fseek(p, sizeof(Producto) * pos, 0);
+    bool modifico = fwrite(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return modifico;
+}
+
+bool ArchivoProducto::agregarRegistro(Producto &obj)
+{
+    FILE *p;
+    p = fopen("productos.dat", "ab");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    bool writed = fwrite(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return writed;
+}
+
+Producto ArchivoProducto::leerRegistro(int pos)
+{
+    Producto obj;
+
+    FILE *p;
+    p = fopen("productos.dat", "rb");
+    if(p == nullptr)
+    {
+        obj.setId(-1);
+        return obj;
+    }
+    fseek(p, sizeof(Producto) * pos, 0);
+    fread(&obj, sizeof(Producto), 1, p);
+    fclose(p);
+    return obj;
+}
 
 
 

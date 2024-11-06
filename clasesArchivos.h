@@ -32,6 +32,27 @@ class ArchivoFactura
         int buscarFactura(int id);
 };
 
+class ArchivoProducto
+{
+private:
+    char _nombre[15];
+public:
+    ArchivoProducto(const char* n=ARCHIVO_PRODUCTOS);
+    bool agregarRegistro(Producto &obj);
+    Producto leerRegistro(int pos);
+    bool modificarPrecioRegistro(float precio, int id);
+    int buscarRegistroPorId(int id);
+    bool deshabilitarRegistro(int id);
+    bool habilitarRegistro(int id);
+    int contarRegistros();
+    void listarRegistros();
+    bool modificarNombreRegistro(const char *nombre, int id);
+    bool modificarTipoRegistro(const char *tipo, int id);
+    void listarRegistrosPorNombre(const char *nombre);
+    void listarRegistrosPorTipo(const char *tipo);
+    void eliminarRegistro(int id);
+};
+
 #endif // CLASESARCHIVOS_H_INCLUDED
 
 
