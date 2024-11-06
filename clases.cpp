@@ -64,7 +64,7 @@ void Mesa::cargarMesa()
 
 void Mesa::mostrarMesa()
 {
-    cout << "N∞ " << _numero << endl;
+    cout << "N¬∞ " << _numero << endl;
     //cout << "TOTAL: " <<  _pedido.getImporteTotal() << endl;
     cout << "DISPONIBLE: " << _disponible << endl;
 }
@@ -164,7 +164,7 @@ void Usuario::cargar()
     cin >> _nombre;
 
     cout << "INGRESE DNI: " << endl;
-    cin >> _nombre;
+    cin >> _dni;
 
     _id=generarId(1);
     mostrar();
@@ -229,7 +229,7 @@ void Pedido::cargarItem(Producto *nuevoProducto)
 
 void Pedido::quitarItem(int pos)
 {
-    /// pide contrase—a
+    /// pide contrase√ëa
     _productos.erase(_productos.begin()+pos-1);
     /// agregar los cambios en el archivo segun id.
 
@@ -271,7 +271,7 @@ int Pedido::getId(){
 
 void Pedido::aplicarDescuento(int tipo, float descuento)
 {
-        /// pedir contrase—a maestra
+        /// pedir contrase√ëa maestra
 
     if(tipo == 1)
     {
