@@ -478,16 +478,3 @@ void Recaudacion::Mostrar()
         cout << "COMENSALES: " << _cantComensales << endl;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

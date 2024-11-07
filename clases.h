@@ -73,13 +73,12 @@ public:
     void Mostrar();
 };
 
-class PedidoAux     /// ¿?
+class PedidoAux     /// Â¿?
 {
 private:
     vector <int> _vIDProductos;
     vector <int> _vCantProductos;
     vector <float> _vPrecioProductos;
-
 };
 
 class Pedido
@@ -87,8 +86,9 @@ class Pedido
 private:
     int _id;
     vector<Producto*> _productos;   /// PASAR A VECTOR DE IDS? CANT? PRECIO ACTUAL?
+
     Fecha _fecha;
-    int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
+    int _turno; /// 1-MAÃ‘ANA / 2-TARDE / 3-NOCHE
     int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
     float _importeTotal;
 public:
