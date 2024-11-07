@@ -347,6 +347,10 @@ void Producto::setTipo(const char *tipo)
 {
     strcpy(_tipo, tipo);
 }
+void Producto::setCantVentas(int ventas)
+{
+    _cantVentas = ventas;
+}
 float Producto::getPrecio()
 {
     return _precio;
@@ -367,4 +371,123 @@ const char* Producto::getTipo()
 {
     return _tipo;
 }
+int Producto::getCantVentas()
+{
+    return _cantVentas;
+}
+/// CLASE BASE RECAUDACION
+
+// SETTERS
+
+void Recaudacion::setFecha()
+{
+    _fecha.Cargar();
+}
+void Recaudacion::setTurno(int turno)
+{
+    _turno = turno;
+}
+void Recaudacion::setId(int id)
+{
+    _id = id;
+}
+void Recaudacion::setImporteSubTotal(float importe)
+{
+    _importeSubTotal = importe;
+}
+void Recaudacion::setImporteFinal(float importe)
+{
+    _importeFinal = importe;
+}
+void Recaudacion::setTipoMesa(int tipoMesa)
+{
+    _tipoMesa = tipoMesa;
+}
+void Recaudacion::setIdEmpleado(int id)
+{
+    _idEmpleado = id;
+}
+void Recaudacion::setCantComensales(int cantidad)
+{
+    _cantComensales = cantidad;
+}
+void Recaudacion::setIdPedido(int IDpedido)
+{
+    _IDpedido = IDpedido;
+}
+// GETTERS
+
+Fecha Recaudacion::getFecha(){return _fecha;}
+int Recaudacion::getAnio(){return _fecha.getAnio();}
+int Recaudacion::getMes(){return _fecha.getMes();}
+int Recaudacion::getDia(){return _fecha.getDia();}
+int Recaudacion::getTurno(){return _turno;}
+int Recaudacion::getId(){return _id;}
+float Recaudacion::getImporteSubTotal(){return _importeSubTotal;}
+float Recaudacion::getImporteFinal(){return _importeFinal;}
+int Recaudacion::getIdPedido(){return _IDpedido;}
+
+// METHODS
+
+void Recaudacion::Cargar()
+{
+    // CAPAZ NO SEA NECESARIO
+    cout << "ID: ";
+    cin >> _id;
+
+    cout << "FECHA: ";
+    _fecha.Cargar();
+
+    cout << "TURNO: ";
+    cin >> _turno;    /// DECODIFICAR A: 1=MANIANA; 2=TARDE; 3=NOCHE
+
+    cout << "SUB TOTAL: ";
+    cin >> _importeSubTotal;
+
+    cout << "TOTAL: ";
+    cin >> _importeFinal;
+
+    cout << "TIPO DE MESA: ";
+    cin >> _tipoMesa;   /// DECODIFICAR A: 1=LOCAL; 2=DELIVERY; 3=TAKE AWAY
+
+    cout << "RESPONSABLE DE LA VENTA: ";
+    cin >> _idEmpleado;
+
+    cout << "CANT. COMENSALES: ";
+    cin >> _cantComensales;
+}
+
+void Recaudacion::Mostrar()
+{
+    cout << "ID: " << _id << endl;
+    cout << "FECHA: ";
+    _fecha.Mostrar();
+    cout << "TURNO: " << _turno << endl;    /// DECODIFICAR A: 1=MANIANA; 2=TARDE; 3=NOCHE
+    if(_importeFinal != _importeSubTotal)
+    {
+        cout << "IMPORTE SUB TOTAL: $" << _importeSubTotal << endl;
+    }
+    cout << "IMPORTE FINAL: $" << _importeFinal << endl;
+    cout << "TIPO DE MESA: " << _tipoMesa << endl;  /// DECODIFICAR A: 1=LOCAL; 2=DELIVERY; 3=TAKE AWAY
+    if(_tipoMesa != 3) /// TAKE AWAY NO TIENE EMPLEADO ASIGNADO
+    {
+        cout << "RESPONSABLE DE LA VENTA: " << _idEmpleado << endl;
+    }
+    if(_tipoMesa == 1)
+    {
+        cout << "COMENSALES: " << _cantComensales << endl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
