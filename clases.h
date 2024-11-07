@@ -49,21 +49,20 @@ class Producto
         char _nombre[50];
         float _precio;
         bool _disponible;
-        char _tipo[10]; /// ENTRADA - PLATO - POSTRE - BEBIDA - ALCOHOL
+        int _tipo; /// 1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida
     public:
         /// SETTERS
         void setId(int id);
         void setNombre(const char* nombre);
         void setPrecio(float precio);
-        void setTipo(const char *tipo);
-        void Deshabilitar();
-        void Habilitar();
+        void setTipo(const int tipo);
+        void cambiarEstado();
         /// GETTERS
         int getId();
         const char* getNombre();
         float getPrecio();
         bool getDisponibilidad();
-        const char* getTipo();
+        const int getTipo();
         /// METHODS
         void Cargar();
         void Mostrar();
@@ -73,14 +72,17 @@ class Pedido
 {
     private:
         int _id;
-        vector<Producto*> _productos;
+        vector<Producto*> _productos; /// cambiar a vector de ids
         Fecha _fecha;
-        int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
+        int _turno; /// 1-MAÃ‘ANA / 2-TARDE / 3-NOCHE
         int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
         float _importeTotal;
+        int _idEmpleado = NULL;
+
     public:
         Pedido();
         Pedido(int hora, int tipo);
+        void actualizarImporteTotal();
         void cargarItem(Producto *nuevoProducto);
         void quitarItem(int pos);
         void mostrarPedido();
