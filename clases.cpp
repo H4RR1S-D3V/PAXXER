@@ -411,7 +411,10 @@ void Recaudacion::setCantComensales(int cantidad)
 {
     _cantComensales = cantidad;
 }
-
+void Recaudacion::setIdPedido(int IDpedido)
+{
+    _IDpedido = IDpedido;
+}
 // GETTERS
 
 Fecha Recaudacion::getFecha(){return _fecha;}
@@ -422,6 +425,7 @@ int Recaudacion::getTurno(){return _turno;}
 int Recaudacion::getId(){return _id;}
 float Recaudacion::getImporteSubTotal(){return _importeSubTotal;}
 float Recaudacion::getImporteFinal(){return _importeFinal;}
+int Recaudacion::getIdPedido(){return _IDpedido;}
 
 // METHODS
 
@@ -473,11 +477,6 @@ void Recaudacion::Mostrar()
     {
         cout << "COMENSALES: " << _cantComensales << endl;
     }
-}
-
-void Recaudacion::cargarVectores(int cant)
-{
-
 }
 
 
