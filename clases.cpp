@@ -478,21 +478,3 @@ void Recaudacion::Mostrar()
         cout << "COMENSALES: " << _cantComensales << endl;
     }
 }
-
-void Recaudacion::cargarVectores(int cant)
-{
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
