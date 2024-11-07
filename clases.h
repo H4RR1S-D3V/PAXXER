@@ -50,6 +50,7 @@ class Producto
         float _precio;
         bool _disponible;
         char _tipo[10]; /// ENTRADA - PLATO - POSTRE - BEBIDA - ALCOHOL
+        int _cantVentas;
     public:
         /// SETTERS
         void setId(int id);
@@ -58,12 +59,14 @@ class Producto
         void setTipo(const char *tipo);
         void Deshabilitar();
         void Habilitar();
+        void setCantVentas(int ventas);
         /// GETTERS
         int getId();
         const char* getNombre();
         float getPrecio();
         bool getDisponibilidad();
         const char* getTipo();
+        int getCantVentas();
         /// METHODS
         void Cargar();
         void Mostrar();
@@ -159,6 +162,50 @@ class Credencial
     public:
         void setPassword(char* newPassword[12]);
         char* getPassword();
+};
+
+class Recaudacion
+{
+    private:
+        Fecha _fecha;
+        int _turno;
+        int _id;
+        float _importeSubTotal;
+        float _importeFinal;
+        int _tipoMesa;
+        int _idEmpleado;
+        int _cantComensales;
+        Pedido _pedido[30]; /// PARA EMPEZAR A PROBAR
+        /*
+            AGREGAR ARRAY DE PRODUCTOS?
+                Ó
+            DEJAR EL ARRAY PARA OTRO ARCHIVO?
+        */
+    public:
+        /// SETTERS
+        void setFecha();
+        void setTurno(int turno);
+        void setId(int id);
+        void setImporteSubTotal(float importe);
+        void setImporteFinal(float importe);
+        void setTipoMesa(int tipoMesa);
+        void setIdEmpleado(int idEmpleado);
+        void setCantComensales(int cantidad);
+        /// GETTERS
+        Fecha getFecha();
+        int getAnio();
+        int getMes();
+        int getDia();
+        int getTurno();
+        int getId();
+        float getImporteSubTotal();
+        float getImporteFinal();
+        int getTipoMesa();
+        int getIdEmpleado();
+        int getCantComensales();
+        /// METHODS
+        void Cargar();
+        void Mostrar();
 };
 
 
