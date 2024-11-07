@@ -28,7 +28,7 @@ class ArchivoFactura
         ArchivoFactura(const char* n=ARCHIVO_FACTURAS);
         int contarRegistros();
         bool listarRegistros();
-        bool actualizarFactura(Pedido factura);
+        bool actualizarFactura(Pedido* factura, int id);
         int buscarFactura(int id);
 };
 
@@ -47,9 +47,9 @@ public:
     int contarRegistros();
     void listarRegistros();
     bool modificarNombreRegistro(const char *nombre, int id);
-    bool modificarTipoRegistro(const char *tipo, int id);
+    bool modificarTipoRegistro(const int tipo, int id);
     void listarRegistrosPorNombre(const char *nombre);
-    void listarRegistrosPorTipo(const char *tipo);
+    void listarRegistrosPorTipo(const int tipo);
     void eliminarRegistro(int id);
 };
 

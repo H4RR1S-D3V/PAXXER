@@ -45,63 +45,65 @@ public:
 
 class Producto
 {
-private:
-    int _id;
-    char _nombre[50];
-    float _precio;
-    bool _disponible;
-    char _tipo[10]; /// ENTRADA - PLATO - POSTRE - BEBIDA - ALCOHOL
-    int _cantVentas;
-public:
-    /// SETTERS
-    void setId(int id);
-    void setNombre(const char* nombre);
-    void setPrecio(float precio);
-    void setTipo(const char *tipo);
-    void Deshabilitar();
-    void Habilitar();
-    void setCantVentas(int ventas);
-    /// GETTERS
-    int getId();
-    const char* getNombre();
-    float getPrecio();
-    bool getDisponibilidad();
-    const char* getTipo();
-    int getCantVentas();
-    /// METHODS
-    void Cargar();
-    void Mostrar();
-};
 
+    private:
+        int _id;
+        char _nombre[50];
+        float _precio;
+        bool _disponible;
+        int _tipo; /// 1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida
+    public:
+        /// SETTERS
+        void setId(int id);
+        void setNombre(const char* nombre);
+        void setPrecio(float precio);
+        void setTipo(const int tipo);
+        void cambiarEstado();
+        /// GETTERS
+        int getId();
+        const char* getNombre();
+        float getPrecio();
+        bool getDisponibilidad();
+        const int getTipo();
+        /// METHODS
+        void Cargar();
+        void Mostrar();
+/*
 class PedidoAux     /// ¿?
 {
 private:
     vector <int> _vIDProductos;
     vector <int> _vCantProductos;
     vector <float> _vPrecioProductos;
+*/
+
 };
 
 class Pedido
 {
-private:
-    int _id;
-    vector<Producto*> _productos;   /// PASAR A VECTOR DE IDS? CANT? PRECIO ACTUAL?
 
-    Fecha _fecha;
-    int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
-    int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-    float _importeTotal;
-public:
-    Pedido();
-    Pedido(int hora, int tipo);
-    void cargarItem(Producto *nuevoProducto);
-    void quitarItem(int pos);
-    void mostrarPedido();
-    float getImporteTotal();
-    void cerrarPedido();
-    char getTipo();
-    int getId();
-    void aplicarDescuento(int tipo, float descuento);
+    private:
+        int _id;
+        vector<Producto*> _productos; /// cambiar a vector de ids
+        Fecha _fecha;
+        int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
+        int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+        float _importeTotal;
+        int _idEmpleado = NULL;
+
+    public:
+        Pedido();
+        Pedido(int hora, int tipo);
+        void actualizarImporteTotal();
+        void cargarItem(Producto *nuevoProducto);
+        void quitarItem(int pos);
+        void mostrarPedido();
+        float getImporteTotal();
+        void cerrarPedido();
+        char getTipo();
+        int getId();
+        void aplicarDescuento(int tipo, float descuento);
+
 };
 
 class Mesa
@@ -174,6 +176,7 @@ public:
     char* getPassword();
 };
 
+/*
 class Recaudacion
 {
 private:
@@ -214,5 +217,6 @@ public:
     void Cargar();
     void Mostrar();
 };
+*/
 
 

@@ -2,6 +2,7 @@
 
 #include "clases.h"
 #include "funciones.h"
+#include "clasesArchivos.h"
 
 
 /// CLASES AUXILIARES
@@ -60,6 +61,7 @@ void Mesa::cargarMesa()
 {
     // FALTA SETEAR EL NUMERO DE MESA
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
+    /// GENERAR PEDIDO Y ASIGNARLO
 }
 
 void Mesa::mostrarMesa()
@@ -97,6 +99,7 @@ void Local::cargarLocal()
     cout << "INGRESE LA CANTIDAD DE COMENSALES: ";
     cin >> _comensales;
     _horaApertura = horaActual();
+
 }
 
 void Local::mostrarLocal()
@@ -189,6 +192,87 @@ char* Credencial::getPassword()
     return _password;
 }
 
+/// CLASE BASE PRODUCTO
+
+void Producto::Cargar()
+{
+    cout << "NOMBRE: ";
+    cin.getline(_nombre, 30);
+
+    cout << "PRECIO: ";
+    cin >> _precio;
+
+    cout << "TIPO (1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida : ";
+    cin >> _tipo;
+
+
+    _id = generarId(2);
+}
+void Producto::Mostrar()
+{
+    cout << "ID: " << _id << endl;
+
+    cout << "NOMBRE: " << _nombre << endl;
+
+    cout << "PRECIO: $" << _precio << endl;
+
+    cout << "TIPO: " << _tipo << endl;
+
+    if(_disponible)
+    {
+        cout << "DISPONIBLE" << endl;
+    }
+    else
+    {
+        cout << "NO DISPONIBLE" << endl;
+    }
+}
+void Producto::cambiarEstado(){
+    _disponible = !_disponible;
+}
+void Producto::setId(int id)
+{
+    _id = id;
+}
+void Producto::setPrecio(float precio)
+{
+    _precio = precio;
+}
+void Producto::setNombre(const char* nombre)
+{
+    if(strlen(nombre) > 50)
+    {
+        cout << "EL NOMBRE NO PUEDE TENER MAS DE 50 CARACTERES" << endl;
+        return;
+    }
+    strcpy(_nombre, nombre);
+}
+void Producto::setTipo(const int tipo)
+{
+    _tipo = tipo;
+}
+float Producto::getPrecio()
+{
+    return _precio;
+}
+const char* Producto::getNombre()
+{
+    return _nombre;
+}
+int Producto::getId()
+{
+    return _id;
+}
+bool Producto::getDisponibilidad()
+{
+    return _disponible;
+}
+const int Producto::getTipo()
+{
+    return _tipo;
+}
+
+
 /// CLASE BASE PEDIDO
 Pedido::Pedido(){
     _id ;
@@ -219,11 +303,23 @@ Pedido::Pedido(int hora, int tipo){
 
 // FUNCIONES DEL ARRAY _PRODUCTOS
 
+void Pedido::actualizarImporteTotal(){
+    int acumulador = 0;
+    for (int i = 0; i < _productos.size(); i++){
+        acumulador += _productos[i]->getPrecio();
+
+    }
+    _importeTotal = acumulador;
+}
+
 void Pedido::cargarItem(Producto *nuevoProducto)
 {
     _productos.push_back(nuevoProducto);
+    actualizarImporteTotal();
 
     /// agregar los cambios en el archivo segun id.
+    ArchivoFactura archi;
+    archi.actualizarFactura(this ,this->_id);
 
 }
 
@@ -231,8 +327,10 @@ void Pedido::quitarItem(int pos)
 {
     /// pide contraseÑa
     _productos.erase(_productos.begin()+pos-1);
+    actualizarImporteTotal();
     /// agregar los cambios en el archivo segun id.
-
+    ArchivoFactura archi;
+    archi.actualizarFactura(this, this->_id);
 
 }
 
@@ -248,10 +346,11 @@ void Pedido::mostrarPedido()
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS
 
-/// generar id automaticamente
+
 
 float Pedido::getImporteTotal()
 {
+    actualizarImporteTotal();
     return _importeTotal;
 }
 
@@ -283,102 +382,8 @@ void Pedido::aplicarDescuento(int tipo, float descuento)
     }
 }
 
-/// CLASE BASE PRODUCTO
-
-void Producto::Cargar()
-{
-    cout << "NOMBRE: ";
-    cin.getline(_nombre, 30);
-
-    cout << "PRECIO: ";
-    cin >> _precio;
-
-    cout << "TIPO: ";
-    cin.ignore();
-    cin.getline(_tipo, 10);
-
-    _id = generarId(2);
-}
-void Producto::Mostrar()
-{
-    cout << "ID: " << _id << endl;
-
-    cout << "NOMBRE: " << _nombre << endl;
-
-    cout << "PRECIO: $" << _precio << endl;
-
-    cout << "TIPO: " << _tipo << endl;
-
-    if(_disponible)
-    {
-        cout << "DISPONIBLE" << endl;
-    }
-    else
-    {
-        cout << "NO DISPONIBLE" << endl;
-    }
-}
-void Producto::Deshabilitar()
-{
-    _disponible = false;
-}
-void Producto::Habilitar()
-{
-    _disponible = true;
-}
-void Producto::setId(int id)
-{
-    _id = id;
-}
-void Producto::setPrecio(float precio)
-{
-    _precio = precio;
-}
-void Producto::setNombre(const char* nombre)
-{
-    if(strlen(nombre) > 50)
-    {
-        cout << "EL NOMBRE NO PUEDE TENER MAS DE 50 CARACTERES" << endl;
-        return;
-    }
-    strcpy(_nombre, nombre);
-}
-void Producto::setTipo(const char *tipo)
-{
-    strcpy(_tipo, tipo);
-}
-void Producto::setCantVentas(int ventas)
-{
-    _cantVentas = ventas;
-}
-float Producto::getPrecio()
-{
-    return _precio;
-}
-const char* Producto::getNombre()
-{
-    return _nombre;
-}
-int Producto::getId()
-{
-    return _id;
-}
-bool Producto::getDisponibilidad()
-{
-    return _disponible;
-}
-const char* Producto::getTipo()
-{
-    return _tipo;
-}
-int Producto::getCantVentas()
-{
-    return _cantVentas;
-}
 /// CLASE BASE RECAUDACION
-
-// SETTERS
-
+/*
 void Recaudacion::setFecha()
 {
     _fecha.Cargar();
@@ -478,3 +483,5 @@ void Recaudacion::Mostrar()
         cout << "COMENSALES: " << _cantComensales << endl;
     }
 }
+
+*/
