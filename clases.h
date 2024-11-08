@@ -79,6 +79,21 @@ private:
 
 };
 
+class controladorProductos{
+private:
+    const int tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
+    vector<int> _vIdsProductos(tamanio, 0);
+    vector<int> _vCantPorProductos(tamanio, 0);
+    vector<float> _vPreciosProductos(tamanio, 0);
+
+public:
+    void ordenarVectores();
+    float calcularPrecioTotal();
+    void cargarProducto(int idProducto);
+    void quitarProducto(int pos, int cant);
+    void mostrarProductos();
+};
+
 class Pedido
 {
 private:

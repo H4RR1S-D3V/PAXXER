@@ -42,6 +42,86 @@ Fecha Tiempo::getFecha(){
     return fecha;
 }
 
+/// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
+
+void ordenarVectores(){
+
+    int pos = 0;
+
+
+    for (int i = 0; i < _tamanio; ++i) {
+        if (_vCantPorProductos[i] != 0) {
+            _vIdsProductos[pos] = _vIdsProductos[i];
+            _vCantPorProductos[pos] = _vCantPorProductos[i];
+            _vPreciosProductos[pos] = _vPreciosProductos[i];
+            ++pos;
+        }
+    }
+    // LLENAR CON CEROS DESDE POS HASTA EL FINAL
+    for (int i = pos; i < _tamanio; ++i) {
+        _vIdsProductos[i] = 0;
+        _vCantPorProductos[i] = 0;
+        _vPreciosProductos[i] = 0;
+    }
+}
+
+float controladorProductos::calcularPrecioTotal(){
+    float acumulador = 0;
+    int i = 0;
+
+    ordenarVectores();
+
+    while(_vPreciosProductos[i] != 0)
+    {
+        acumulador += (_vPreciosProductos[i] * float(_vCantPorProductos[i]));
+        i++;
+    }
+    return acumulador;
+}
+
+void controladorProductos::cargarProducto(int idProducto){
+    int i = 0;
+
+    ordenarVectores();
+    while(_vIdsProductos[i] != 0)
+    {
+        if(_vIdsProductos[i] == idItem)
+        {
+            _vCantPorProductos[i]++;
+            return;
+        }
+        i++;
+    }
+    _vIdsProductos[i] = idItem;
+    _vCantPorProductos[i]++;
+    _vPreciosProductos[i] = NULL; /// FALTA BUSCAR EL PRECIO DADO UN ID DE PRODUCTO
+
+    ordenarVectores();
+    return;
+}
+
+void controladorProductos::quitarProducto(int pos, int cant){
+    pos = pos-1; /// al mostrarse se le suma 1, por lo que al nro ingresado hay q restarle
+    _vCantPorProductos[pos] =- cant;
+    if(_vCantPorProductos[pos] <= 0)
+    {
+        _vIdsProductos[pos] = 0;
+        _vPreciosProductos[pos] = 0.0;
+    }
+
+    ordenarVectores();
+}
+
+void controladorProductos::mostrarProductos(){
+    int i = 0;
+    ordenarVectores();
+    while(_vIdsProductos[i] != 0)
+    {
+        cout << "#" << i+1 << " " << "NOMBRE SEGUN ID: " << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
+        i++;
+    }
+}
+
 
 /// CLASE BASE MESA
 
