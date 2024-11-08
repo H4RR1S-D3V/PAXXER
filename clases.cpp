@@ -274,13 +274,18 @@ const int Producto::getTipo()
 
 
 /// CLASE BASE PEDIDO
-Pedido::Pedido(){
+
+Pedido::Pedido()
+{
     _id ;
     _turno; ///sacar el turno de la hora local
     _tipo;
     _importeTotal = 0;
     _fecha;
-    vector<Producto*> _productos;
+    /// CAMBIO 2 (SE INICIALIZAN EN 0 LOS ARRAYS)
+    _vIdsProductos[30] = {0};
+    _vCantPorProductos[30] = {0};
+    _vPreciosProductos[30] = {0};
 }
 
 Pedido::Pedido(int hora, int tipo){
@@ -305,16 +310,33 @@ Pedido::Pedido(int hora, int tipo){
 
 void Pedido::actualizarImporteTotal(){
     int acumulador = 0;
-    for (int i = 0; i < _productos.size(); i++){
-        acumulador += _productos[i]->getPrecio();
-
+    /// CAMBIO 3 (BUSCA EL PRECIO EN EL ARRAY DE PRECIOS)
+    /// SE CAMBIA A WHILE YA QUE NO SE SABE CUANTOS PRODUCTOS HAY
+    int i = 0;
+    while(_vPreciosProductos[i] != 0)
+    {
+        acumulador += _vPreciosProductos[i] * _vCantPorProductos[i];
+        i++;
     }
-    _importeTotal = acumulador;
+    /// CAMBIO 4 (AHORA SE ACTUALIZA EL IMPORTE SUB TOTAL)
+    _importeSubTotal = acumulador;
 }
 
-void Pedido::cargarItem(Producto *nuevoProducto)
+/// CAMBIO 5 (SE PUSHEA UN ID)
+void Pedido::cargarItem(int idItem)
 {
-    _productos.push_back(nuevoProducto);
+    int i = 0;
+    while(_vIdsProductos[i] != 0)
+    {
+        if(_vIdsProductos[i] == idItem)
+        {
+            _vCantPorProductos[i]++;
+            _vPreciosProductos[i] = NULL; /// FALTA BUSCAR EL PRECIO DADO UN ID DE PRODUCTO
+            return;
+        }
+        i++;
+    }
+    _vIdsProductos[i] = idItem;
     actualizarImporteTotal();
 
     /// agregar los cambios en el archivo segun id.
@@ -323,25 +345,34 @@ void Pedido::cargarItem(Producto *nuevoProducto)
 
 }
 
-void Pedido::quitarItem(int pos)
+/// CAMBIO 6 (SE RESTA UNA CANTIDAD DADA AL INDEX DESEADO)
+void Pedido::quitarItem(int pos, int cant)
 {
     /// pide contraseÑa
-    _productos.erase(_productos.begin()+pos-1);
+    _vCantPorProductos[pos] =- cant;
+    if(_vCantPorProductos[pos] <= 0)
+    {
+        _vIdsProductos[pos] = 0;
+        _vPreciosProductos[pos] = 0.0;
+        // QUITAR 0 DEL MEDIO
+        // OJO CON LOS OTROS DOS VECTORES
+    }
     actualizarImporteTotal();
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
     archi.actualizarFactura(this, this->_id);
-
 }
 
 
 void Pedido::mostrarPedido()
 {
-    for (int i = 0; i < _productos.size(); i++){
-        cout << i+1 << " - " << endl;
-        _productos.at(i)->Mostrar();
-        cout << "------------------" << endl;
+    /// CAMBIO 7 BUSCAR NOMBRE POR ID Y MOSTRAR PRECIO Y CANTIDAD
 
+    int i = 0;
+    while(_vIdsProductos[i] != 0)
+    {
+        cout << "#" << i+1 << " " << "NOMBRE SEGUN ID: " << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
+        i++;
     }
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS

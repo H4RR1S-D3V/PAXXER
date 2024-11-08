@@ -81,29 +81,31 @@ private:
 
 class Pedido
 {
-
-    private:
-        int _id;
-        vector<Producto*> _productos; /// cambiar a vector de ids
-        Fecha _fecha;
-        int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
-        int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-        float _importeTotal;
-        int _idEmpleado = NULL;
-
-    public:
-        Pedido();
-        Pedido(int hora, int tipo);
-        void actualizarImporteTotal();
-        void cargarItem(Producto *nuevoProducto);
-        void quitarItem(int pos);
-        void mostrarPedido();
-        float getImporteTotal();
-        void cerrarPedido();
-        char getTipo();
-        int getId();
-        void aplicarDescuento(int tipo, float descuento);
-
+private:
+    int _id;
+    /// PRIMER CAMBIO (SE REMPLAZA EL VECTOR DE PEDIDOS POR 3 ARRAYS)
+    int _vIdsProductos[30];
+    int _vCantPorProductos[30];
+    float _vPreciosProductos[30];
+    Fecha _fecha;
+    int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
+    int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+    float _importeSubTotal;
+    float _importeTotal;
+    int _tipoYDescuentoAplicado[2];
+    int _idEmpleado = NULL;
+public:
+    Pedido();
+    Pedido(int hora, int tipo);
+    void actualizarImporteTotal();
+    void cargarItem(int IdItem);
+    void quitarItem(int pos, int cant);
+    void mostrarPedido();
+    float getImporteTotal();
+    void cerrarPedido();
+    char getTipo();
+    int getId();
+    void aplicarDescuento(int tipo, float descuento);
 };
 
 class Mesa
