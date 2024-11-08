@@ -3,7 +3,7 @@
 
 /// IDS
 const char ARCHIVO_ID_EMPLEADOS[30] = "id_empleados.dat";
-const char ARCHIVO_ID_PRODUCTOS[30] = "id_productos.da";
+const char ARCHIVO_ID_PRODUCTOS[30] = "id_productos.dat";
 const char ARCHIVO_ID_FACTURAS[30] = "id_facturas.dat";
 
 /// BBDD
