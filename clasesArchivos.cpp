@@ -86,13 +86,13 @@ bool ArchivoMesas::actualizarMesa(Mesa mesa)
 ArchivoFactura::ArchivoFactura(const char* n)
 {
     strcpy(_nombre, n);
-    _tamanioRegistro=sizeof(Pedido); /// MUY BUENOOOOOO
+    _tamanioRegistro=sizeof(Factura); /// MUY BUENOOOOOO
 }
 
-/// PARA TRAER EL PEDIDO DESDE EL ARCHIVO A LA MESA
-Pedido ArchivoFactura::leerRegistro(int pos)
+/// PARA TRAER EL Factura DESDE EL ARCHIVO A LA MESA
+Factura ArchivoFactura::leerRegistro(int pos)
 {
-    Pedido obj;
+    Factura obj;
 
     FILE *p;
     p = fopen(ARCHIVO_FACTURAS, "rb");
@@ -101,13 +101,13 @@ Pedido ArchivoFactura::leerRegistro(int pos)
         obj.setId(-1);
         return obj;
     }
-    fseek(p, sizeof(Pedido) * pos, 0);
-    fread(&obj, sizeof(Pedido), 1, p);
+    fseek(p, sizeof(Factura) * pos, 0);
+    fread(&obj, sizeof(Factura), 1, p);
     fclose(p);
     return obj;
 }
 
-bool ArchivoFactura::agregarRegistro(Pedido &obj)
+bool ArchivoFactura::agregarRegistro(Factura &obj)
 {
     FILE *p;
     p = fopen(ARCHIVO_FACTURAS, "ab");
@@ -115,7 +115,7 @@ bool ArchivoFactura::agregarRegistro(Pedido &obj)
     {
         return 0;
     }
-    bool writed = fwrite(&obj, sizeof(Pedido), 1, p);
+    bool writed = fwrite(&obj, sizeof(Factura), 1, p);
     fclose(p);
     return writed;
 }
@@ -130,13 +130,13 @@ int ArchivoFactura::contarRegistros()
     fseek(p, 0, 2);
     int tam=ftell(p);
     fclose(p);
-    return tam/sizeof (Pedido);
+    return tam/sizeof (Factura);
 }
 
 bool ArchivoFactura::listarRegistros()
 {
     FILE *p;
-        Pedido factura;
+        Factura factura;
         p=fopen(_nombre, "rb");
         if(p==NULL){
             cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
@@ -144,7 +144,7 @@ bool ArchivoFactura::listarRegistros()
         }
 
         while(fread(&factura, _tamanioRegistro, 1, p)==1){
-            factura.mostrarPedido();
+            factura.mostrarFactura();
             cout<<endl;
         }
 
@@ -154,7 +154,7 @@ bool ArchivoFactura::listarRegistros()
 
 int ArchivoFactura::buscarFactura(int id){
         FILE *p;
-        Pedido factura;
+        Factura factura;
         int pos=0;
         p=fopen(_nombre, "rb");
         if(p==NULL){
@@ -174,7 +174,7 @@ int ArchivoFactura::buscarFactura(int id){
         return -1;
         }
 
- bool ArchivoFactura::actualizarFactura(Pedido* factura, int id)
+ bool ArchivoFactura::actualizarFactura(Factura* factura, int id)
 {
 
     FILE *p;

@@ -66,6 +66,13 @@ Fecha Tiempo::getFecha()
 
 /// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
 
+controladorProductos::controladorProductos(){
+
+    vector<int> _vIdsProductos(_tamanio, 0);
+    vector<int> _vCantPorProductos(_tamanio, 0);
+    vector<float> _vPreciosProductos(_tamanio, 0);
+}
+
 void controladorProductos::ordenarVectores()
 {
 
@@ -171,19 +178,19 @@ void Mesa::cargarMesa()
 {
     // FALTA SETEAR EL NUMERO DE MESA
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
-    /// GENERAR PEDIDO Y ASIGNARLO
-    Pedido obj;
+    /// GENERAR Factura Y ASIGNARLO
+    Factura obj;
     ArchivoFactura arc;
 
     arc.agregarRegistro(obj);
 
-    _idPedido = obj.getId();
+    _idFactura = obj.getId();
 }
 
 void Mesa::mostrarMesa()
 {
     cout << "N° " << _numero << endl;
-    //cout << "TOTAL: " <<  _pedido.getImporteTotal() << endl;
+    //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
     cout << "DISPONIBLE: " << _disponible << endl;
 }
 
@@ -203,16 +210,19 @@ int Mesa::getNumero()
     return _numero;
 }
 
-int Mesa::getIdPedido()
+int Mesa::getIdFactura()
 {
-    return _idPedido;
+    return _idFactura;
 }
 
 /// CLASE HEREDADA LOCAL
 
 void Local::cargarLocal()
 {
-    Mesa::cargarMesa();
+    cargarMesa();
+
+    /// buscar factura y pasar hora para calcular turno
+
     // CUANDO SE ABRE POR PRIMERA VEZ
     cout << "INGRESE EL ID EL CAMARERO ASIGNADO: ";
     cin >> _empleadoAsignado;
@@ -228,8 +238,8 @@ void Local::mostrarLocal()
     Mesa::mostrarMesa();
     cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
-    cout << "COMENZALES: " << _comensales << endl;
-    /// buscar el id asignado a _IDpedido en el archivo de pedidos y sacar el total
+    cout << "COMENSALES: " << _comensales << endl;
+    /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
     /// lo de arriba / _comensales
 }
 
@@ -237,17 +247,20 @@ void Local::mostrarLocal()
 
 void Delivery::cargarDelivery()
 {
-    Mesa::cargarMesa();
+    cargarMesa();
+
+    /// buscar factura y pasar hora para calcular turno
+
 
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
     cin.getline(_telefonoCliente, 10);
 
     cout << "INGRESE EL DELIVERY ASIGNADO: ";
-    cin.getline(_deliveryAsignado, 20);
+    /// id del delivery
 
     cout << "INGRESE LA HORA DE ENTREGA: ";
 
-    _horaEntrega = horaActual();
+    cin >> _horaEntrega;
 }
 
 void Delivery::mostrarDelivery()
@@ -262,11 +275,12 @@ void Delivery::mostrarDelivery()
 
 void TakeAway::cargarTakeAway()
 {
-    Mesa::cargarMesa();
+    cargarMesa();
+    /// buscar factura y pasar hora para calcular turno
 
     cout << "INGRESE LA HORA DE RETIRO: ";
 
-    _horaRetiro = horaActual();
+    cin >> _horaRetiro;
 
     cout << "INGRESE EL NOMBRE DEL CLIENTE: ";
     cin.getline(_nombreCliente, 50);
@@ -399,65 +413,22 @@ const int Producto::getTipo()
 }
 
 
-/// CLASE BASE PEDIDO
+/// CLASE BASE FACTURA
 
-/* NO HARIA FALTA
-Pedido::Pedido()
-{
-    _id;
-    _turno; ///sacar el turno de la hora local
-    _tipo;
-    _importeSubTotal = 0;
-    _importeTotal = 0;
-    _fecha;
-}
-*/
+/// FUNCIONES DEL ARRAY _PRODUCTOS
 
-Pedido::Pedido(int hora, int tipo)
-{
-    _turno; ///sacar el turno de la hora local
-    _tipo = tipo;
-    _importeSubTotal = 0;
-    _importeTotal = 0;
-    _fecha = fechaActual();
-
-    /// Logica del turno;
-    if(hora >= 9 && hora <= 14)
-    {
-        _turno = 1;
-    }
-    else if (hora >= 15 && hora <= 20)
-    {
-        _turno = 2;
-    }
-    else
-    {
-        _turno = 3;
-    }
-}
-
-
-
-// FUNCIONES DEL ARRAY _PRODUCTOS
-
-void Pedido::setId(int id)
+void Factura::setId(int id)
 {
     _id = id;
 }
-void Pedido::actualizarImporteTotal()
+void Factura::actualizarImporteTotal()
 {
-    int acumulador = 0;
-    int i = 0;
-    while(_vPreciosProductos[i] != 0)
-    {
-        acumulador += _vPreciosProductos[i] * _vCantPorProductos[i];
-        i++;
-    }
-    _importeSubTotal = acumulador;
+    _importeSubTotal = _productos.calcularPrecioTotal();
 }
 
-void Pedido::cargarItem(int idProducto)
+void Factura::cargarItem(int idProducto)
 {
+    /*
     int i = 0;
 
     Producto obj;
@@ -491,11 +462,13 @@ void Pedido::cargarItem(int idProducto)
 
     /// agregar los cambios en el archivo segun id.
     arcFac.actualizarFactura(this,this->_id);
+    */
 }
 
 /// CAMBIO 6 (SE RESTA UNA CANTIDAD DADA AL INDEX DESEADO)
-void Pedido::quitarItem(int pos, int cant)
+void Factura::quitarItem(int pos, int cant)
 {
+    /*
     /// pide contraseÑa
     _vCantPorProductos[pos] =- cant;
     if(_vCantPorProductos[pos] <= 0)
@@ -509,12 +482,13 @@ void Pedido::quitarItem(int pos, int cant)
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
     archi.actualizarFactura(this, this->_id);
+    */
 }
 
 
-void Pedido::mostrarPedido()
+void Factura::mostrarFactura()
 {
-    int i = 0;
+    /*int i = 0;
 
     Producto obj;
     ArchivoProducto arc;
@@ -527,33 +501,48 @@ void Pedido::mostrarPedido()
         cout << "#" << i+1 << " " << obj.getNombre() << " x" << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
         i++;
     }
+    */
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS
 
+void Factura::setTurno(int hora){
+    if(hora >= 9 && hora <= 14)
+    {
+        _turno = 1;
+    }
+    else if (hora >= 15 && hora <= 20)
+    {
+        _turno = 2;
+    }
+    else
+    {
+        _turno = 3;
+    }
+}
 
-
-float Pedido::getImporteTotal()
+float Factura::getImporteTotal()
 {
     actualizarImporteTotal();
     return _importeTotal;
 }
 
-void Pedido::cerrarPedido()
+void Factura::cerrarFactura()
 {
-    /// guardar pedido en archivo y cerrar mesa
+    /// preguntar por descuento
+    /// guardar Factura en archivo
 }
 
-char Pedido::getTipo()
+char Factura::getTipo()
 {
     return _tipo;
 }
 
-int Pedido::getId()
+int Factura::getId()
 {
     return _id;
 }
 
-void Pedido::aplicarDescuento(int tipo, float descuento)
+void Factura::aplicarDescuento(int tipo, float descuento)
 {
     /// pedir contraseÑa maestra
 
@@ -601,9 +590,9 @@ void Recaudacion::setCantComensales(int cantidad)
 {
     _cantComensales = cantidad;
 }
-void Recaudacion::setIdPedido(int IDpedido)
+void Recaudacion::setIdFactura(int IDFactura)
 {
-    _IDpedido = IDpedido;
+    _IDFactura = IDFactura;
 }
 // GETTERS
 
@@ -615,7 +604,7 @@ int Recaudacion::getTurno(){return _turno;}
 int Recaudacion::getId(){return _id;}
 float Recaudacion::getImporteSubTotal(){return _importeSubTotal;}
 float Recaudacion::getImporteFinal(){return _importeFinal;}
-int Recaudacion::getIdPedido(){return _IDpedido;}
+int Recaudacion::getIdFactura(){return _IDFactura;}
 
 // METHODS
 
