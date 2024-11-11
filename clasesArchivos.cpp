@@ -135,6 +135,7 @@ int ArchivoFactura::contarRegistros()
 
 bool ArchivoFactura::listarRegistros()
 {
+    cout<< "a";
     FILE *p;
         Factura factura;
         p=fopen(_nombre, "rb");
