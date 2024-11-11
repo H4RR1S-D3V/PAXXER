@@ -69,7 +69,7 @@ class Producto
         void Cargar();
         void Mostrar();
 /*
-class PedidoAux     /// ¿?
+class FacturaAux     /// ¿?
 {
 private:
     vector <int> _vIDProductos;
@@ -82,11 +82,12 @@ private:
 class controladorProductos{
 private:
     const int _tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
-    vector<int> _vIdsProductos(_tamanio, 0);
-    vector<int> _vCantPorProductos(_tamanio, 0);
-    vector<float> _vPreciosProductos(_tamanio, 0);
+    vector<int> _vIdsProductos;
+    vector<int> _vCantPorProductos;
+    vector<float> _vPreciosProductos;
 
 public:
+    controladorProductos();
     void ordenarVectores();
     float calcularPrecioTotal();
     void cargarProducto(int idProducto);
@@ -94,32 +95,33 @@ public:
     void mostrarProductos();
 };
 
-class Pedido
+class Factura
 {
 private:
     int _id;
-    /// PRIMER CAMBIO (SE REMPLAZA EL VECTOR DE PEDIDOS POR 3 ARRAYS)
+    /// PRIMER CAMBIO (SE REMPLAZA EL VECTOR DE FACTURA POR 3 ARRAYS)
     controladorProductos _productos;
-    Fecha _fecha;
+    Fecha _fecha = fechaActual();
     int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
     int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-    float _importeSubTotal;
-    float _importeTotal;
+    float _importeSubTotal = 0;
+    float _importeTotal = 0;
     int _tipoYDescuentoAplicado[2];
     int _idEmpleado = NULL;
 public:
-    Pedido();
-    //Pedido(int hora, int tipo);
-    void setId(int id);
     void actualizarImporteTotal();
     void cargarItem(int IdProducto);
     void quitarItem(int pos, int cant);
-    void mostrarPedido();
+    void mostrarFactura();
+    void cerrarFactura();
+    void aplicarDescuento(int tipo, float descuento);
+    ///setters
+    void setId(int id);
+    void setTurno(int hora);
+    ///getters
     float getImporteTotal();
-    void cerrarPedido();
     char getTipo();
     int getId();
-    void aplicarDescuento(int tipo, float descuento);
 };
 
 class Mesa
@@ -128,8 +130,8 @@ private:
     int _numero;
     bool _disponible;
     char _tipo[10];
-    int _IDpedido; // VINCULA EL ID DE LA FACTURA
-    int _idPedido;
+    int _IDFactura; // VINCULA EL ID DE LA FACTURA
+    int _idFactura;
 public:
     Mesa();
     Mesa(int numero);
@@ -138,7 +140,7 @@ public:
     void cerrarMesa();
     void setNumero(int numero);
     int getNumero();
-    int getIdPedido();
+    int getIdFactura();
 };
 
 class Local : Mesa
@@ -206,7 +208,7 @@ private:
     int _tipoMesa;
     int _idEmpleado;
     int _cantComensales;
-    int _IDpedido;  /// VINCULAR CON EL VECTOR DE PEDIDO
+    int _IDFactura;  /// VINCULAR CON EL VECTOR DE Factura
 public:
     /// SETTERS
     void setFecha();
@@ -217,7 +219,7 @@ public:
     void setTipoMesa(int tipoMesa);
     void setIdEmpleado(int idEmpleado);
     void setCantComensales(int cantidad);
-    void setIdPedido(int IDpedido);
+    void setIdFactura(int IDFactura);
     /// GETTERS
     Fecha getFecha();
     int getAnio();
@@ -230,7 +232,7 @@ public:
     int getTipoMesa();
     int getIdEmpleado();
     int getCantComensales();
-    int getIdPedido();
+    int getIdFactura();
     /// METHODS
     void Cargar();
     void Mostrar();

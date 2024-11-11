@@ -26,11 +26,11 @@ class ArchivoFactura
         int _tamanioRegistro;
     public:
         ArchivoFactura(const char* n=ARCHIVO_FACTURAS);
-        Pedido leerRegistro(int pos);
-        bool agregarRegistro(Pedido &obj);    // DEBERIA CREAR UN REGISTRO DE PEDIDO O DE FACTURA
+        Factura leerRegistro(int pos);
+        bool agregarRegistro(Factura &obj);    // DEBERIA CREAR UN REGISTRO DE Factura O DE FACTURA
         int contarRegistros();
         bool listarRegistros();
-        bool actualizarFactura(Pedido* factura, int id);
+        bool actualizarFactura(Factura* factura, int id);
         int buscarFactura(int id);
 };
 
