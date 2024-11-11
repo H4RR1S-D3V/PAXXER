@@ -109,6 +109,7 @@ private:
     int _tipoYDescuentoAplicado[2];
     int _idEmpleado = NULL;
 public:
+    Factura();
     void actualizarImporteTotal();
     void cargarItem(int IdProducto);
     void quitarItem(int pos, int cant);
@@ -130,7 +131,6 @@ private:
     int _numero;
     bool _disponible;
     char _tipo[10];
-    int _IDFactura; // VINCULA EL ID DE LA FACTURA
     int _idFactura;
 public:
     Mesa();

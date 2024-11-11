@@ -75,9 +75,7 @@ controladorProductos::controladorProductos(){
 
 void controladorProductos::ordenarVectores()
 {
-
     int pos = 0;
-
 
     for (int i = 0; i < _tamanio; ++i)
     {
@@ -117,22 +115,27 @@ void controladorProductos::cargarProducto(int idProducto)
 {
     int i = 0;
 
-    ordenarVectores();
+    Producto obj;
+    ArchivoFactura arcFac;
+    ArchivoProducto arcPro;
+
     while(_vIdsProductos[i] != 0)
     {
         if(_vIdsProductos[i] == idProducto)
         {
             _vCantPorProductos[i]++;
+
             return;
         }
         i++;
     }
+
+    int pos = arcPro.buscarRegistroPorId(idProducto);
+    obj = arcPro.leerRegistro(pos);
+
     _vIdsProductos[i] = idProducto;
     _vCantPorProductos[i]++;
-    _vPreciosProductos[i] = NULL; /// FALTA BUSCAR EL PRECIO DADO UN ID DE PRODUCTO
-
-    ordenarVectores();
-    return;
+    _vPreciosProductos[i] = obj.getPrecio();
 }
 
 void controladorProductos::quitarProducto(int pos, int cant)
@@ -151,10 +154,16 @@ void controladorProductos::quitarProducto(int pos, int cant)
 void controladorProductos::mostrarProductos()
 {
     int i = 0;
-    ordenarVectores();
+
+    Producto obj;
+    ArchivoProducto arc;
+
     while(_vIdsProductos[i] != 0)
     {
-        cout << "#" << i+1 << " " << "NOMBRE SEGUN ID: " << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
+        int pos = arc.buscarRegistroPorId(_vIdsProductos[i]);
+        obj = arc.leerRegistro(pos);
+
+        cout << "#" << i+1 << " " << obj.getNombre() << " x" << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
         i++;
     }
 }
@@ -179,7 +188,10 @@ void Mesa::cargarMesa()
     // FALTA SETEAR EL NUMERO DE MESA
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
     /// GENERAR Factura Y ASIGNARLO
-    Factura obj;
+
+    _idFactura = generarId(3)
+    Factura obj(_idFactura);
+
     ArchivoFactura arc;
 
     arc.agregarRegistro(obj);
@@ -415,6 +427,17 @@ const int Producto::getTipo()
 
 /// CLASE BASE FACTURA
 
+Factura::Factura()
+{
+
+}
+
+Factura::Facura(int id)
+{
+    _id = id;
+
+}
+
 /// FUNCIONES DEL ARRAY _PRODUCTOS
 
 void Factura::setId(int id)
@@ -428,80 +451,31 @@ void Factura::actualizarImporteTotal()
 
 void Factura::cargarItem(int idProducto)
 {
-    /*
-    int i = 0;
-
-    Producto obj;
     ArchivoFactura arcFac;
-    ArchivoProducto arcPro;
 
-    while(_vIdsProductos[i] != 0)
-    {
-        if(_vIdsProductos[i] == idProducto)
-        {
-            _vCantPorProductos[i]++;
-
-            actualizarImporteTotal();
-
-            /// agregar los cambios en el archivo segun id.
-            arcFac.actualizarFactura(this,this->_id);
-
-            return;
-        }
-        i++;
-    }
-
-    int pos = arcPro.buscarRegistroPorId(idProducto);
-    obj = arcPro.leerRegistro(pos);
-
-    _vIdsProductos[i] = idProducto;
-    _vCantPorProductos[i]++;
-    _vPreciosProductos[i] = obj.getPrecio();
-
-    actualizarImporteTotal();
+    _productos.cargarProducto(idProducto);
 
     /// agregar los cambios en el archivo segun id.
     arcFac.actualizarFactura(this,this->_id);
-    */
+
+    actualizarImporteTotal();
 }
 
-/// CAMBIO 6 (SE RESTA UNA CANTIDAD DADA AL INDEX DESEADO)
 void Factura::quitarItem(int pos, int cant)
 {
-    /*
-    /// pide contraseÑa
-    _vCantPorProductos[pos] =- cant;
-    if(_vCantPorProductos[pos] <= 0)
-    {
-        _vIdsProductos[pos] = 0;
-        _vPreciosProductos[pos] = 0.0;
-        // QUITAR 0 DEL MEDIO
-        // OJO CON LOS OTROS DOS VECTORES
-    }
+    // PEDIR CONTRASENIA
+    _productos.quitarProducto(pos, cant);
     actualizarImporteTotal();
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
     archi.actualizarFactura(this, this->_id);
-    */
 }
 
 
 void Factura::mostrarFactura()
 {
-    /*int i = 0;
+    _productos.mostrarProductos();
 
-    Producto obj;
-    ArchivoProducto arc;
-
-    while(_vIdsProductos[i] != 0)
-    {
-        int pos = arc.buscarRegistroPorId(_vIdsProductos[i]);
-        obj = arc.leerRegistro(pos);
-
-        cout << "#" << i+1 << " " << obj.getNombre() << " x" << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
-        i++;
-    }
-    */
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS
 
@@ -523,7 +497,7 @@ void Factura::setTurno(int hora){
 float Factura::getImporteTotal()
 {
     actualizarImporteTotal();
-    return _importeTotal;
+    return _importeSubTotal;
 }
 
 void Factura::cerrarFactura()
