@@ -30,8 +30,8 @@ class ArchivoFactura
         bool agregarRegistro(Factura &obj);    // DEBERIA CREAR UN REGISTRO DE Factura O DE FACTURA
         int contarRegistros();
         bool listarRegistros();
-        bool actualizarFactura(Factura* factura, int id);
-        int buscarFactura(int id);
+        bool actualizarRegistro(Factura* factura, int id);
+        int buscarRegistro(int id);
 };
 
 class ArchivoProducto

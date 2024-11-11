@@ -152,7 +152,7 @@ bool ArchivoFactura::listarRegistros()
         return true;
 }
 
-int ArchivoFactura::buscarFactura(int id){
+int ArchivoFactura::buscarRegistro(int id){
         FILE *p;
         Factura factura;
         int pos=0;
@@ -174,7 +174,7 @@ int ArchivoFactura::buscarFactura(int id){
         return -1;
         }
 
- bool ArchivoFactura::actualizarFactura(Factura* factura, int id)
+ bool ArchivoFactura::actualizarRegistro(Factura* factura, int id)
 {
 
     FILE *p;
@@ -183,7 +183,7 @@ int ArchivoFactura::buscarFactura(int id){
             cout<<"NO SE PUDO ABRIR EL ARCHIVO"<<endl;
             return false;
         }
-        fseek(p, _tamanioRegistro, buscarFactura(id));
+        fseek(p, _tamanioRegistro, buscarRegistro(id));
         bool escribio=fwrite(factura, _tamanioRegistro,1, p);
         fclose(p);
         return escribio;

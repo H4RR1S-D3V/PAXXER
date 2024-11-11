@@ -73,6 +73,8 @@ controladorProductos::controladorProductos(){
     vector<float> _vPreciosProductos(_tamanio, 0);
 }
 
+
+
 void controladorProductos::ordenarVectores()
 {
     int pos = 0;
@@ -167,8 +169,17 @@ void controladorProductos::mostrarProductos()
         i++;
     }
 }
-
-
+/*controladorProductos controladorProductos& operator=(const controladorProductos& other) {
+        if (this != &other) { // Evita la auto-asignación
+            // Copia cada miembro de other a this
+            // _tamanio no se puede copiar ya que es constante (y es el mismo valor en ambos objetos)
+            _vIdsProductos = other._vIdsProductos;
+            _vCantPorProductos = other._vCantPorProductos;
+            _vPreciosProductos = other._vPreciosProductos;
+        }
+        return *this;
+    }
+*/
 /// CLASE BASE MESA
 
 Mesa::Mesa()
@@ -181,6 +192,7 @@ Mesa::Mesa(int numero)
 {
     _numero = numero;
     _disponible = true;
+
 }
 
 void Mesa::cargarMesa()
@@ -189,7 +201,7 @@ void Mesa::cargarMesa()
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
     /// GENERAR Factura Y ASIGNARLO
 
-    _idFactura = generarId(3)
+    _idFactura = generarId(3);
     Factura obj(_idFactura);
 
     ArchivoFactura arc;
@@ -251,6 +263,13 @@ void Local::mostrarLocal()
     cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
     cout << "COMENSALES: " << _comensales << endl;
+/*
+    ArchivoFactura archi;
+
+    int pos = archi.buscarRegistro(this->getIdFactura());
+    Factura obj(archi.leerRegistro(pos));
+    obj.mostrarFactura();
+*/
     /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
     /// lo de arriba / _comensales
 }
@@ -426,13 +445,27 @@ const int Producto::getTipo()
 
 
 /// CLASE BASE FACTURA
-
-Factura::Factura()
-{
-
+Factura::Factura(){
 }
-
-Factura::Facura(int id)
+/*
+Factura::Factura& operator=(const Factura& other) {
+        if (this != &other) { // Evita la auto-asignación
+            // Copia cada miembro de other a this
+            _id = other._id;
+            _productos = other._productos;   // Asumiendo que controladorProductos soporta la asignación
+            _fecha = other._fecha;
+            _turno = other._turno;
+            _tipo = other._tipo;
+            _importeSubTotal = other._importeSubTotal;
+            _importeTotal = other._importeTotal;
+            _tipoYDescuentoAplicado[0] = other._tipoYDescuentoAplicado[0];
+            _tipoYDescuentoAplicado[1] = other._tipoYDescuentoAplicado[1];
+            _idEmpleado = other._idEmpleado;
+        }
+        return *this;
+}
+*/
+Factura::Factura(int id)
 {
     _id = id;
 
@@ -456,7 +489,7 @@ void Factura::cargarItem(int idProducto)
     _productos.cargarProducto(idProducto);
 
     /// agregar los cambios en el archivo segun id.
-    arcFac.actualizarFactura(this,this->_id);
+    arcFac.actualizarRegistro(this,this->_id);
 
     actualizarImporteTotal();
 }
@@ -468,13 +501,13 @@ void Factura::quitarItem(int pos, int cant)
     actualizarImporteTotal();
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
-    archi.actualizarFactura(this, this->_id);
+    archi.actualizarRegistro(this, this->_id);
 }
 
 
 void Factura::mostrarFactura()
 {
-    _productos.mostrarProductos();
+   /// _productos.mostrarProductos();
 
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS
@@ -509,6 +542,10 @@ void Factura::cerrarFactura()
 char Factura::getTipo()
 {
     return _tipo;
+}
+
+controladorProductos Factura::getProductos(){
+    return *_productos;
 }
 
 int Factura::getId()

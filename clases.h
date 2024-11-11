@@ -109,7 +109,9 @@ private:
     int _tipoYDescuentoAplicado[2];
     int _idEmpleado = NULL;
 public:
+
     Factura();
+    Factura(int id);
     void actualizarImporteTotal();
     void cargarItem(int IdProducto);
     void quitarItem(int pos, int cant);
@@ -120,6 +122,7 @@ public:
     void setId(int id);
     void setTurno(int hora);
     ///getters
+    controladorProductos getProductos();
     float getImporteTotal();
     char getTipo();
     int getId();
@@ -190,6 +193,7 @@ public:
 class Credencial
 {
 private:
+    int _dni;
     char _password[12];
 public:
     void setPassword(char* newPassword[12]);
