@@ -81,10 +81,10 @@ private:
 
 class controladorProductos{
 private:
-    const int tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
-    vector<int> _vIdsProductos(tamanio, 0);
-    vector<int> _vCantPorProductos(tamanio, 0);
-    vector<float> _vPreciosProductos(tamanio, 0);
+    const int _tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
+    vector<int> _vIdsProductos(_tamanio, 0);
+    vector<int> _vCantPorProductos(_tamanio, 0);
+    vector<float> _vPreciosProductos(_tamanio, 0);
 
 public:
     void ordenarVectores();
@@ -99,9 +99,7 @@ class Pedido
 private:
     int _id;
     /// PRIMER CAMBIO (SE REMPLAZA EL VECTOR DE PEDIDOS POR 3 ARRAYS)
-    int _vIdsProductos[30];
-    int _vCantPorProductos[30];
-    float _vPreciosProductos[30];
+    controladorProductos _productos;
     Fecha _fecha;
     int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
     int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
@@ -111,9 +109,10 @@ private:
     int _idEmpleado = NULL;
 public:
     Pedido();
-    Pedido(int hora, int tipo);
+    //Pedido(int hora, int tipo);
+    void setId(int id);
     void actualizarImporteTotal();
-    void cargarItem(int IdItem);
+    void cargarItem(int IdProducto);
     void quitarItem(int pos, int cant);
     void mostrarPedido();
     float getImporteTotal();
@@ -125,11 +124,12 @@ public:
 
 class Mesa
 {
-protected:
+private:
     int _numero;
     bool _disponible;
     char _tipo[10];
     int _IDpedido; // VINCULA EL ID DE LA FACTURA
+    int _idPedido;
 public:
     Mesa();
     Mesa(int numero);
@@ -138,6 +138,7 @@ public:
     void cerrarMesa();
     void setNumero(int numero);
     int getNumero();
+    int getIdPedido();
 };
 
 class Local : Mesa

@@ -21,11 +21,13 @@ class ArchivoMesas
 class ArchivoFactura
 {
     private:
-        int numero; // ?
-        char nombre[30];
-        int tamanioRegistro;
+        int _numero; // ?
+        char _nombre[30];
+        int _tamanioRegistro;
     public:
         ArchivoFactura(const char* n=ARCHIVO_FACTURAS);
+        Pedido leerRegistro(int pos);
+        bool agregarRegistro(Pedido &obj);    // DEBERIA CREAR UN REGISTRO DE PEDIDO O DE FACTURA
         int contarRegistros();
         bool listarRegistros();
         bool actualizarFactura(Pedido* factura, int id);
@@ -45,7 +47,7 @@ public:
     bool deshabilitarRegistro(int id);
     bool habilitarRegistro(int id);
     int contarRegistros();
-    void listarRegistros();
+    bool listarRegistros();
     bool modificarNombreRegistro(const char *nombre, int id);
     bool modificarTipoRegistro(const int tipo, int id);
     void listarRegistrosPorNombre(const char *nombre);

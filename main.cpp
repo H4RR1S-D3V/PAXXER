@@ -9,7 +9,7 @@
 #include "generadorIDs.h"
 #include "rlutil.h"
 
-
+#include "clasesArchivos.h"
 
 
 

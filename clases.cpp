@@ -8,32 +8,54 @@
 /// CLASES AUXILIARES
 
 
-    void Fecha::Cargar(){
-        cin>>_dia;
-        cin>>_mes;
-        cin>>_anio;
-    }
-    void Fecha::Mostrar(){
-        cout<<_dia<<"/";
-        cout<<_mes<<"/";
-        cout<<_anio<<endl;
-    }
+void Fecha::Cargar()
+{
+    cin>>_dia;
+    cin>>_mes;
+    cin>>_anio;
+}
+void Fecha::Mostrar()
+{
+    cout<<_dia<<"/";
+    cout<<_mes<<"/";
+    cout<<_anio<<endl;
+}
 
-    int Fecha::getDia(){return _dia;}
-    int Fecha::getMes(){return _mes;}
-    int Fecha::getAnio(){return _anio;}
+int Fecha::getDia()
+{
+    return _dia;
+}
+int Fecha::getMes()
+{
+    return _mes;
+}
+int Fecha::getAnio()
+{
+    return _anio;
+}
 
-    void Fecha::setDia(int d){_dia=d;}
-    void Fecha::setMes(int m){_mes=m;}
-    void Fecha::setAnio(int a){_anio=a;}
+void Fecha::setDia(int d)
+{
+    _dia=d;
+}
+void Fecha::setMes(int m)
+{
+    _mes=m;
+}
+void Fecha::setAnio(int a)
+{
+    _anio=a;
+}
 
 
-int Tiempo::getHora(){
+int Tiempo::getHora()
+{
     return _local->tm_hour;
 }
 
 
-Fecha Tiempo::getFecha(){
+Fecha Tiempo::getFecha()
+{
     Fecha fecha;
     fecha.setDia(_local->tm_mday);
     fecha.setMes(_local->tm_mon+1);
@@ -44,13 +66,16 @@ Fecha Tiempo::getFecha(){
 
 /// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
 
-void ordenarVectores(){
+void controladorProductos::ordenarVectores()
+{
 
     int pos = 0;
 
 
-    for (int i = 0; i < _tamanio; ++i) {
-        if (_vCantPorProductos[i] != 0) {
+    for (int i = 0; i < _tamanio; ++i)
+    {
+        if (_vCantPorProductos[i] != 0)
+        {
             _vIdsProductos[pos] = _vIdsProductos[i];
             _vCantPorProductos[pos] = _vCantPorProductos[i];
             _vPreciosProductos[pos] = _vPreciosProductos[i];
@@ -58,14 +83,16 @@ void ordenarVectores(){
         }
     }
     // LLENAR CON CEROS DESDE POS HASTA EL FINAL
-    for (int i = pos; i < _tamanio; ++i) {
+    for (int i = pos; i < _tamanio; ++i)
+    {
         _vIdsProductos[i] = 0;
         _vCantPorProductos[i] = 0;
         _vPreciosProductos[i] = 0;
     }
 }
 
-float controladorProductos::calcularPrecioTotal(){
+float controladorProductos::calcularPrecioTotal()
+{
     float acumulador = 0;
     int i = 0;
 
@@ -79,20 +106,21 @@ float controladorProductos::calcularPrecioTotal(){
     return acumulador;
 }
 
-void controladorProductos::cargarProducto(int idProducto){
+void controladorProductos::cargarProducto(int idProducto)
+{
     int i = 0;
 
     ordenarVectores();
     while(_vIdsProductos[i] != 0)
     {
-        if(_vIdsProductos[i] == idItem)
+        if(_vIdsProductos[i] == idProducto)
         {
             _vCantPorProductos[i]++;
             return;
         }
         i++;
     }
-    _vIdsProductos[i] = idItem;
+    _vIdsProductos[i] = idProducto;
     _vCantPorProductos[i]++;
     _vPreciosProductos[i] = NULL; /// FALTA BUSCAR EL PRECIO DADO UN ID DE PRODUCTO
 
@@ -100,7 +128,8 @@ void controladorProductos::cargarProducto(int idProducto){
     return;
 }
 
-void controladorProductos::quitarProducto(int pos, int cant){
+void controladorProductos::quitarProducto(int pos, int cant)
+{
     pos = pos-1; /// al mostrarse se le suma 1, por lo que al nro ingresado hay q restarle
     _vCantPorProductos[pos] =- cant;
     if(_vCantPorProductos[pos] <= 0)
@@ -112,7 +141,8 @@ void controladorProductos::quitarProducto(int pos, int cant){
     ordenarVectores();
 }
 
-void controladorProductos::mostrarProductos(){
+void controladorProductos::mostrarProductos()
+{
     int i = 0;
     ordenarVectores();
     while(_vIdsProductos[i] != 0)
@@ -142,6 +172,12 @@ void Mesa::cargarMesa()
     // FALTA SETEAR EL NUMERO DE MESA
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
     /// GENERAR PEDIDO Y ASIGNARLO
+    Pedido obj;
+    ArchivoFactura arc;
+
+    arc.agregarRegistro(obj);
+
+    _idPedido = obj.getId();
 }
 
 void Mesa::mostrarMesa()
@@ -165,6 +201,11 @@ void Mesa::setNumero(int numero)
 int Mesa::getNumero()
 {
     return _numero;
+}
+
+int Mesa::getIdPedido()
+{
+    return _idPedido;
 }
 
 /// CLASE HEREDADA LOCAL
@@ -285,6 +326,10 @@ void Producto::Cargar()
     cout << "TIPO (1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida : ";
     cin >> _tipo;
 
+    cin.ignore();
+
+    _disponible = true;
+
 
     _id = generarId(2);
 }
@@ -307,7 +352,8 @@ void Producto::Mostrar()
         cout << "NO DISPONIBLE" << endl;
     }
 }
-void Producto::cambiarEstado(){
+void Producto::cambiarEstado()
+{
     _disponible = !_disponible;
 }
 void Producto::setId(int id)
@@ -355,74 +401,96 @@ const int Producto::getTipo()
 
 /// CLASE BASE PEDIDO
 
+/* NO HARIA FALTA
 Pedido::Pedido()
 {
-    _id ;
+    _id;
     _turno; ///sacar el turno de la hora local
     _tipo;
+    _importeSubTotal = 0;
     _importeTotal = 0;
     _fecha;
-    /// CAMBIO 2 (SE INICIALIZAN EN 0 LOS ARRAYS)
-    _vIdsProductos[30] = {0};
-    _vCantPorProductos[30] = {0};
-    _vPreciosProductos[30] = {0};
 }
+*/
 
-Pedido::Pedido(int hora, int tipo){
-    _id = generarId(3);
+Pedido::Pedido(int hora, int tipo)
+{
     _turno; ///sacar el turno de la hora local
     _tipo = tipo;
+    _importeSubTotal = 0;
     _importeTotal = 0;
     _fecha = fechaActual();
-    vector<Producto*> _productos;
 
     /// Logica del turno;
-    if(hora >= 9 && hora <= 14){
+    if(hora >= 9 && hora <= 14)
+    {
         _turno = 1;
-    } else if (hora >= 15 && hora <= 20){
+    }
+    else if (hora >= 15 && hora <= 20)
+    {
         _turno = 2;
-    } else {_turno = 3;}
-
+    }
+    else
+    {
+        _turno = 3;
+    }
 }
+
 
 
 // FUNCIONES DEL ARRAY _PRODUCTOS
 
-void Pedido::actualizarImporteTotal(){
+void Pedido::setId(int id)
+{
+    _id = id;
+}
+void Pedido::actualizarImporteTotal()
+{
     int acumulador = 0;
-    /// CAMBIO 3 (BUSCA EL PRECIO EN EL ARRAY DE PRECIOS)
-    /// SE CAMBIA A WHILE YA QUE NO SE SABE CUANTOS PRODUCTOS HAY
     int i = 0;
     while(_vPreciosProductos[i] != 0)
     {
         acumulador += _vPreciosProductos[i] * _vCantPorProductos[i];
         i++;
     }
-    /// CAMBIO 4 (AHORA SE ACTUALIZA EL IMPORTE SUB TOTAL)
     _importeSubTotal = acumulador;
 }
 
-/// CAMBIO 5 (SE PUSHEA UN ID)
-void Pedido::cargarItem(int idItem)
+void Pedido::cargarItem(int idProducto)
 {
     int i = 0;
+
+    Producto obj;
+    ArchivoFactura arcFac;
+    ArchivoProducto arcPro;
+
     while(_vIdsProductos[i] != 0)
     {
-        if(_vIdsProductos[i] == idItem)
+        if(_vIdsProductos[i] == idProducto)
         {
             _vCantPorProductos[i]++;
-            _vPreciosProductos[i] = NULL; /// FALTA BUSCAR EL PRECIO DADO UN ID DE PRODUCTO
+
+            actualizarImporteTotal();
+
+            /// agregar los cambios en el archivo segun id.
+            arcFac.actualizarFactura(this,this->_id);
+
             return;
         }
         i++;
     }
-    _vIdsProductos[i] = idItem;
+
+    int pos = arcPro.buscarRegistroPorId(idProducto);
+    obj = arcPro.leerRegistro(pos);
+
+    _vIdsProductos[i] = idProducto;
+    _vCantPorProductos[i]++;
+    _vPreciosProductos[i] = obj.getPrecio();
+
     actualizarImporteTotal();
 
     /// agregar los cambios en el archivo segun id.
-    ArchivoFactura archi;
-    archi.actualizarFactura(this ,this->_id);
-
+    arcFac.actualizarFactura(this,this->_id);
 }
 
 /// CAMBIO 6 (SE RESTA UNA CANTIDAD DADA AL INDEX DESEADO)
@@ -446,12 +514,17 @@ void Pedido::quitarItem(int pos, int cant)
 
 void Pedido::mostrarPedido()
 {
-    /// CAMBIO 7 BUSCAR NOMBRE POR ID Y MOSTRAR PRECIO Y CANTIDAD
-
     int i = 0;
+
+    Producto obj;
+    ArchivoProducto arc;
+
     while(_vIdsProductos[i] != 0)
     {
-        cout << "#" << i+1 << " " << "NOMBRE SEGUN ID: " << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
+        int pos = arc.buscarRegistroPorId(_vIdsProductos[i]);
+        obj = arc.leerRegistro(pos);
+
+        cout << "#" << i+1 << " " << obj.getNombre() << " x" << _vCantPorProductos[i] << " SUB: $" << _vPreciosProductos[i] << " TOTAL: $" << _vPreciosProductos[i] * _vCantPorProductos[i] << endl;
         i++;
     }
 }
@@ -475,13 +548,14 @@ char Pedido::getTipo()
     return _tipo;
 }
 
-int Pedido::getId(){
+int Pedido::getId()
+{
     return _id;
 }
 
 void Pedido::aplicarDescuento(int tipo, float descuento)
 {
-        /// pedir contraseÑa maestra
+    /// pedir contraseÑa maestra
 
     if(tipo == 1)
     {
