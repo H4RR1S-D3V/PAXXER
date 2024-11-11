@@ -88,6 +88,7 @@ private:
 
 public:
     controladorProductos();
+    controladorProductos& operator=(const controladorProductos& other);
     void ordenarVectores();
     float calcularPrecioTotal();
     void cargarProducto(int idProducto);
@@ -112,6 +113,7 @@ public:
 
     Factura();
     Factura(int id);
+    Factura& operator=(const Factura& other);
     void actualizarImporteTotal();
     void cargarItem(int IdProducto);
     void quitarItem(int pos, int cant);

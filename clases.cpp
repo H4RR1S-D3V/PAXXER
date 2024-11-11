@@ -169,7 +169,7 @@ void controladorProductos::mostrarProductos()
         i++;
     }
 }
-/*controladorProductos controladorProductos& operator=(const controladorProductos& other) {
+controladorProductos& controladorProductos::operator=(const controladorProductos& other) {
         if (this != &other) { // Evita la auto-asignación
             // Copia cada miembro de other a this
             // _tamanio no se puede copiar ya que es constante (y es el mismo valor en ambos objetos)
@@ -179,7 +179,7 @@ void controladorProductos::mostrarProductos()
         }
         return *this;
     }
-*/
+
 /// CLASE BASE MESA
 
 Mesa::Mesa()
@@ -263,13 +263,13 @@ void Local::mostrarLocal()
     cout << "HORA DE APERTURA: " << _horaApertura << endl;
     cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
     cout << "COMENSALES: " << _comensales << endl;
-/*
+
     ArchivoFactura archi;
 
     int pos = archi.buscarRegistro(this->getIdFactura());
-    Factura obj(archi.leerRegistro(pos));
+    Factura obj;
+    obj = archi.leerRegistro(pos);
     obj.mostrarFactura();
-*/
     /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
     /// lo de arriba / _comensales
 }
@@ -447,8 +447,8 @@ const int Producto::getTipo()
 /// CLASE BASE FACTURA
 Factura::Factura(){
 }
-/*
-Factura::Factura& operator=(const Factura& other) {
+
+Factura& Factura::operator=(const Factura& other) {
         if (this != &other) { // Evita la auto-asignación
             // Copia cada miembro de other a this
             _id = other._id;
@@ -464,7 +464,7 @@ Factura::Factura& operator=(const Factura& other) {
         }
         return *this;
 }
-*/
+
 Factura::Factura(int id)
 {
     _id = id;
@@ -507,7 +507,7 @@ void Factura::quitarItem(int pos, int cant)
 
 void Factura::mostrarFactura()
 {
-   /// _productos.mostrarProductos();
+   _productos.mostrarProductos();
 
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS
@@ -545,7 +545,7 @@ char Factura::getTipo()
 }
 
 controladorProductos Factura::getProductos(){
-    return *_productos;
+    return _productos;
 }
 
 int Factura::getId()
