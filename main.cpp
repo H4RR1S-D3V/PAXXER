@@ -21,14 +21,6 @@ using namespace std;
 int main()
 {
 
-Local mesa;
-
-mesa.cargarLocal();
-
-mesa.mostrarLocal();
-
-
-
 
 ///mostrarMenuPrincipal();
 
