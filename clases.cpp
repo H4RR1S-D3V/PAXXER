@@ -66,12 +66,9 @@ Fecha Tiempo::getFecha()
 
 /// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
 
-controladorProductos::controladorProductos(){
+controladorProductos::controladorProductos()
+    : _vIdsProductos(_tamanio, 0), _vCantPorProductos(_tamanio, 0), _vPreciosProductos(_tamanio, 0.0f) {}
 
-    vector<int> _vIdsProductos(_tamanio, 0);
-    vector<int> _vCantPorProductos(_tamanio, 0);
-    vector<float> _vPreciosProductos(_tamanio, 0);
-}
 
 
 
@@ -207,10 +204,6 @@ void Mesa::cargarMesa()
     ArchivoFactura arc;
 
     arc.agregarRegistro(obj);
-
-    _idFactura = obj.getId();
-
-    return;
 }
 
 void Mesa::mostrarMesa()
@@ -263,9 +256,10 @@ Local::Local()
 
 void Local::cargarLocal()
 {
+    ArchivoFactura archiFac;
+    Factura obj;
     cargarMesa();
 
-    /// buscar factura y pasar hora para calcular turno
 
     // CUANDO SE ABRE POR PRIMERA VEZ
     cout << "INGRESE EL ID EL CAMARERO ASIGNADO: ";
@@ -276,7 +270,14 @@ void Local::cargarLocal()
 
     _horaApertura = horaActual();
 
-    return;
+    /// buscar factura y pasar hora para calcular turno
+    int pos = archiFac.buscarRegistro(_idFactura);
+    obj = archiFac.leerRegistro(pos);
+    obj.setTurno(_horaApertura);
+    obj.setIdEmpleado(_empleadoAsignado);
+
+    archiFac.actualizarRegistro(obj);
+
 }
 
 void Local::mostrarLocal()
@@ -288,6 +289,16 @@ void Local::mostrarLocal()
         cout << "HORA DE APERTURA: " << _horaApertura << endl;
         cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
         cout << "COMENSALES: " << _comensales << endl;
+
+        ArchivoFactura arc;
+        Factura obj(_idFactura);
+        int pos = arc.buscarRegistro(_idFactura);
+        obj = arc.leerRegistro(pos);
+        obj.mostrarFactura();
+        obj.cargarItem(1);
+
+        obj.mostrarFactura();
+
 
         /// SACAR EL ID Y BUSCAR EL PEIDOD (FACTURA) PARA MOSTRAR EL TOTAL
         //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
@@ -312,20 +323,15 @@ void Local::abrirMesa()
     }
 
     obj.mostrarLocal();
-
     return;
 
-    //int posFactura = arcFac.buscarRegistro(this->getIdFactura());
-    //Factura objFac(arcFac.leerRegistro(pos));
-
-
-    /// objFac.mostrarFactura();
     /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
     /// lo de arriba / _comensales
 
     /// SUBMENU DE OPCIONES
 
 }
+
 
 /// CLASE HEREDADA DELIVERY
 
@@ -499,6 +505,7 @@ const int Producto::getTipo()
 
 /// CLASE BASE FACTURA
 Factura::Factura(){
+    controladorProductos();
 }
 
 Factura& Factura::operator=(const Factura& otro) {
@@ -521,6 +528,8 @@ Factura& Factura::operator=(const Factura& otro) {
 Factura::Factura(int id)
 {
     _id = id;
+    controladorProductos();
+
 
 }
 
@@ -530,6 +539,11 @@ void Factura::setId(int id)
 {
     _id = id;
 }
+
+void Factura::setIdEmpleado(int idEmpleado){
+    _idEmpleado = idEmpleado;
+}
+
 void Factura::actualizarImporteTotal()
 {
     _importeSubTotal = _productos.calcularPrecioTotal();
@@ -542,7 +556,7 @@ void Factura::cargarItem(int idProducto)
     _productos.cargarProducto(idProducto);
 
     /// agregar los cambios en el archivo segun id.
-    arcFac.actualizarRegistro(this,this->_id);
+    arcFac.actualizarRegistro(*this);
 
     actualizarImporteTotal();
 }
@@ -554,7 +568,7 @@ void Factura::quitarItem(int pos, int cant)
     actualizarImporteTotal();
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
-    archi.actualizarRegistro(this, this->_id);
+    archi.actualizarRegistro(*this);
 }
 
 
@@ -562,7 +576,6 @@ void Factura::mostrarFactura()
 {
     cout << "ID :" << _id << endl;
     _fecha.Mostrar();
-    cout << endl;
     cout << "turno :" << _turno << endl;
     cout << "ID Empleado:" << _idEmpleado << endl;
 

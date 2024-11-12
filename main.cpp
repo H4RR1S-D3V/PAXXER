@@ -20,5 +20,26 @@ using namespace std;
 
 int main()
 {
+    ArchivoMesasLocal arc;
+
+/*
+
+    obj.abrirMesa();
+
+    arc.setearCantMesas(5);
+
+    Producto prod;
+    prod.Cargar();
+    arcPro.agregarRegistro(prod);
+*/
+    //ArchivoProducto arcPro;
+   // arcPro.listarRegistros();
+    /*
+
+    Local obj(2);
+    obj.abrirMesa();
+    */
+    arc.listarRegistros();
+
   return 0;
 }

@@ -11,7 +11,7 @@ using namespace std;
 ArchivoMesasLocal::ArchivoMesasLocal(const char* n)
 {
     strcpy(_nombre, n);
-    _tamanioRegistro=sizeof(Mesa);
+    _tamanioRegistro=sizeof(Local);
 }
 
 int ArchivoMesasLocal::contarRegistros()
@@ -85,6 +85,7 @@ int ArchivoMesasLocal::setearCantMesas(int cant)
 
 bool ArchivoMesasLocal::actualizarMesa(Local mesa)
 {
+
     FILE *p;
     p=fopen(_nombre, "rb+");
     if(p==nullptr)
@@ -200,18 +201,19 @@ int ArchivoFactura::buscarRegistro(int id)
     return -1;
 }
 
-bool ArchivoFactura::actualizarRegistro(Factura* factura, int id)
+bool ArchivoFactura::actualizarRegistro(Factura factura)
 {
+    ArchivoFactura arc;
+    int pos = arc.buscarRegistro(factura.getId());
 
     FILE *p;
     p=fopen(_nombre, "rb+");
     if(p==NULL)
     {
-        cout<<"NO SE PUDO ABRIR EL ARCHIVO"<<endl;
         return false;
     }
-    fseek(p, _tamanioRegistro, buscarRegistro(id));
-    bool escribio=fwrite(factura, _tamanioRegistro,1, p);
+    fseek(p, _tamanioRegistro * pos , 0);
+    bool escribio=fwrite(&factura, _tamanioRegistro,1, p);
     fclose(p);
     return escribio;
 }
