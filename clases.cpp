@@ -185,15 +185,17 @@ void controladorProductos::mostrarProductos()
 Mesa::Mesa()
 {
     _numero = 0;
-    _disponible = true;
+    ///_disponible = true;
 }
 
 Mesa::Mesa(int numero)
 {
     _numero = numero;
-    _disponible = true;
+    ///_disponible = true;
 
 }
+
+void Mesa::abrirMesa(){}
 
 void Mesa::cargarMesa()
 {
@@ -209,13 +211,16 @@ void Mesa::cargarMesa()
     arc.agregarRegistro(obj);
 
     _idFactura = obj.getId();
+
+    return;
 }
 
 void Mesa::mostrarMesa()
 {
-    cout << "NÂ° " << _numero << endl;
-    //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
-    cout << "DISPONIBLE: " << _disponible << endl;
+    cout << "N° " << _numero << endl;
+
+    // SETEAR COLOR Y FUNCIONALIDADES SEGUN DISPONBLE
+    /// DIBUJAR()
 }
 
 void Mesa::cerrarMesa()
@@ -227,6 +232,11 @@ void Mesa::cerrarMesa()
 void Mesa::setNumero(int numero)
 {
     _numero = numero;
+}
+
+bool Mesa::getDisponibilidad()
+{
+    return _disponible;
 }
 
 int Mesa::getNumero()
@@ -241,6 +251,18 @@ int Mesa::getIdFactura()
 
 /// CLASE HEREDADA LOCAL
 
+Local::Local(int numeroMesa)
+{
+    _numero = numeroMesa;
+    _disponible = true;
+    _empleadoAsignado;
+}
+
+Local::Local()
+{
+
+}
+
 void Local::cargarLocal()
 {
     cargarMesa();
@@ -253,25 +275,59 @@ void Local::cargarLocal()
 
     cout << "INGRESE LA CANTIDAD DE COMENSALES: ";
     cin >> _comensales;
+
     _horaApertura = horaActual();
 
+    return;
 }
 
 void Local::mostrarLocal()
 {
-    Mesa::mostrarMesa();
-    cout << "HORA DE APERTURA: " << _horaApertura << endl;
-    cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
-    cout << "COMENSALES: " << _comensales << endl;
-/*
-    ArchivoFactura archi;
+    mostrarMesa();
 
-    int pos = archi.buscarRegistro(this->getIdFactura());
-    Factura obj(archi.leerRegistro(pos));
-    obj.mostrarFactura();
-*/
+    if(!_disponible)
+    {
+        cout << "HORA DE APERTURA: " << _horaApertura << endl;
+        cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
+        cout << "COMENSALES: " << _comensales << endl;
+
+        /// SACAR EL ID Y BUSCAR EL PEIDOD (FACTURA) PARA MOSTRAR EL TOTAL
+        //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
+    }
+}
+
+void Local::abrirMesa()
+{
+    // PREGUNTAR SI LA MESA ESTA DISPO PARA ASIGNAR CAMARERO Y FACTURA Y CAMBIAR ESTADO
+
+    Local obj;
+    ArchivoMesasLocal arcMesa;
+    ArchivoFactura arcFac;
+
+    int pos = _numero -1;
+    obj = arcMesa.leerRegistro(pos);
+
+    if(obj.getDisponibilidad())
+    {
+        obj.cargarLocal();
+        arcMesa.actualizarMesa(obj);
+    }
+
+    obj.mostrarLocal();
+
+    return;
+
+    //int posFactura = arcFac.buscarRegistro(this->getIdFactura());
+    //Factura objFac(arcFac.leerRegistro(pos));
+
+
+    //objFac.mostrarFactura();
+
     /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
     /// lo de arriba / _comensales
+
+    /// SUBMENU DE OPCIONES
+
 }
 
 /// CLASE HEREDADA DELIVERY
@@ -545,7 +601,7 @@ char Factura::getTipo()
 }
 
 controladorProductos Factura::getProductos(){
-    return *_productos;
+    return _productos;
 }
 
 int Factura::getId()

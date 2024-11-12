@@ -20,15 +20,31 @@ using namespace std;
 
 int main()
 {
+    /*
+
+
+
+    obj = arc.leerRegistro(3);
+    obj.abrirMesa();
+    */
+
+
+    ArchivoMesasLocal arc;
+
+
+    arc.listarRegistros();
+
+
+
+
 /*
-Local mesa;
-
-mesa.cargarLocal();
-
-mesa.mostrarLocal();
+    int cant = arc.contarRegistros();
+    for(int i=0; i<cant; i++)
+    {
+        obj = arc.leerRegistro(i);
+        obj.mostrarLocal();
+    }
 */
-
-
 
 ///mostrarMenuPrincipal();
 

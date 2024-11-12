@@ -6,31 +6,54 @@
 
 using namespace std;
 
-ArchivoMesas::ArchivoMesas(const char* n)
+/// ARCHIVO MESAS LOCAL
+
+ArchivoMesasLocal::ArchivoMesasLocal(const char* n)
 {
-    strcpy(nombre, n);
-    tamanioRegistro=sizeof(Mesa);
+    strcpy(_nombre, n);
+    _tamanioRegistro=sizeof(Mesa);
 }
 
-int ArchivoMesas::contarRegistros()
+int ArchivoMesasLocal::contarRegistros()
 {
     FILE *p;
-    p=fopen(nombre, "rb");
-    if(p==NULL){
+    p=fopen(_nombre, "rb");
+    if(p==nullptr)
+    {
         return -1;
     }
     fseek(p, 0, 2);
     int tam=ftell(p);
     fclose(p);
-    return tam/sizeof (Mesa);
+    return tam/sizeof (Local);
 }
 
-Mesa ArchivoMesas::leerRegistro(int pos)
+bool ArchivoMesasLocal::listarRegistros()
 {
     FILE *p;
-    Mesa obj(pos);
-    p=fopen(nombre, "rb");
-    if(p=nullptr)
+    p=fopen(_nombre, "rb");
+    if(p==NULL)
+    {
+        return false;
+    }
+    Local obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        obj.mostrarLocal();
+    }
+    fclose(p);
+    return true;
+}
+
+Local ArchivoMesasLocal::leerRegistro(int pos)
+{
+    FILE *p;
+    Local obj(pos);
+    p=fopen(_nombre, "rb");
+    if(p==nullptr)
     {
         obj.setNumero(-2);
         return obj;
@@ -42,46 +65,41 @@ Mesa ArchivoMesas::leerRegistro(int pos)
     return obj;
 }
 
-int ArchivoMesas::setearCantMesas(int cant)
+int ArchivoMesasLocal::setearCantMesas(int cant)
 {
-    /*
-        ABRE EL ARCHIVO
-        CREA UNA CANTIDAD DE REGISTROS IGUAL A LA CANTIDAD PASADA
-        LES SETEA A TODOS UN NUMERO AUTO INCREMETNAL
-    */
     FILE *p;
-    p=fopen(nombre, "ab");
-    if(p=nullptr)
+    p=fopen(_nombre, "wb");
+    if(p==nullptr)
     {
-        return -1;  // ERROR AL VINCULAR CON EL ARCHIVO
+        return -1;
     }
     for(int i=0; i<cant; i++)
     {
-        Mesa obj(i+1);
-        cout << (fwrite(&obj, sizeof obj, 1, p)) << endl;
+        Local obj(i+1);
+        fwrite(&obj, sizeof obj, 1, p);
     }
     fclose(p);
     cant = contarRegistros();
     return cant;
 }
 
-bool ArchivoMesas::actualizarMesa(Mesa mesa)
+bool ArchivoMesasLocal::actualizarMesa(Local mesa)
 {
-
     FILE *p;
-        p=fopen(nombre, "rb+");
-        if(p==NULL){
-            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
-            return false;
-        }
-        fseek(p,tamanioRegistro,mesa.getNumero());
-        bool escribio=fwrite(&mesa, tamanioRegistro,1, p);
-        fclose(p);
-        return escribio;
+    p=fopen(_nombre, "rb+");
+    if(p==nullptr)
+    {
+        return false;
+    }
+    fseek(p, _tamanioRegistro * (mesa.getNumero()-1), 0);
+    bool escribio = fwrite(&mesa, _tamanioRegistro, 1, p) == 1;
+    fclose(p);
+    return escribio;
 }
 
-/// Archivo Factura
+/// FIN ARCHIVO MESAS LOCAL
 
+/// ARCHIVO FACTURA
 
 ArchivoFactura::ArchivoFactura(const char* n)
 {
@@ -124,7 +142,8 @@ int ArchivoFactura::contarRegistros()
 {
     FILE *p;
     p=fopen(_nombre, "rb");
-    if(p==NULL){
+    if(p==NULL)
+    {
         return -1;
     }
     fseek(p, 0, 2);
@@ -136,57 +155,64 @@ int ArchivoFactura::contarRegistros()
 bool ArchivoFactura::listarRegistros()
 {
     FILE *p;
-        Factura factura;
-        p=fopen(_nombre, "rb");
-        if(p==NULL){
-            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
-            return false;
-        }
+    Factura factura;
+    p=fopen(_nombre, "rb");
+    if(p==NULL)
+    {
+        cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
+        return false;
+    }
 
-        while(fread(&factura, _tamanioRegistro, 1, p)==1){
-            factura.mostrarFactura();
-            cout<<endl;
-        }
+    while(fread(&factura, _tamanioRegistro, 1, p)==1)
+    {
+        factura.mostrarFactura();
+        cout<<endl;
+    }
 
-        fclose(p);
-        return true;
+    fclose(p);
+    return true;
 }
 
-int ArchivoFactura::buscarRegistro(int id){
-        FILE *p;
-        Factura factura;
-        int pos=0;
-        p=fopen(_nombre, "rb");
-        if(p==NULL){
-            cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
+int ArchivoFactura::buscarRegistro(int id)
+{
+    FILE *p;
+    Factura factura;
+    int pos=0;
+    p=fopen(_nombre, "rb");
+    if(p==NULL)
+    {
+        cout<<"NO SE PUDO ABRIR EL ARCHIVO "<<endl;
 
-            return -2;
+        return -2;
+    }
+
+    while(fread(&factura, _tamanioRegistro, 1, p)==1)
+    {
+        if(factura.getId()==id)
+        {
+            fclose(p);
+            return pos;
         }
+        pos++;
+    }
+    fclose(p);
+    return -1;
+}
 
-           while(fread(&factura, _tamanioRegistro, 1, p)==1){
-                if(factura.getId()==id){
-                fclose(p);
-                return pos;
-                }
-            pos++;
-            }
-        fclose(p);
-        return -1;
-        }
-
- bool ArchivoFactura::actualizarRegistro(Factura* factura, int id)
+bool ArchivoFactura::actualizarRegistro(Factura* factura, int id)
 {
 
     FILE *p;
-        p=fopen(_nombre, "rb+");
-        if(p==NULL){
-            cout<<"NO SE PUDO ABRIR EL ARCHIVO"<<endl;
-            return false;
-        }
-        fseek(p, _tamanioRegistro, buscarRegistro(id));
-        bool escribio=fwrite(factura, _tamanioRegistro,1, p);
-        fclose(p);
-        return escribio;
+    p=fopen(_nombre, "rb+");
+    if(p==NULL)
+    {
+        cout<<"NO SE PUDO ABRIR EL ARCHIVO"<<endl;
+        return false;
+    }
+    fseek(p, _tamanioRegistro, buscarRegistro(id));
+    bool escribio=fwrite(factura, _tamanioRegistro,1, p);
+    fclose(p);
+    return escribio;
 }
 
 
@@ -451,8 +477,3 @@ Producto ArchivoProducto::leerRegistro(int pos)
     fclose(p);
     return obj;
 }
-
-
-
-
-
