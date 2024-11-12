@@ -169,17 +169,15 @@ void controladorProductos::mostrarProductos()
         i++;
     }
 }
-/*controladorProductos controladorProductos& operator=(const controladorProductos& other) {
-        if (this != &other) { // Evita la auto-asignación
-            // Copia cada miembro de other a this
-            // _tamanio no se puede copiar ya que es constante (y es el mismo valor en ambos objetos)
-            _vIdsProductos = other._vIdsProductos;
-            _vCantPorProductos = other._vCantPorProductos;
-            _vPreciosProductos = other._vPreciosProductos;
+controladorProductos& controladorProductos::operator=(const controladorProductos& otro) {
+        if (this != &otro) {
+            _vIdsProductos = otro._vIdsProductos;
+            _vCantPorProductos = otro._vCantPorProductos;
+            _vPreciosProductos = otro._vPreciosProductos;
         }
         return *this;
     }
-*/
+
 /// CLASE BASE MESA
 
 Mesa::Mesa()
@@ -217,7 +215,7 @@ void Mesa::cargarMesa()
 
 void Mesa::mostrarMesa()
 {
-    cout << "N� " << _numero << endl;
+    cout << "N� " << _numero << endl;
 
     // SETEAR COLOR Y FUNCIONALIDADES SEGUN DISPONBLE
     /// DIBUJAR()
@@ -321,8 +319,7 @@ void Local::abrirMesa()
     //Factura objFac(arcFac.leerRegistro(pos));
 
 
-    //objFac.mostrarFactura();
-
+    /// objFac.mostrarFactura();
     /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
     /// lo de arriba / _comensales
 
@@ -503,24 +500,24 @@ const int Producto::getTipo()
 /// CLASE BASE FACTURA
 Factura::Factura(){
 }
-/*
-Factura::Factura& operator=(const Factura& other) {
-        if (this != &other) { // Evita la auto-asignación
-            // Copia cada miembro de other a this
-            _id = other._id;
-            _productos = other._productos;   // Asumiendo que controladorProductos soporta la asignación
-            _fecha = other._fecha;
-            _turno = other._turno;
-            _tipo = other._tipo;
-            _importeSubTotal = other._importeSubTotal;
-            _importeTotal = other._importeTotal;
-            _tipoYDescuentoAplicado[0] = other._tipoYDescuentoAplicado[0];
-            _tipoYDescuentoAplicado[1] = other._tipoYDescuentoAplicado[1];
-            _idEmpleado = other._idEmpleado;
+
+Factura& Factura::operator=(const Factura& otro) {
+        if (this != &otro) {
+
+            _id = otro._id;
+            _productos = otro._productos;
+            _fecha = otro._fecha;
+            _turno = otro._turno;
+            _tipo = otro._tipo;
+            _importeSubTotal = otro._importeSubTotal;
+            _importeTotal = otro._importeTotal;
+            _tipoYDescuentoAplicado[0] = otro._tipoYDescuentoAplicado[0];
+            _tipoYDescuentoAplicado[1] = otro._tipoYDescuentoAplicado[1];
+            _idEmpleado = otro._idEmpleado;
         }
         return *this;
 }
-*/
+
 Factura::Factura(int id)
 {
     _id = id;
@@ -563,7 +560,13 @@ void Factura::quitarItem(int pos, int cant)
 
 void Factura::mostrarFactura()
 {
-   /// _productos.mostrarProductos();
+    cout << "ID :" << _id << endl;
+    _fecha.Mostrar();
+    cout << endl;
+    cout << "turno :" << _turno << endl;
+    cout << "ID Empleado:" << _idEmpleado << endl;
+
+   _productos.mostrarProductos();
 
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS

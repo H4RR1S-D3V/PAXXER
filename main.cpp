@@ -20,34 +20,5 @@ using namespace std;
 
 int main()
 {
-    /*
-
-
-
-    obj = arc.leerRegistro(3);
-    obj.abrirMesa();
-    */
-
-
-    ArchivoMesasLocal arc;
-
-
-    arc.listarRegistros();
-
-
-
-
-/*
-    int cant = arc.contarRegistros();
-    for(int i=0; i<cant; i++)
-    {
-        obj = arc.leerRegistro(i);
-        obj.mostrarLocal();
-    }
-*/
-
-///mostrarMenuPrincipal();
-
-
-   return 0;
+  return 0;
 }
