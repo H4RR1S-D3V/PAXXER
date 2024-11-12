@@ -18,6 +18,7 @@
 
 using namespace std;
 
+
 int main()
 {
     ArchivoMesasLocal arc;
@@ -26,20 +27,19 @@ int main()
 
     obj.abrirMesa();
 
-    arc.setearCantMesas(5);
 
     Producto prod;
     prod.Cargar();
     arcPro.agregarRegistro(prod);
-*/
-    //ArchivoProducto arcPro;
-   // arcPro.listarRegistros();
-    /*
+
+    ArchivoProducto arcPro;
+    arcPro.listarRegistros();
+    arc.setearCantMesas(5);
+    */
 
     Local obj(2);
     obj.abrirMesa();
-    */
-    arc.listarRegistros();
+    ///arc.listarRegistros();
 
   return 0;
 }
