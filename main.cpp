@@ -20,10 +20,5 @@ using namespace std;
 
 int main()
 {
-
-
-///mostrarMenuPrincipal();
-
-
-   return 0;
+  return 0;
 }

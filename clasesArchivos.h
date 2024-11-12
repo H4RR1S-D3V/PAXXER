@@ -4,18 +4,18 @@
 #include "clases.h"
 #include "constantes.h"
 
-class ArchivoMesas
+class ArchivoMesasLocal
 {
     private:
-        int numero; // ?
-        char nombre[30];
-        int tamanioRegistro;
+        char _nombre[30];
+        int _tamanioRegistro;
     public:
-        ArchivoMesas(const char* n=ARCHIVO_MESAS);
-        Mesa leerRegistro(int pos);
+        ArchivoMesasLocal(const char* n=ARCHIVO_MESAS_LOCAL);
         int setearCantMesas(int cant);
+        bool listarRegistros();
         int contarRegistros();
-        bool actualizarMesa(Mesa mesa);
+        Local leerRegistro(int pos);
+        bool actualizarMesa(Local mesa);
 };
 
 class ArchivoFactura

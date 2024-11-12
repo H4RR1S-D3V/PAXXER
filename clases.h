@@ -132,31 +132,36 @@ public:
 
 class Mesa
 {
-private:
+protected:
     int _numero;
-    bool _disponible;
+    bool _disponible = true;
     char _tipo[10];
     int _idFactura;
 public:
     Mesa();
     Mesa(int numero);
     void cargarMesa();
+    virtual void abrirMesa();
     void mostrarMesa();
     void cerrarMesa();
     void setNumero(int numero);
+    bool getDisponibilidad();
     int getNumero();
     int getIdFactura();
 };
 
-class Local : Mesa
+class Local : public Mesa
 {
 private:
     int _horaApertura;
     int _empleadoAsignado;
     int _comensales;
 public:
+    Local();
+    Local(int numeroMesa);
     void cargarLocal();
     void mostrarLocal();
+    void abrirMesa();
 };
 
 class Delivery : Mesa
