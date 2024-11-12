@@ -122,6 +122,7 @@ public:
     void aplicarDescuento(int tipo, float descuento);
     ///setters
     void setId(int id);
+    void setIdEmpleado(int idEmpleado);
     void setTurno(int hora);
     ///getters
     controladorProductos getProductos();
