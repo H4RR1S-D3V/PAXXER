@@ -157,6 +157,7 @@ void controladorProductos::mostrarProductos()
     Producto obj;
     ArchivoProducto arc;
 
+    cout << endl << "productos:" <<endl;
     while(_vIdsProductos[i] != 0)
     {
         int pos = arc.buscarRegistroPorId(_vIdsProductos[i]);
@@ -291,14 +292,14 @@ void Local::mostrarLocal()
         cout << "COMENSALES: " << _comensales << endl;
 
         ArchivoFactura arc;
-        Factura obj(_idFactura);
+        Factura obj;
         int pos = arc.buscarRegistro(_idFactura);
         obj = arc.leerRegistro(pos);
         obj.mostrarFactura();
-        obj.cargarItem(1);
+        /*obj.cargarItem(1);
 
         obj.mostrarFactura();
-
+        */
 
         /// SACAR EL ID Y BUSCAR EL PEIDOD (FACTURA) PARA MOSTRAR EL TOTAL
         //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
@@ -574,6 +575,8 @@ void Factura::quitarItem(int pos, int cant)
 
 void Factura::mostrarFactura()
 {
+
+    cout << endl<< "factura:" <<endl;
     cout << "ID :" << _id << endl;
     _fecha.Mostrar();
     cout << "turno :" << _turno << endl;
