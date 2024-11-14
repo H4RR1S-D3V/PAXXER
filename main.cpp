@@ -2,11 +2,6 @@
 
 #include <cstring>
 #include <ctime>
-
-#include "constantes.h"
-#include "clases.h"
-
-#include "generadorIDs.h"
 #include "rlutil.h"
 #include <windows.h>
 
@@ -44,6 +39,7 @@ int main()
 
 
 mostrarMenuPrincipal();
+
 
   return 0;
 }

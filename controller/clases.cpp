@@ -224,12 +224,12 @@ void Mesa::cargarMesa()
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
     /// GENERAR Factura Y ASIGNARLO
 
-    _idFactura = generarId(3);
+   /* _idFactura = generarId(3);
     Factura obj(_idFactura);
 
     ArchivoFactura arc;
 
-    arc.agregarRegistro(obj);
+    arc.agregarRegistro(obj);*/
 }
 
 void Mesa::mostrarMesa()

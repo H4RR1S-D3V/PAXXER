@@ -1,17 +1,28 @@
 #include <iostream>
 #include "../rlutil.h"
 #include "windows.h"
+//#include <vector>
 
 using namespace std;
 
 #include "pantallasMenuPrincipal.h"
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
+#include "../controller/clasesArchivos.h"
+#include "../controller/clases.h"
+
 
 
 void mostrarMapaMesas()
 {
+
     rlutil::cls();
+ArchivoMesasLocal arcMesa;
+arcMesa.setearCantMesas(20);
+Local prueba(12);
+prueba.cargarMesa();
+arcMesa.actualizarMesa(prueba);
+
     bool salir = true;
 
     int x=0;
@@ -19,9 +30,37 @@ void mostrarMapaMesas()
     {
         rlutil::setColor (rlutil::MAGENTA);
         dibujarTituloMAPAMESAS();
-///MESAS SUPERIORES
         rlutil::setColor (rlutil::WHITE);
-        dibujarMesa(47,9);
+  //  vector<int> posicionesX;
+    //vector<int> posicionesY;
+
+///CONTENEDOR MESAS
+
+ int posXInicial = 47; //X
+    int altoMesa = 12;   //Y
+    int posYInicial = 9; //Y
+    int anchoMesa = 30; //X
+int cantMesas = arcMesa.contarRegistros();
+    for (int i = 0; i < cantMesas; i++) {
+        int posX = posXInicial + (i % 5) * anchoMesa;
+        int posY = posYInicial + (i / 5) * altoMesa;
+Local mesa;
+mesa = arcMesa.leerRegistro(i);
+if (mesa.getDisponibilidad()){
+     rlutil::setColor (rlutil::GREEN);
+}
+
+else{
+
+       rlutil::setColor (rlutil::LIGHTRED);
+}
+       dibujarMesa(posX, posY);
+       // posicionesX.push_back(posX);
+        //posicionesY.push_back(posY);
+
+    }
+
+        /*dibujarMesa(47,9);
         dibujarMesa(113,9);
         dibujarMesa(80,9);
         dibujarMesa(145,9);
@@ -58,8 +97,10 @@ void mostrarMapaMesas()
         rlutil::locate(185,24);
         cout << "MESA 10";
         rlutil::setColor(rlutil::BROWN);
+
         dibujarBordeSyI(45,7);
         dibujarBordeSyI(45,33);
+        */
 
         rlutil::locate(96,20);
         rlutil::setColor(rlutil::GREEN);
