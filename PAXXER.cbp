@@ -47,6 +47,27 @@
 		<Unit filename="model/id_productos.dat" />
 		<Unit filename="model/mesasLocal.dat" />
 		<Unit filename="model/productos.dat" />
+		<Unit filename="view/declaracionInformesRecaudaciones.h" />
+		<Unit filename="view/declaracionOpcionesConfiguraciones.h" />
+		<Unit filename="view/declaracionOpcionesMapaMesas.h" />
+		<Unit filename="view/dibujarTitulo.h" />
+		<Unit filename="view/dibujarTitulos.cpp" />
+		<Unit filename="view/funcionesDibujar.cpp" />
+		<Unit filename="view/funcionesDibujar.h" />
+		<Unit filename="view/funcionesDibujarTitulos.h" />
+		<Unit filename="view/menuPrincipal.cpp" />
+		<Unit filename="view/menuPrincipal.h" />
+		<Unit filename="view/opcionesMapaMesas.cpp" />
+		<Unit filename="view/pantallaCarta.cpp" />
+		<Unit filename="view/pantallaConfiguraciones.cpp" />
+		<Unit filename="view/pantallaContrasena.cpp" />
+		<Unit filename="view/pantallaInformes.cpp" />
+		<Unit filename="view/pantallaInformesRecaudaciones.cpp" />
+		<Unit filename="view/pantallaMapaMesas.cpp" />
+		<Unit filename="view/pantallaopcionesConfiguraciones.cpp" />
+		<Unit filename="view/pantallasMenuPrincipal.h" />
+		<Unit filename="view/pintarOpcionesMenus.cpp" />
+		<Unit filename="view/pruebaVistaPedidosyFactura.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
