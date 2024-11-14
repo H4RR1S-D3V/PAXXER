@@ -76,11 +76,13 @@ void Domicilio::Cargar()
 
     cout << "LOCALIDAD: ";
     cin.getline(_localidad, 20);
+
+    cout << "CONTINUAR..." << endl;
 }
 
 void Domicilio::Mostrar()
 {
-    cout << _calle << " " << _altura << " - " << _localidad << endl;
+    cout << _calle << " " << _altura << " - " << _localidad;
 }
 
 /// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
@@ -377,8 +379,6 @@ Delivery::Delivery(){}
 Delivery::Delivery(int num)
 {
     _numero = num;
-    // PROVISORIO
-    strcpy(_direccionEntrega, "VALLE GRANDE 151");
 }
 void Delivery::cargarDelivery()
 {
@@ -395,6 +395,11 @@ void Delivery::cargarDelivery()
     cout << "INGRESE LA HORA DE ENTREGA: ";
     cin >> _horaEntrega;
 
+    cin.ignore();
+
+    cout << "INGRESE EL DOMICILIO A ENTREGAR: " << endl;
+    _direccionEntrega.Cargar();
+
     strcpy(_deliveryAsignado, "MANUEL");
 
     cin.ignore();
@@ -403,8 +408,8 @@ void Delivery::cargarDelivery()
 void Delivery::mostrarDelivery()
 {
     cout << _numero << " | ";
-    cout << _direccionEntrega << " | ";
-    cout << _deliveryAsignado << " | "; // SACAR NOMBRE CON ID
+    _direccionEntrega.Mostrar();
+    cout << " | " << _deliveryAsignado << " | "; // SACAR NOMBRE CON ID
     cout << _horaEntrega << "Hs. | ";
     cout << "$15.300 | "; /// SACAR DE FACTURA
 
