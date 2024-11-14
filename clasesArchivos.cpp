@@ -226,7 +226,7 @@ ArchivoProducto::ArchivoProducto(const char* nombre)
 {
     strcpy(_nombre, nombre);
 }
-
+/*
 void ArchivoProducto::eliminarRegistro(int id)
 {
     // AUN NO LISTO
@@ -252,7 +252,7 @@ void ArchivoProducto::eliminarRegistro(int id)
     }
     fclose(p);
 }
-
+*/
 void ArchivoProducto::listarRegistrosPorTipo(const int tipo)
 {
     FILE *p;
@@ -371,7 +371,7 @@ bool ArchivoProducto::listarRegistros()
     }
 }
 
-bool ArchivoProducto::habilitarRegistro(int id)
+bool ArchivoProducto::cambiarEstadoRegistro(int id)
 {
     int pos = buscarRegistroPorId(id);
     Producto obj;
@@ -390,24 +390,6 @@ bool ArchivoProducto::habilitarRegistro(int id)
     return modifico;
 }
 
-bool ArchivoProducto::deshabilitarRegistro(int id)
-{
-    int pos = buscarRegistroPorId(id);
-    Producto obj;
-
-    FILE* p = fopen(ARCHIVO_PRODUCTOS, "rb+");
-    if(p == nullptr)
-    {
-        return 0;
-    }
-    obj = leerRegistro(pos);
-    obj.cambiarEstado();
-
-    fseek(p, sizeof(Producto) * pos, 0);
-    bool modifico = fwrite(&obj, sizeof(Producto), 1, p);
-    fclose(p);
-    return modifico;
-}
 
 int ArchivoProducto::buscarRegistroPorId(int id)
 {

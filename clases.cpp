@@ -144,6 +144,7 @@ void controladorProductos::quitarProducto(int pos, int cant)
     if(_vCantPorProductos[pos] <= 0)
     {
         _vIdsProductos[pos] = 0;
+        _vCantPorProductos[pos] = 0;
         _vPreciosProductos[pos] = 0.0;
     }
 
@@ -571,10 +572,10 @@ void Factura::quitarItem(int pos, int cant)
 {
     // PEDIR CONTRASENIA
     _productos.quitarProducto(pos, cant);
-    actualizarImporteTotal();
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
     archi.actualizarRegistro(*this);
+    actualizarImporteTotal();
 }
 
 
