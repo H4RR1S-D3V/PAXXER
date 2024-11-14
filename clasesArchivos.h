@@ -18,6 +18,21 @@ class ArchivoMesasLocal
         bool actualizarMesa(Local mesa);
 };
 
+class ArchivoDelivery
+{
+    private:
+        char _nombre[30];
+        int _tamanioRegistro;
+    public:
+        ArchivoDelivery(const char* n=ARCHIVO_DELIVERY);
+        bool agregarRegistro(Delivery &obj);
+        bool listarRegistros();
+        Delivery leerRegistro(int pos);
+        bool actualizarRegstro(Delivery obj);
+        int contarRegistros();
+        int eliminarRegistro(int pos);
+};
+
 class ArchivoFactura
 {
     private:
