@@ -32,21 +32,21 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="clases.cpp" />
-		<Unit filename="clases.h" />
-		<Unit filename="clasesArchivos.cpp" />
-		<Unit filename="clasesArchivos.h" />
-		<Unit filename="constantes.h" />
-		<Unit filename="dibujarBordes.h" />
-		<Unit filename="dibujarTitulo.h" />
-		<Unit filename="funciones.cpp" />
-		<Unit filename="funciones.h" />
-		<Unit filename="generadorIDs.cpp" />
-		<Unit filename="generadorIDs.h" />
+		<Unit filename="controller/clases.cpp" />
+		<Unit filename="controller/clases.h" />
+		<Unit filename="controller/clasesArchivos.cpp" />
+		<Unit filename="controller/clasesArchivos.h" />
+		<Unit filename="controller/constantes.h" />
+		<Unit filename="controller/funciones.cpp" />
+		<Unit filename="controller/funciones.h" />
+		<Unit filename="controller/generadorIDs.cpp" />
+		<Unit filename="controller/generadorIDs.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="menuPrincipal.h" />
-		<Unit filename="pintarBackgroundOpcionesMenuPrincipal.h" />
-		<Unit filename="rlutil.h" />
+		<Unit filename="model/facturas.dat" />
+		<Unit filename="model/id_facturas.dat" />
+		<Unit filename="model/id_productos.dat" />
+		<Unit filename="model/mesasLocal.dat" />
+		<Unit filename="model/productos.dat" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

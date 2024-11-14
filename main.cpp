@@ -3,23 +3,25 @@
 #include <cstring>
 #include <ctime>
 
-#include "constantes.h"
-#include "clases.h"
-
-#include "generadorIDs.h"
 #include "rlutil.h"
 
-#include "clasesArchivos.h"
+///INCLUDES /CONTROLLER
+#include "./controller/clases.h"
+#include "./controller/clasesArchivos.h"
+#include "./controller/constantes.h"
+#include "./controller/generadorIDs.h"
+
+///INCLUDES /VIEW
 
 
-
-#include "dibujarBordes.h"
-#include "menuPrincipal.h"
 
 using namespace std;
 
 
 int main()
 {
+
+    ArchivoMesasLocal arc;
+    arc.setearCantMesas(1);
   return 0;
 }
