@@ -85,7 +85,6 @@ int ArchivoMesasLocal::setearCantMesas(int cant)
 
 bool ArchivoMesasLocal::actualizarMesa(Local mesa)
 {
-
     FILE *p;
     p=fopen(_nombre, "rb+");
     if(p==nullptr)
@@ -100,12 +99,153 @@ bool ArchivoMesasLocal::actualizarMesa(Local mesa)
 
 /// FIN ARCHIVO MESAS LOCAL
 
+/// ARCHIVO DELIVERY
+
+ArchivoDelivery::ArchivoDelivery(const char* n)
+{
+    strcpy(_nombre, n);
+    _tamanioRegistro = sizeof(Delivery);
+}
+
+bool ArchivoDelivery::agregarRegistro(Delivery &obj)
+{
+    FILE *p;
+    p = fopen(_nombre, "ab");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    bool escribio = fwrite(&obj, sizeof(Delivery), 1, p) == 1;
+    fclose(p);
+    return escribio;
+}
+
+bool ArchivoDelivery::listarRegistros()
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return false;
+    }
+    Delivery obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        obj.mostrarDelivery();
+    }
+    fclose(p);
+    return true;
+}
+
+Delivery ArchivoDelivery::leerRegistro(int pos)
+{
+    FILE *p;
+    Delivery obj;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        obj.setNumero(-2);
+        return obj;
+    }
+    obj.setNumero(pos+1); // ?
+    fseek(p, sizeof obj * pos, 0);
+    fread(&obj, sizeof obj, 1, p);
+    fclose(p);
+    return obj;
+}
+
+bool ArchivoDelivery::actualizarRegstro(Delivery obj)
+{
+    FILE *p;
+    p = fopen(_nombre, "rb+");
+    if(p == nullptr)
+    {
+        return false;
+    }
+    fseek(p, _tamanioRegistro * (obj.getNumero()-1), 0);
+    bool escribio = fwrite(&obj, _tamanioRegistro, 1, p) == 1;
+    fclose(p);
+    return escribio;
+}
+
+int ArchivoDelivery::contarRegistros()
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    fseek(p, 0, 2);
+    int tam = ftell(p);
+    fclose(p);
+    return tam/sizeof(Delivery);
+}
+
+int ArchivoDelivery::eliminarRegistro(int pos)
+{
+    /// LEER EL ARCHIVO PARA GUARDAR LOS REGISTROS EN UN ARRAY
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    int cantRegistros = contarRegistros();
+
+    if(pos > cantRegistros)
+    {
+        return -2;
+    }
+
+    Delivery *vBackUpRegistros = new Delivery[cantRegistros];
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        vBackUpRegistros[i] = leerRegistro(i);
+    }
+    fclose(p);
+
+    /// ENCONTRAR EL REGISTRO A ALIMINAR Y OBVIARLO
+
+    p = fopen(_nombre, "wb");
+    if(p == nullptr)
+    {
+        return -3;
+    }
+
+    // REGISTROS ANTES DEL ELIMINADO (NO CAMBIAN)
+    int j = 0;
+    while(j < pos-1)
+    {
+        agregarRegistro(vBackUpRegistros[j]);
+        j++;
+    }
+    // SE SALTEA EL REGISTRO A ELIMINAR
+
+    // SE LES DISMINUYE EN UN EL NUMERO A LOS REGISTROS SIGUIENTES Y SE GUARDAN
+    for(int k=j+1; k<cantRegistros; k++)
+    {
+        vBackUpRegistros[k].disminuirNumero();
+        agregarRegistro(vBackUpRegistros[k]);
+    }
+
+    delete vBackUpRegistros;
+    fclose(p);
+    return 1;
+}
+
+/// FIN ARCHIVO DELIVERY
+
 /// ARCHIVO FACTURA
 
 ArchivoFactura::ArchivoFactura(const char* n)
 {
     strcpy(_nombre, n);
-    _tamanioRegistro=sizeof(Factura); /// MUY BUENOOOOOO
+    _tamanioRegistro=sizeof(Factura);
 }
 
 /// PARA TRAER EL Factura DESDE EL ARCHIVO A LA MESA

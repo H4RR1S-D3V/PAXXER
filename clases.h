@@ -139,7 +139,7 @@ class Mesa
 {
 protected:
     int _numero;
-    bool _disponible = true;
+    bool _disponible = true; /// PONERLO SOLO EN MESA SALON
     char _tipo[10];
     int _idFactura;
 public:
@@ -169,16 +169,27 @@ public:
     void abrirMesa();
 };
 
-class Delivery : Mesa
+class Delivery : public Mesa
 {
 private:
     // Direccion _dirrecionEntrega;
     char _telefonoCliente[10];
     char _deliveryAsignado[20];
-    int _horaEntrega;
+    int _horaEntrega;   // PASAR A HH:MM
+    bool _entregado;
+
 public:
+    /// SETTERS
+    void setNumero(int num);
+    /// GETTERS
+    int getNumero();
+    /// METHODS
+    Delivery();
+    Delivery(int num);
     void cargarDelivery();
     void mostrarDelivery();
+    void entregarDelivery();
+    void disminuirNumero();
 };
 
 class TakeAway : Mesa

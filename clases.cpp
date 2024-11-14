@@ -300,7 +300,6 @@ void Local::mostrarLocal()
         Factura obj;
         int pos = arc.buscarRegistro(_idFactura);
         obj = arc.leerRegistro(pos);
-        obj.cargarItem(1);
         obj.mostrarFactura();
 
         //obj.mostrarFactura();
@@ -341,6 +340,24 @@ void Local::abrirMesa()
 
 /// CLASE HEREDADA DELIVERY
 
+// SETTERS
+void Delivery::setNumero(int num)
+{
+    _numero = num;
+    _entregado = false;
+}
+// GETTERS
+int Delivery::getNumero()
+{
+    return _numero;
+}
+// METHODS
+Delivery::Delivery(){}
+
+Delivery::Delivery(int num)
+{
+    _numero = num;
+}
 void Delivery::cargarDelivery()
 {
     cargarMesa();
@@ -348,23 +365,45 @@ void Delivery::cargarDelivery()
     /// buscar factura y pasar hora para calcular turno
 
 
+
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
     cin.getline(_telefonoCliente, 10);
 
-    cout << "INGRESE EL DELIVERY ASIGNADO: ";
-    /// id del delivery
+    cout << "INGRESE EL ID DEL DELIVERY ASIGNADO: ";
+    cin >> _deliveryAsignado;
 
     cout << "INGRESE LA HORA DE ENTREGA: ";
-
     cin >> _horaEntrega;
+
+    cin.ignore();
 }
 
 void Delivery::mostrarDelivery()
 {
     Mesa::mostrarMesa();
 
-    cout << "TELEFONO CLIENTE: " << _telefonoCliente;
-    cout << "DELIVERY ASIGNADO: " << _deliveryAsignado;
+    cout << "TELEFONO CLIENTE: " << _telefonoCliente << endl;
+    cout << "DELIVERY ASIGNADO: " << _deliveryAsignado << endl;
+    cout << "HORA DE ENTREGA: " << _horaEntrega << endl;
+    cout << "DIRECCION DE ENTREGA: " << "UNDEFINED" << endl;
+    if(!_entregado)
+    {
+        cout << "PENDIENTE" << endl;
+    }
+    else
+    {
+        cout << "ENTREGADO" << endl;
+    }
+}
+
+void Delivery::entregarDelivery()
+{
+    _entregado = true;
+}
+
+void Delivery::disminuirNumero()
+{
+    _numero--;
 }
 
 /// CLASE HEREDADA TAKEAWAY

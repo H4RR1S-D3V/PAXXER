@@ -21,25 +21,9 @@ using namespace std;
 
 int main()
 {
-    ArchivoMesasLocal arc;
+    ArchivoDelivery arc;
+    cout << arc.eliminarRegistro(1);
+    arc.listarRegistros();
 
-/*
-
-    obj.abrirMesa();
-
-
-    Producto prod;
-    prod.Cargar();
-    arcPro.agregarRegistro(prod);
-
-    ArchivoProducto arcPro;
-    arcPro.listarRegistros();
-    arc.setearCantMesas(5);
-    */
-    Local obj(2);
-    obj.abrirMesa();
-
-    //arc.listarRegistros();
-
-  return 0;
+    return 0;
 }
