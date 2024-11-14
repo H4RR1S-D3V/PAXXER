@@ -64,6 +64,25 @@ Fecha Tiempo::getFecha()
     return fecha;
 }
 
+void Domicilio::Cargar()
+{
+    cout << "CALLE: ";
+    cin.getline(_calle, 20);
+
+    cout << "ALTURA: ";
+    cin >> _altura;
+
+    cin.ignore();
+
+    cout << "LOCALIDAD: ";
+    cin.getline(_localidad, 20);
+}
+
+void Domicilio::Mostrar()
+{
+    cout << _calle << " " << _altura << " - " << _localidad << endl;
+}
+
 /// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
 /*
 controladorProductos::controladorProductos()

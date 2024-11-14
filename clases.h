@@ -39,6 +39,21 @@ public:
 
 };
 
+class Domicilio
+{
+    private:
+        char _localidad[20];
+        char _calle[20];
+        int _altura;
+    public:
+        /// SETTERS
+        /// GETTERS
+        /// METHODS
+        void Cargar();
+        void Mostrar();
+
+};
+
 /// FIN CLASES AUXILIARES
 
 #include "funciones.h"
