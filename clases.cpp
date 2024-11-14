@@ -140,7 +140,7 @@ void controladorProductos::cargarProducto(int idProducto)
 void controladorProductos::quitarProducto(int pos, int cant)
 {
     pos = pos-1; /// al mostrarse se le suma 1, por lo que al nro ingresado hay q restarle
-    _vCantPorProductos[pos] =- cant;
+    _vCantPorProductos[pos] -= cant;
     if(_vCantPorProductos[pos] <= 0)
     {
         _vIdsProductos[pos] = 0;
