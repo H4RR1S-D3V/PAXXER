@@ -35,11 +35,14 @@ int main()
     ArchivoProducto arcPro;
     arcPro.listarRegistros();
     arc.setearCantMesas(5);
-    */
     Local obj(2);
     obj.abrirMesa();
+    */
 
     //arc.listarRegistros();
+
+
+
 
   return 0;
 }

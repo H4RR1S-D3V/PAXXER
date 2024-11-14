@@ -21,7 +21,6 @@ class ArchivoMesasLocal
 class ArchivoFactura
 {
     private:
-        int _numero; // ?
         char _nombre[30];
         int _tamanioRegistro;
     public:
@@ -44,15 +43,14 @@ public:
     Producto leerRegistro(int pos);
     bool modificarPrecioRegistro(float precio, int id);
     int buscarRegistroPorId(int id);
-    bool deshabilitarRegistro(int id);
-    bool habilitarRegistro(int id);
+    bool cambiarEstadoRegistro(int id);
     int contarRegistros();
     bool listarRegistros();
     bool modificarNombreRegistro(const char *nombre, int id);
     bool modificarTipoRegistro(const int tipo, int id);
     void listarRegistrosPorNombre(const char *nombre);
     void listarRegistrosPorTipo(const int tipo);
-    void eliminarRegistro(int id);
+   // void eliminarRegistro(int id);
 };
 
 #endif // CLASESARCHIVOS_H_INCLUDED
