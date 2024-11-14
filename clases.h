@@ -172,8 +172,8 @@ public:
 class Delivery : public Mesa
 {
 private:
-    // Direccion _dirrecionEntrega;
-    char _telefonoCliente[10];
+    char _direccionEntrega[30]; /// CREAR CLASE DIRECCION
+    char _telefonoCliente[20];
     char _deliveryAsignado[20];
     int _horaEntrega;   // PASAR A HH:MM
     bool _entregado;
