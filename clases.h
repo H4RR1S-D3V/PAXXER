@@ -82,12 +82,16 @@ private:
 class controladorProductos{
 private:
     const int _tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
-    vector<int> _vIdsProductos;
+    int _vIdsProductos[30]{0};
+    int _vCantPorProductos[30]{0};
+    int _vPreciosProductos[30]{0};
+
+    /*vector<int> _vIdsProductos;
     vector<int> _vCantPorProductos;
-    vector<float> _vPreciosProductos;
+    vector<float> _vPreciosProductos;*/
 
 public:
-    controladorProductos();
+    //controladorProductos();
     controladorProductos& operator=(const controladorProductos& otro);
     void ordenarVectores();
     float calcularPrecioTotal();

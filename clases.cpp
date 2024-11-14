@@ -65,11 +65,11 @@ Fecha Tiempo::getFecha()
 }
 
 /// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
-
+/*
 controladorProductos::controladorProductos()
     : _vIdsProductos(_tamanio, 0), _vCantPorProductos(_tamanio, 0), _vPreciosProductos(_tamanio, 0.0f) {}
 
-
+*/
 
 
 void controladorProductos::ordenarVectores()
@@ -168,10 +168,15 @@ void controladorProductos::mostrarProductos()
     }
 }
 controladorProductos& controladorProductos::operator=(const controladorProductos& otro) {
-        if (this != &otro) {
+        if (this != &otro){
+            for (int i = 0; i < 30; ++i) {
+                _vIdsProductos[i] = otro._vIdsProductos[i];
+                _vCantPorProductos[i] = otro._vCantPorProductos[i];
+                _vPreciosProductos[i] = otro._vPreciosProductos[i];
+            }/*
             _vIdsProductos = otro._vIdsProductos;
             _vCantPorProductos = otro._vCantPorProductos;
-            _vPreciosProductos = otro._vPreciosProductos;
+            _vPreciosProductos = otro._vPreciosProductos;*/
         }
         return *this;
     }
@@ -295,11 +300,11 @@ void Local::mostrarLocal()
         Factura obj;
         int pos = arc.buscarRegistro(_idFactura);
         obj = arc.leerRegistro(pos);
+        obj.cargarItem(1);
         obj.mostrarFactura();
-        /*obj.cargarItem(1);
 
-        obj.mostrarFactura();
-        */
+        //obj.mostrarFactura();
+
 
         /// SACAR EL ID Y BUSCAR EL PEIDOD (FACTURA) PARA MOSTRAR EL TOTAL
         //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
@@ -529,7 +534,7 @@ Factura& Factura::operator=(const Factura& otro) {
 Factura::Factura(int id)
 {
     _id = id;
-    controladorProductos();
+    //controladorProductos();
 
 
 }
