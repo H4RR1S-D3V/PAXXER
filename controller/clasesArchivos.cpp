@@ -448,12 +448,11 @@ bool ArchivoFactura::listarRegistros()
         return false;
     }
 
-    while(fread(&factura, _tamanioRegistro, 1, p)==1)
+    for(int i=0; i<contarRegistros(); i++)
     {
-        factura.mostrarFactura();
-        cout<<endl;
+        fread(&factura, _tamanioRegistro, 1, p);
+        factura.mostrarFactura(i);
     }
-
     fclose(p);
     return true;
 }
@@ -535,6 +534,7 @@ void ArchivoProducto::eliminarRegistro(int id)
 ArchivoProducto::ArchivoProducto(const char* nombre)
 {
     strcpy(_nombre, nombre);
+    _tamanioRegistro = sizeof(Producto);
 }
 void ArchivoProducto::listarRegistrosPorTipo(const int tipo)
 {
@@ -545,13 +545,18 @@ void ArchivoProducto::listarRegistrosPorTipo(const int tipo)
         return;
     }
     Producto obj;
+    int cantRegistros = contarRegistros();
 
-    while(fread(&obj, sizeof(Producto), 1, p))
+    int j=0;
+
+    for(int i=0; i<cantRegistros; i++)
     {
+        fread(&obj, _tamanioRegistro, 1, p);
+
         if(obj.getTipo() == tipo)
         {
-            cout << "---------------" << endl;
-            obj.Mostrar();
+            obj.Mostrar(13, 11+j);
+            j++;
         }
     }
 }
@@ -567,12 +572,15 @@ void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
     }
     Producto obj;
 
-    while(fread(&obj, sizeof(Producto), 1, p))
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
     {
-        if(strstr(obj.getNombre(), nombre))
+        fread(&obj, _tamanioRegistro, 1, p);
+
+        if(!strcmp(obj.getNombre(), nombre))
         {
-            cout << "---------------" << endl;
-            obj.Mostrar();
+            obj.Mostrar(13, 15+i);
         }
     }
 }
@@ -648,8 +656,7 @@ bool ArchivoProducto::listarRegistros()
         obj = leerRegistro(i);
         if(obj.getDisponibilidad())
         {
-            cout << "---------------" << endl;
-            obj.Mostrar();
+            obj.Mostrar(13, 15+i);
         }
     }
 }

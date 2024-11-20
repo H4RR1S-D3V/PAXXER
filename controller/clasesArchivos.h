@@ -65,7 +65,7 @@ class ArchivoFactura
 class ArchivoProducto
 {
 private:
-    char _nombre[15];
+    char _nombre[30];
     int _tamanioRegistro;
 public:
     ArchivoProducto(const char* n=ARCHIVO_PRODUCTOS);
@@ -86,7 +86,7 @@ public:
 class ArchivoUsuario
 {
     private:
-        char _nombre[15];
+        char _nombre[30];
         int _tamanioRegistro;
     public:
         ArchivoUsuario(const char* n=ARCHIVO_USUARIOS);

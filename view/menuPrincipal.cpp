@@ -20,7 +20,6 @@ void mostrarMenuPrincipal()
 
         rlutil::hidecursor();
 
-
         dibujarBordesMenuPrincipal(42,19);
         dibujarTituloPAXXER();
         dibujarBordesMenuPrincipal(42,10);
@@ -83,8 +82,7 @@ void mostrarMenuPrincipal()
                 if (resultado==IDOK)
                 {
                     rlutil::cls();
-                    mostrarInformes();
-                    //pantallaContrasenaI();
+                    pantallaContrasenaI();
                 }
 
                 break;
@@ -98,9 +96,7 @@ void mostrarMenuPrincipal()
                 if (resultado==IDOK)
                 {
                     rlutil::cls();
-                    mostrarConfiguraciones();
-                      //pantallaContrasenaC();
-
+                    pantallaContrasenaC();
                 }
                  break;
             }

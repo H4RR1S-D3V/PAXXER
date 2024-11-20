@@ -61,6 +61,8 @@
 		<Unit filename="view/pantallaCarta.cpp" />
 		<Unit filename="view/pantallaConfiguraciones.cpp" />
 		<Unit filename="view/pantallaContrasena.cpp" />
+		<Unit filename="view/pantallaDelivery.cpp" />
+		<Unit filename="view/pantallaDelivery.h" />
 		<Unit filename="view/pantallaInformes.cpp" />
 		<Unit filename="view/pantallaInformesRecaudaciones.cpp" />
 		<Unit filename="view/pantallaMapaMesas.cpp" />

@@ -83,7 +83,7 @@ class Producto
         const int getTipo();
         /// METHODS
         void Cargar();
-        void Mostrar();
+        void Mostrar(int posX, int posY);
 
 };
 
@@ -99,7 +99,7 @@ public:
     void ordenarVectores();
     float calcularPrecioTotal();
     void cargarProducto(int idProducto);
-    void quitarProducto(int pos, int cant);
+    bool quitarProducto(int id, int cant);
     void mostrarProductos();
 };
 
@@ -122,8 +122,9 @@ public:
     Factura& operator=(const Factura& otro);
     void actualizarImporteTotal();
     void cargarItem(int IdProducto);
-    void quitarItem(int pos, int cant);
-    void mostrarFactura();
+    bool quitarItem(int pos, int cant);
+    void mostrarFactura(int i);
+    void mostrarFacturaDetalle();
     void aplicarDescuento(int tipo, float descuento);
     ///setters
     void setId(int id);
@@ -180,11 +181,12 @@ public:
 class Delivery : public Mesa
 {
 private:
-    char _direccionEntrega[30]; /// CREAR CLASE DIRECCION
+    Domicilio _direccionEntrega; /// CREAR CLASE DIRECCION
     char _telefonoCliente[20];
     int _deliveryAsignado;
     int _horaEntrega;   // PASAR A HH:MM
     bool _entregado;
+    // ¿AGREGAR NOMBRE CLIENTE?
 
 public:
     /// SETTERS
