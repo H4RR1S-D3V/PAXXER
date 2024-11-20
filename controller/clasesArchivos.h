@@ -28,7 +28,21 @@ class ArchivoDelivery
         bool agregarRegistro(Delivery &obj);
         bool listarRegistros();
         Delivery leerRegistro(int pos);
-        bool actualizarRegstro(Delivery obj);
+        int contarRegistros();
+        int eliminarRegistro(int pos);
+};
+
+class ArchivoTakeAway
+{
+    private:
+        char _nombre[30];
+        int _tamanioRegistro;
+    public:
+        ArchivoTakeAway(const char* n=ARCHIVO_TAKEAWAY);
+        bool agregarRegistro(TakeAway &obj);
+        bool listarRegistros();
+        TakeAway leerRegistro(int pos);
+        bool actualizarRegstro(TakeAway obj);
         int contarRegistros();
         int eliminarRegistro(int pos);
 };
@@ -52,6 +66,7 @@ class ArchivoProducto
 {
 private:
     char _nombre[15];
+    int _tamanioRegistro;
 public:
     ArchivoProducto(const char* n=ARCHIVO_PRODUCTOS);
     bool agregarRegistro(Producto &obj);
@@ -66,6 +81,26 @@ public:
     void listarRegistrosPorNombre(const char *nombre);
     void listarRegistrosPorTipo(const int tipo);
    // void eliminarRegistro(int id);
+};
+
+class ArchivoUsuario
+{
+    private:
+        char _nombre[15];
+        int _tamanioRegistro;
+    public:
+        ArchivoUsuario(const char* n=ARCHIVO_USUARIOS);
+        bool agregarRegistro(Usuario &obj);
+        int buscarRegistro(int id);
+        int buscarRegistroDNI(char* DNI);
+        Usuario leerRegistro(int pos);
+        bool cambiarEstadoRegistro(int id);
+        int contarRegistros();
+        bool listarRegistros();
+        bool modificarNombreRegistro(const char *nombre, int id);
+        bool modificarDNIRegistro(const char *DNI , int id);
+        void listarRegistrosPorNombre(const char *nombre);
+        // void eliminarRegistro(int id);
 };
 
 #endif // CLASESARCHIVOS_H_INCLUDED

@@ -21,23 +21,23 @@ void mostrarMenuPrincipal()
         rlutil::hidecursor();
 
 
-        dibujarBordesMenuPrincipal(70,19);
+        dibujarBordesMenuPrincipal(42,19);
         dibujarTituloPAXXER();
-        dibujarBordesMenuPrincipal(70,10);
+        dibujarBordesMenuPrincipal(42,10);
         rlutil::setColor(rlutil::LIGHTCYAN);
-        rlutil::locate(95,21);
+        rlutil::locate(65,21);
         cout << "R    E    S    T    O   -   B    A    R";
         rlutil::setColor(rlutil::WHITE);
-        pintarOpciones("MESAS", 112, 24, y==0);
-        pintarOpciones("CARTA", 112, 26, y==2);
-        pintarOpciones("INFORMES", 111, 28, y==4);
-        pintarOpciones("CONFIGURACION", 108, 30, y==6);
-        pintarOpciones("SALIR", 112, 32, y==8);
+        pintarOpciones("MESAS", 84, 24, y==0);
+        pintarOpciones("CARTA", 84, 26, y==2);
+        pintarOpciones("INFORMES", 83, 28, y==4);
+        pintarOpciones("CONFIGURACION", 80, 30, y==6);
+        pintarOpciones("SALIR", 84, 32, y==8);
 
 
-        rlutil::locate(106,24+(y));
+        rlutil::locate(78,24+(y));
         cout << char (26);
-        rlutil::locate(122,24+(y));
+        rlutil::locate(95,24+(y));
         cout << char (27);
 
         int key=rlutil::getkey();
@@ -45,17 +45,17 @@ void mostrarMenuPrincipal()
         switch (key)
         {
         case 14:
-            rlutil::locate(106,24+(y));
+            rlutil::locate(78,24+(y));
             cout << " ";
-            rlutil::locate(122,24+(y));
+            rlutil::locate(95,24+(y));
             cout << " ";
             y -= 2;
             if (y < 0) y = 0;
             break;
         case 15:
-            rlutil::locate(106,24+(y));
+            rlutil::locate(78,24+(y));
             cout << " ";
-            rlutil::locate(122,24+(y));
+            rlutil::locate(95,24+(y));
             cout << " ";
             y += 2;
             if (y > 8) y = 8;

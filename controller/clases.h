@@ -35,6 +35,7 @@ private:
     tm* _local = localtime(&_now);
 public:
     int getHora();
+    int getMinutos();
     Fecha getFecha();
 
 };
@@ -65,7 +66,7 @@ class Producto
         int _id;
         char _nombre[50];
         float _precio;
-        bool _disponible;
+        bool _disponible = true;
         int _tipo; /// 1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida
     public:
         /// SETTERS
@@ -83,14 +84,6 @@ class Producto
         /// METHODS
         void Cargar();
         void Mostrar();
-/*
-class FacturaAux     /// ¿?
-{
-private:
-    vector <int> _vIDProductos;
-    vector <int> _vCantProductos;
-    vector <float> _vPrecioProductos;
-*/
 
 };
 
@@ -101,12 +94,7 @@ private:
     int _vCantPorProductos[30]{0};
     int _vPreciosProductos[30]{0};
 
-    /*vector<int> _vIdsProductos;
-    vector<int> _vCantPorProductos;
-    vector<float> _vPreciosProductos;*/
-
 public:
-    //controladorProductos();
     controladorProductos& operator=(const controladorProductos& otro);
     void ordenarVectores();
     float calcularPrecioTotal();
@@ -119,7 +107,6 @@ class Factura
 {
 private:
     int _id;
-    /// PRIMER CAMBIO (SE REMPLAZA EL VECTOR DE FACTURA POR 3 ARRAYS)
     controladorProductos _productos;
     Fecha _fecha = fechaActual();
     int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
@@ -137,15 +124,19 @@ public:
     void cargarItem(int IdProducto);
     void quitarItem(int pos, int cant);
     void mostrarFactura();
-    void cerrarFactura();
     void aplicarDescuento(int tipo, float descuento);
     ///setters
     void setId(int id);
+    void setTipo(const int tipo);
     void setIdEmpleado(int idEmpleado);
-    void setTurno(int hora);
+    void setTurno(string horaString);
+    void setImporteTotal(float monto);
+    void setImporteSubTotal(float monto);
+
     ///getters
     controladorProductos getProductos();
     float getImporteTotal();
+    float getImporteSubTotal();
     char getTipo();
     int getId();
 };
@@ -163,8 +154,8 @@ public:
     void cargarMesa();
     virtual void abrirMesa();
     void mostrarMesa();
-    void cerrarMesa();
     void setNumero(int numero);
+    virtual void cerrarMesa();
     bool getDisponibilidad();
     int getNumero();
     int getIdFactura();
@@ -173,7 +164,7 @@ public:
 class Local : public Mesa
 {
 private:
-    int _horaApertura;
+    string _horaApertura;
     int _empleadoAsignado;
     int _comensales;
 public:
@@ -182,6 +173,8 @@ public:
     void cargarLocal();
     void mostrarLocal();
     void abrirMesa();
+    void cerrarMesa();
+    void liberarMesa();
 };
 
 class Delivery : public Mesa
@@ -189,7 +182,7 @@ class Delivery : public Mesa
 private:
     char _direccionEntrega[30]; /// CREAR CLASE DIRECCION
     char _telefonoCliente[20];
-    char _deliveryAsignado[20];
+    int _deliveryAsignado;
     int _horaEntrega;   // PASAR A HH:MM
     bool _entregado;
 
@@ -201,20 +194,35 @@ public:
     /// METHODS
     Delivery();
     Delivery(int num);
+    void abrirMesa();
+    void cerrarMesa();
     void cargarDelivery();
     void mostrarDelivery();
     void entregarDelivery();
     void disminuirNumero();
 };
 
-class TakeAway : Mesa
+class TakeAway : public Mesa
 {
 private:
     int _horaRetiro;
     char _nombreCliente[50];
+    char _telefonoCliente[20];
+    bool _entregado;
 public:
+    /// SETTERS
+    void setNumero(int num);
+    /// GETTERS
+    int getNumero();
+    /// METHODS
+    TakeAway();
+    TakeAway(int num);
+    void abrirMesa();
+    void cerrarMesa();
     void cargarTakeAway();
     void mostrarTakeAway();
+    void entregarTakeAway();
+    void disminuirNumero();
 };
 
 class Usuario
@@ -222,63 +230,39 @@ class Usuario
 private:
     char _nombre[50];
     int _id;
-    int _dni;
+    char _dni[10];
+    bool _estado;
+    int _rol; /// 1- usuario 2-administrador
 public:
-    void cargar();
-    void mostrar();
+    Usuario();
+    Usuario(char* nombre, char* dni);
+    /// SETTERS
+    void setId(int id);
+    void setRol(int rol);
+    void setNombre(const char* nombre);
+    void setDNI(const char *DNI);
+    /// GETTERS
+    int getId();
+    char* getDNI();
+    int getRol();
+    bool getEstado();
+    const char* getNombre();
+    /// METHODS
+    void Cargar();
+    void Mostrar();
+    void cambiarEstado();
 };
 
 class Credencial
 {
 private:
-    int _dni;
+    char _dni[10];
     char _password[12];
-public:
-    void setPassword(char* newPassword[12]);
-    char* getPassword();
+    public:
+        /// SETTERS
+        void setPassword(const char* newPassword[12]);
+        /// GETTERS
+        const char* getPassword();
 };
-
-/*
-class Recaudacion
-{
-private:
-    Fecha _fecha;
-    int _turno;
-    int _id;
-    float _importeSubTotal;
-    float _importeFinal;
-    int _tipoMesa;
-    int _idEmpleado;
-    int _cantComensales;
-    int _IDFactura;  /// VINCULAR CON EL VECTOR DE Factura
-public:
-    /// SETTERS
-    void setFecha();
-    void setTurno(int turno);
-    void setId(int id);
-    void setImporteSubTotal(float importe);
-    void setImporteFinal(float importe);
-    void setTipoMesa(int tipoMesa);
-    void setIdEmpleado(int idEmpleado);
-    void setCantComensales(int cantidad);
-    void setIdFactura(int IDFactura);
-    /// GETTERS
-    Fecha getFecha();
-    int getAnio();
-    int getMes();
-    int getDia();
-    int getTurno();
-    int getId();
-    float getImporteSubTotal();
-    float getImporteFinal();
-    int getTipoMesa();
-    int getIdEmpleado();
-    int getCantComensales();
-    int getIdFactura();
-    /// METHODS
-    void Cargar();
-    void Mostrar();
-};
-*/
 
 

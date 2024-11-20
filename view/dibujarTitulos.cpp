@@ -7,736 +7,736 @@ using namespace std;
 void dibujarTituloPAXXER(){
     rlutil::setColor(rlutil::MAGENTA);
 ///INICIO DE LETRA P
-rlutil::locate (70,11);
+rlutil::locate (42,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,12);
+rlutil::locate (42,12);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,13);
+rlutil::locate (42,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,14);
+rlutil::locate (42,14);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,15);
+rlutil::locate (42,15);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,16);
+rlutil::locate (42,16);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,17);
+rlutil::locate (42,17);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (70,18);
+rlutil::locate (42,18);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
 
-rlutil::locate (74,11);
+rlutil::locate (46,11);
 cout<<char(219);
-rlutil::locate (74,12);
+rlutil::locate (46,12);
 cout<<char(219);
-rlutil::locate (74,13);
+rlutil::locate (46,13);
 cout<<char(219);
-rlutil::locate (74,14);
+rlutil::locate (46,14);
 cout<<char(219);
-rlutil::locate (74,15);
+rlutil::locate (46,15);
 cout<<char(219);
-rlutil::locate (74,16);
-cout<<char(219);
-
-rlutil::locate (74,18);
+rlutil::locate (46,16);
 cout<<char(219);
 
-rlutil::locate (75,11);
+rlutil::locate (46,18);
+cout<<char(219);
+
+rlutil::locate (47,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (75,12);
+rlutil::locate (47,12);
 cout<<char(219);
-rlutil::locate (75,13);
+rlutil::locate (47,13);
 cout<<char(219);
-rlutil::locate (75,14);
+rlutil::locate (47,14);
 cout<<char(219);
-rlutil::locate (75,15);
+rlutil::locate (47,15);
 cout<<char(219);
 
-rlutil::locate (75,16);
+rlutil::locate (47,16);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (76,17);
+rlutil::locate (48,17);
 cout<<char(223)<<char(223)<<char(223)<<char(223);
 
-rlutil::locate (80,11);
+rlutil::locate (52,11);
 cout<<char(219);
-rlutil::locate (80,12);
+rlutil::locate (52,12);
 cout<<char(219)<<char(219);
-rlutil::locate (80,13);
+rlutil::locate (52,13);
 cout<<char(219)<<char(219);
-rlutil::locate (80,14);
+rlutil::locate (52,14);
 cout<<char(219)<<char(219);
-rlutil::locate (80,15);
+rlutil::locate (52,15);
 cout<<char(219)<<char(219);
-rlutil::locate (80,16);
+rlutil::locate (52,16);
 cout<<char(219)<<char(219);
 ///FIN DE LETRA P
 
 ///COMIENZO LETRA A
-rlutil::locate (85,18);
+rlutil::locate (57,18);
 cout<<char(219)<<char(219)<<char(219);
-rlutil::locate (90,18);
+rlutil::locate (61,18);
 cout <<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (86,17);
+rlutil::locate (57,17);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (86,16);
+rlutil::locate (57,16);
 cout<<char(219)<<char(219);
-rlutil::locate (90,16);
+rlutil::locate (61,16);
 cout <<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (86,15);
+rlutil::locate (57,15);
 cout<<char(219)<<char(219);
-rlutil::locate (90,15);
+rlutil::locate (61,15);
 cout <<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (87,14);
+rlutil::locate (58,14);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (88,13);
+rlutil::locate (59,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (89,13);
+rlutil::locate (60,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (90,13);
+rlutil::locate (61,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (90,12);
+rlutil::locate (61,12);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (92,11);
+rlutil::locate (63,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 /// FIN LETRA A
 
-///COMIENZO LETRA X2
-rlutil::locate (122,11);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (116,11);
-cout<<char(219)<<char(219)<<char(219);
-rlutil::locate (122,12);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (118,12);
-cout<<char(219)<<char(219);
-rlutil::locate (119,13);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (119,16);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (120,14);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (120,15);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-
-rlutil::locate (117,17);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (125,17);
-cout<<char(219)<<char(219);
-rlutil::locate (116,18);
-cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (126,18);
-cout<<char(219)<<char(219)<<char(219);
-
 ///COMIENZO LETRA X1
-rlutil::locate (106,11);
+rlutil::locate (77,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (100,11);
+rlutil::locate (71,11);
 cout<<char(219)<<char(219)<<char(219);
-rlutil::locate (106,12);
+rlutil::locate (77,12);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (102,12);
+rlutil::locate (73,12);
 cout<<char(219)<<char(219);
-rlutil::locate (104,14);
+rlutil::locate (75,14);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (104,15);
+rlutil::locate (75,15);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (103,13);
+rlutil::locate (74,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (103,16);
+rlutil::locate (74,16);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (101,17);
+rlutil::locate (72,17);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (109,17);
+rlutil::locate (79,17);
 cout<<char(219)<<char(219);
-rlutil::locate (100,18);
+rlutil::locate (71,18);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (110,18);
+rlutil::locate (80,18);
+cout<<char(219)<<char(219)<<char(219);
+
+///COMIENZO LETRA X2
+rlutil::locate (93,11);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (87,11);
+cout<<char(219)<<char(219)<<char(219);
+rlutil::locate (93,12);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (89,12);
+cout<<char(219)<<char(219);
+rlutil::locate (90,13);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (90,16);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (91,14);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (91,15);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+
+rlutil::locate (88,17);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (95,17);
+cout<<char(219)<<char(219);
+rlutil::locate (87,18);
+cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
+rlutil::locate (96,18);
 cout<<char(219)<<char(219)<<char(219);
 
 ///COMIENZO LETRA E
-rlutil::locate (142,12);
+rlutil::locate (112,12);
 cout <<char(219)<<char(219)<<char(219);
-rlutil::locate (132,12);
+rlutil::locate (102,12);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (132,11);
+rlutil::locate (102,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (132,13);
+rlutil::locate (102,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (132,14);
+rlutil::locate (102,14);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (132,15);
+rlutil::locate (102,15);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (132,16);
+rlutil::locate (102,16);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (142,17);
+rlutil::locate (112,17);
 cout <<char(219)<<char(219)<<char(219);
-rlutil::locate (132,17);
+rlutil::locate (102,17);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (132,18);
+rlutil::locate (102,18);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 
 ///COMIENZO LETRA R
-rlutil::locate (148,11);
+rlutil::locate (118,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,12);
+rlutil::locate (118,12);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,13);
+rlutil::locate (118,13);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,14);
+rlutil::locate (118,14);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,15);
+rlutil::locate (118,15);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,16);
+rlutil::locate (118,16);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,17);
+rlutil::locate (118,17);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (148,18);
+rlutil::locate (118,18);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
 
-rlutil::locate (152,11);
+rlutil::locate (122,11);
 cout<<char(219);
-rlutil::locate (152,12);
+rlutil::locate (122,12);
 cout<<char(219);
-rlutil::locate (152,13);
+rlutil::locate (122,13);
 cout<<char(219);
-rlutil::locate (152,14);
+rlutil::locate (122,14);
 cout<<char(219);
-rlutil::locate (152,15);
+rlutil::locate (122,15);
 cout<<char(219);
-rlutil::locate (152,16);
-cout<<char(219);
-
-rlutil::locate (152,18);
+rlutil::locate (122,16);
 cout<<char(219);
 
-rlutil::locate (153,11);
+rlutil::locate (122,18);
+cout<<char(219);
+
+rlutil::locate (123,11);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (153,12);
+rlutil::locate (123,12);
 cout<<char(219);
-rlutil::locate (153,13);
+rlutil::locate (123,13);
 cout<<char(219);
-rlutil::locate (153,14);
+rlutil::locate (123,14);
 cout<<char(219);
-rlutil::locate (153,15);
+rlutil::locate (123,15);
 cout<<char(219);
 
-rlutil::locate (153,16);
+rlutil::locate (123,16);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 
-rlutil::locate (156,17);
+rlutil::locate (126,17);
 cout<<char(219)<<char(219)<<char(219);
-rlutil::locate (156,18);
+rlutil::locate (126,18);
 cout<<char(219)<<char(219)<<char(219)<<char(219);
 
-rlutil::locate (158,11);
+rlutil::locate (128,11);
 cout<<char(219);
-rlutil::locate (158,12);
+rlutil::locate (128,12);
 cout<<char(219)<<char(219);
-rlutil::locate (158,13);
+rlutil::locate (128,13);
 cout<<char(219)<<char(219);
-rlutil::locate (158,14);
+rlutil::locate (128,14);
 cout<<char(219)<<char(219);
-rlutil::locate (158,15);
+rlutil::locate (128,15);
 cout<<char(219)<<char(219);
-rlutil::locate (158,16);
+rlutil::locate (128,16);
 cout<<char(219)<<char(219);
 ///FIN LETRA R
 }
 
 void dibujarTituloNUESTRACARTA(){
-rlutil::locate (60,5);
+rlutil::locate (30,5);
 cout<<char(219);
-rlutil::locate (60,6);
+rlutil::locate (30,6);
 cout<<char(219);
-rlutil::locate (60,7);
+rlutil::locate (30,7);
 cout<<char(219);
-rlutil::locate (60,8);
+rlutil::locate (30,8);
 cout<<char(219);
-rlutil::locate (60,9);
+rlutil::locate (30,9);
 cout<<char(219);
-rlutil::locate (60,10);
-cout<<char(219);
-
-
-rlutil::locate (61,6);
-cout<<char(219);
-rlutil::locate (62,7);
-cout<<char(219);
-rlutil::locate (63,8);
-cout<<char(219);
-rlutil::locate (64,9);
-cout<<char(219);
-rlutil::locate (65,10);
+rlutil::locate (30,10);
 cout<<char(219);
 
-rlutil::locate (65,5);
+
+rlutil::locate (31,6);
 cout<<char(219);
-rlutil::locate (65,6);
+rlutil::locate (32,7);
 cout<<char(219);
-rlutil::locate (65,7);
+rlutil::locate (33,8);
 cout<<char(219);
-rlutil::locate (65,8);
+rlutil::locate (34,9);
 cout<<char(219);
-rlutil::locate (65,9);
+rlutil::locate (35,10);
 cout<<char(219);
-rlutil::locate (65,10);
+
+rlutil::locate (35,5);
+cout<<char(219);
+rlutil::locate (35,6);
+cout<<char(219);
+rlutil::locate (35,7);
+cout<<char(219);
+rlutil::locate (35,8);
+cout<<char(219);
+rlutil::locate (35,9);
+cout<<char(219);
+rlutil::locate (35,10);
 cout<<char(219);
 
 ///FIN LETRA N
 
-rlutil::locate (70,7);
+rlutil::locate (40,7);
 cout<<char(219);
-rlutil::locate (70,8);
+rlutil::locate (40,8);
 cout<<char(219);
-rlutil::locate (70,9);
+rlutil::locate (40,9);
 cout<<char(219);
-rlutil::locate (71,10);
+rlutil::locate (41,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 
-rlutil::locate (76,7);
+rlutil::locate (46,7);
 cout<<char(219);
-rlutil::locate (76,8);
+rlutil::locate (46,8);
 cout<<char(219);
-rlutil::locate (76,9);
+rlutil::locate (46,9);
 cout<<char(219);
 
 ///FIN LETRA U
 
-rlutil::locate (82,7);
+rlutil::locate (52,7);
 cout<<char(220)<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (82,8);
+rlutil::locate (52,8);
 cout<<char(220)<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (81,8);
+rlutil::locate (51,8);
 cout<<char(219);
-rlutil::locate (81,9);
+rlutil::locate (51,9);
 cout<<char(219);
-rlutil::locate (82,10);
+rlutil::locate (52,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 
 ///FIN LETRA E
 
-rlutil::locate (92,7);
+rlutil::locate (62,7);
 cout<<char(220)<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (92,8);
+rlutil::locate (62,8);
 cout<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (97,9);
+rlutil::locate (67,9);
 cout<<char(219);
-rlutil::locate (92,10);
+rlutil::locate (62,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 
 ///FIN LETRA S
 
-rlutil::locate (102,5);
+rlutil::locate (72,5);
 cout<<char(219);
-rlutil::locate (101,6);
+rlutil::locate (71,6);
 cout<<char(220)<<char(219)<<char(220)<<char(220)<<char(220);
-rlutil::locate (102,7);
+rlutil::locate (72,7);
 cout<<char(219);
-rlutil::locate (102,8);
+rlutil::locate (72,8);
 cout<<char(219);
-rlutil::locate (102,9);
+rlutil::locate (72,9);
 cout<<char(219);
-rlutil::locate (103,10);
+rlutil::locate (73,10);
 cout<<char(219)<<char(219)<<char(219);
 
 ///FIN LETRA T
 
-rlutil::locate (110,7);
+rlutil::locate (80,7);
 cout<<char(219)<<char(220)<<char(223)<<char(223)<<char(220);
-rlutil::locate (110,8);
+rlutil::locate (80,8);
 cout<<char(219);
-rlutil::locate (110,9);
+rlutil::locate (80,9);
 cout<<char(219);
-rlutil::locate (110,10);
+rlutil::locate (80,10);
 cout<<char(219);
 
 ///FIN DE LETRA R
-rlutil::locate (118,7);
+rlutil::locate (88,7);
 cout<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (117,8);
+rlutil::locate (87,8);
 cout<<char(219)<< " " << " " << " "<< char (219);
-rlutil::locate (117,9);
+rlutil::locate (87,9);
 cout<<char(219)<< " " << " " << " "<< char (219);
-rlutil::locate (118,10);
+rlutil::locate (88,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 ///FIN LETRA A
 
-rlutil::locate (131,5);
+rlutil::locate (101,5);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
-rlutil::locate (130,6);
+rlutil::locate (100,6);
 cout<<char(219);
-rlutil::locate (130,7);
+rlutil::locate (100,7);
 cout<<char(219);
-rlutil::locate (130,8);
+rlutil::locate (100,8);
 cout<<char(219);
-rlutil::locate (130,9);
+rlutil::locate (100,9);
 cout<<char(219);
-rlutil::locate (131,10);
+rlutil::locate (101,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 ///FIN LETRA C
 
-rlutil::locate (142,7);
+rlutil::locate (112,7);
 cout<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (141,8);
+rlutil::locate (111,8);
 cout<<char(219)<< " " << " " << " "<< char (219);
-rlutil::locate (141,9);
+rlutil::locate (111,9);
 cout<<char(219)<< " " << " " << " "<< char (219);
-rlutil::locate (142,10);
+rlutil::locate (112,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 ///FIN LETRA A
 
-rlutil::locate (151,7);
+rlutil::locate (121,7);
 cout<<char(219)<<char(220)<<char(223)<<char(223)<<char(220);
-rlutil::locate (151,8);
+rlutil::locate (121,8);
 cout<<char(219);
-rlutil::locate (151,9);
+rlutil::locate (121,9);
 cout<<char(219);
-rlutil::locate (151,10);
+rlutil::locate (121,10);
 cout<<char(219);
 
 ///FIN DE LETRA R
-rlutil::locate (161,5);
+rlutil::locate (131,5);
 cout<<char(219);
-rlutil::locate (160,6);
+rlutil::locate (130,6);
 cout<<char(220)<<char(219)<<char(220)<<char(220)<<char(220);
-rlutil::locate (161,7);
+rlutil::locate (131,7);
 cout<<char(219);
-rlutil::locate (161,8);
+rlutil::locate (131,8);
 cout<<char(219);
-rlutil::locate (161,9);
+rlutil::locate (131,9);
 cout<<char(219);
-rlutil::locate (162,10);
+rlutil::locate (132,10);
 cout<<char(219)<<char(219)<<char(219);
 ///FIN LETRA T
 
-rlutil::locate (171,7);
+rlutil::locate (141,7);
 cout<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (170,8);
+rlutil::locate (140,8);
 cout<<char(219)<< " " << " " << " "<< char (219);
-rlutil::locate (170,9);
+rlutil::locate (140,9);
 cout<<char(219)<< " " << " " << " "<< char (219);
-rlutil::locate (171,10);
+rlutil::locate (141,10);
 cout<<char(219)<<char(219)<<char(219)<<char(219)<<char(219);
 ///FIN LETRA A
 }
 
 void dibujarTituloINFORMES(){
 
-rlutil::locate (85,5);
+rlutil::locate (40,5);
 cout<<char(219)<<char(219);
-rlutil::locate (85,6);
+rlutil::locate (40,6);
 cout<<char(219)<<char(219);
-rlutil::locate (85,7);
+rlutil::locate (40,7);
 cout<<char(219)<<char(219);
-rlutil::locate (85,8);
-cout<<char(219)<<char(219);
-
-///
-rlutil::locate (93,5);
-cout<<char(219)<<char(219);
-rlutil::locate (93,6);
-cout<<char(219)<<char(219);
-rlutil::locate (93,7);
-cout<<char(219)<<char(219);
-rlutil::locate (93,8);
-cout<<char(219)<<char(219);
-
-rlutil::locate (94,5);
-cout<<char(219);
-rlutil::locate (95,6);
-cout<<char(219);
-rlutil::locate (96,7);
-cout<<char(219);
-rlutil::locate (97,8);
-cout<<char(219);
-
-rlutil::locate (98,5);
-cout<<char(219)<<char(219);
-rlutil::locate (98,6);
-cout<<char(219)<<char(219);
-rlutil::locate (98,7);
-cout<<char(219)<<char(219);
-rlutil::locate (98,8);
-cout<<char(219)<<char(219);
-///
-rlutil::locate (105,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223);
-rlutil::locate (105,6);
-cout<<char(219)<<char(219)<<char(220)<<char(220);
-rlutil::locate (105,7);
-cout<<char(219)<<char(219);
-rlutil::locate (105,8);
-cout<<char(219)<<char(219);
-///
-
-rlutil::locate (115,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(219)<<char(219);
-rlutil::locate (115,6);
-cout<<char(219)<<char(219);
-rlutil::locate (115,7);
-cout<<char(219)<<char(219);
-rlutil::locate (115,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
-
-rlutil::locate (120,6);
-cout<<char(219)<<char(219);
-rlutil::locate (120,7);
-cout<<char(219)<<char(219);
-///
-
-rlutil::locate (128,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(219);
-rlutil::locate (128,6);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(219);
-rlutil::locate (128,7);
-cout<<char(219)<<char(219);
-rlutil::locate (128,8);
-cout<<char(219)<<char(219);
-rlutil::locate (132,7);
-cout<<char(219)<<char(219);
-rlutil::locate (132,8);
-cout<<char(219)<<char(219);
-
-////
-
-rlutil::locate (140,5);
-cout<<char(219)<<char(219);
-rlutil::locate (140,6);
-cout<<char(219)<<char(219)<<char(219);
-rlutil::locate (140,7);
-cout<<char(219)<<char(219)<<" "<<char(219);
-rlutil::locate (140,8);
-cout<<char(219)<<char(219);
-
-rlutil::locate (145,5);
-cout<<char(219)<<char(219);
-rlutil::locate (144,6);
-cout<<char(219)<<char(219)<<char(219);
-rlutil::locate (145,7);
-cout<<char(219)<<char(219);
-rlutil::locate (145,8);
+rlutil::locate (40,8);
 cout<<char(219)<<char(219);
 
 ///
-rlutil::locate (153,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
-rlutil::locate (153,6);
-cout<<char(219)<<char(219)<<char(220)<<char(220);
-rlutil::locate (153,7);
-cout<<char(219)<<char(219);
-rlutil::locate (153,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220);
-
-///
-
-rlutil::locate (163,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
-rlutil::locate (163,6);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (167,7);
-cout<<char(219)<<char(219);
-rlutil::locate (163,8);
-cout<<char(220)<<char(220)<<char(220)<< char (220)<<char(219)<<char(219);
-
-}
-
-void dibujarTituloCONFIGURACIONES(){
 rlutil::locate (50,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
+cout<<char(219)<<char(219);
 rlutil::locate (50,6);
 cout<<char(219)<<char(219);
 rlutil::locate (50,7);
 cout<<char(219)<<char(219);
 rlutil::locate (50,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
-///FIN C
-rlutil::locate (60,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(219)<<char(219);
-rlutil::locate (60,6);
 cout<<char(219)<<char(219);
-rlutil::locate (60,7);
-cout<<char(219)<<char(219);
-rlutil::locate (60,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
 
-rlutil::locate (65,6);
+rlutil::locate (51,5);
+cout<<char(219);
+rlutil::locate (52,6);
+cout<<char(219);
+rlutil::locate (53,7);
+cout<<char(219);
+rlutil::locate (54,8);
+cout<<char(219);
+
+rlutil::locate (55,5);
 cout<<char(219)<<char(219);
+rlutil::locate (55,6);
+cout<<char(219)<<char(219);
+rlutil::locate (55,7);
+cout<<char(219)<<char(219);
+rlutil::locate (55,8);
+cout<<char(219)<<char(219);
+///
+rlutil::locate (65,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223);
+rlutil::locate (65,6);
+cout<<char(219)<<char(219)<<char(220)<<char(220);
 rlutil::locate (65,7);
 cout<<char(219)<<char(219);
-///FIN O
-rlutil::locate (70,5);
+rlutil::locate (65,8);
 cout<<char(219)<<char(219);
-rlutil::locate (70,6);
-cout<<char(219)<<char(219);
-rlutil::locate (70,7);
-cout<<char(219)<<char(219);
-rlutil::locate (70,8);
-cout<<char(219)<<char(219);
-
-rlutil::locate (71,5);
-cout<<char(219);
-rlutil::locate (72,6);
-cout<<char(219);
-rlutil::locate (73,7);
-cout<<char(219);
-rlutil::locate (74,8);
-cout<<char(219);
+///
 
 rlutil::locate (75,5);
-cout<<char(219)<<char(219);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(219)<<char(219);
 rlutil::locate (75,6);
 cout<<char(219)<<char(219);
 rlutil::locate (75,7);
 cout<<char(219)<<char(219);
 rlutil::locate (75,8);
-cout<<char(219)<<char(219);
-///FIN N
-rlutil::locate (80,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
+
 rlutil::locate (80,6);
-cout<<char(219)<<char(219)<<char(220)<<char(220);
+cout<<char(219)<<char(219);
 rlutil::locate (80,7);
 cout<<char(219)<<char(219);
-rlutil::locate (80,8);
+///
+
+rlutil::locate (88,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(219);
+rlutil::locate (88,6);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(219);
+rlutil::locate (88,7);
+cout<<char(219)<<char(219);
+rlutil::locate (88,8);
+cout<<char(219)<<char(219);
+rlutil::locate (92,7);
+cout<<char(219)<<char(219);
+rlutil::locate (92,8);
+cout<<char(219)<<char(219);
+
+////
+
+rlutil::locate (100,5);
+cout<<char(219)<<char(219);
+rlutil::locate (100,6);
+cout<<char(219)<<char(219)<<char(219);
+rlutil::locate (100,7);
+cout<<char(219)<<char(219)<<" "<<char(219);
+rlutil::locate (100,8);
+cout<<char(219)<<char(219);
+
+rlutil::locate (105,5);
+cout<<char(219)<<char(219);
+rlutil::locate (104,6);
+cout<<char(219)<<char(219)<<char(219);
+rlutil::locate (105,7);
+cout<<char(219)<<char(219);
+rlutil::locate (105,8);
+cout<<char(219)<<char(219);
+
+///
+rlutil::locate (113,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
+rlutil::locate (113,6);
+cout<<char(219)<<char(219)<<char(220)<<char(220);
+rlutil::locate (113,7);
+cout<<char(219)<<char(219);
+rlutil::locate (113,8);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220);
+
+///
+
+rlutil::locate (123,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
+rlutil::locate (123,6);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
+rlutil::locate (127,7);
+cout<<char(219)<<char(219);
+rlutil::locate (123,8);
+cout<<char(220)<<char(220)<<char(220)<< char (220)<<char(219)<<char(219);
+
+}
+
+void dibujarTituloCONFIGURACIONES(){
+rlutil::locate (20,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
+rlutil::locate (20,6);
+cout<<char(219)<<char(219);
+rlutil::locate (20,7);
+cout<<char(219)<<char(219);
+rlutil::locate (20,8);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
+///FIN C
+rlutil::locate (30,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(219)<<char(219);
+rlutil::locate (30,6);
+cout<<char(219)<<char(219);
+rlutil::locate (30,7);
+cout<<char(219)<<char(219);
+rlutil::locate (30,8);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
+
+rlutil::locate (35,6);
+cout<<char(219)<<char(219);
+rlutil::locate (35,7);
+cout<<char(219)<<char(219);
+///FIN O
+rlutil::locate (40,5);
+cout<<char(219)<<char(219);
+rlutil::locate (40,6);
+cout<<char(219)<<char(219);
+rlutil::locate (40,7);
+cout<<char(219)<<char(219);
+rlutil::locate (40,8);
+cout<<char(219)<<char(219);
+
+rlutil::locate (41,5);
+cout<<char(219);
+rlutil::locate (42,6);
+cout<<char(219);
+rlutil::locate (43,7);
+cout<<char(219);
+rlutil::locate (44,8);
+cout<<char(219);
+
+rlutil::locate (45,5);
+cout<<char(219)<<char(219);
+rlutil::locate (45,6);
+cout<<char(219)<<char(219);
+rlutil::locate (45,7);
+cout<<char(219)<<char(219);
+rlutil::locate (45,8);
+cout<<char(219)<<char(219);
+///FIN N
+rlutil::locate (50,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223);
+rlutil::locate (50,6);
+cout<<char(219)<<char(219)<<char(220)<<char(220);
+rlutil::locate (50,7);
+cout<<char(219)<<char(219);
+rlutil::locate (50,8);
 cout<<char(219)<<char(219);
 ///FIN F
-rlutil::locate (88,5);
+rlutil::locate (58,5);
 cout<<char(219)<<char(219);
-rlutil::locate (88,6);
+rlutil::locate (58,6);
+cout<<char(219)<<char(219);
+rlutil::locate (58,7);
+cout<<char(219)<<char(219);
+rlutil::locate (58,8);
+cout<<char(219)<<char(219);
+///FIN I
+rlutil::locate (64,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
+rlutil::locate (64,6);
+cout<<char(219)<<char(219);
+rlutil::locate (64,7);
+cout<<char(219)<<char(219)<< " " << " " << char (223)<< char (219);
+rlutil::locate (64,8);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219);
+///FIN G
+rlutil::locate (74,5);
+cout<<char(219)<<char(219)<< " " << " " << " " <<char(219)<<char(219);
+rlutil::locate (74,6);
+cout<<char(219)<<char(219);
+rlutil::locate (74,7);
+cout<<char(219)<<char(219);
+rlutil::locate (74,8);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
+
+rlutil::locate (79,6);
+cout<<char(219)<<char(219);
+rlutil::locate (79,7);
+cout<<char(219)<<char(219);
+///FIN U
+rlutil::locate (84,5);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(219);
+rlutil::locate (84,6);
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(219);
+rlutil::locate (84,7);
+cout<<char(219)<<char(219);
+rlutil::locate (84,8);
 cout<<char(219)<<char(219);
 rlutil::locate (88,7);
 cout<<char(219)<<char(219);
 rlutil::locate (88,8);
 cout<<char(219)<<char(219);
-///FIN I
+///FIN R
 rlutil::locate (94,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
-rlutil::locate (94,6);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
+rlutil::locate(94,6);
 cout<<char(219)<<char(219);
 rlutil::locate (94,7);
-cout<<char(219)<<char(219)<< " " << " " << char (223)<< char (219);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
 rlutil::locate (94,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219);
-///FIN G
+cout<<char(219)<<char(219);
+
+rlutil::locate (99,5);
+cout<<char(219)<<char(219);
+rlutil::locate (99,6);
+cout<<char(219)<<char(219);
+rlutil::locate (99,7);
+cout<<char(219)<<char(219);
+rlutil::locate (99,8);
+cout<<char(219)<<char(219);
+///FIN A
 rlutil::locate (104,5);
-cout<<char(219)<<char(219)<< " " << " " << " " <<char(219)<<char(219);
+cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
 rlutil::locate (104,6);
 cout<<char(219)<<char(219);
 rlutil::locate (104,7);
 cout<<char(219)<<char(219);
 rlutil::locate (104,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
-
-rlutil::locate (109,6);
-cout<<char(219)<<char(219);
-rlutil::locate (109,7);
-cout<<char(219)<<char(219);
-///FIN U
+cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
+///FIN C
 rlutil::locate (114,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(219);
+cout<<char(219)<<char(219);
 rlutil::locate (114,6);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(219);
+cout<<char(219)<<char(219);
 rlutil::locate (114,7);
 cout<<char(219)<<char(219);
 rlutil::locate (114,8);
 cout<<char(219)<<char(219);
-rlutil::locate (118,7);
-cout<<char(219)<<char(219);
-rlutil::locate (118,8);
-cout<<char(219)<<char(219);
-///FIN R
-rlutil::locate (124,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
-rlutil::locate(124,6);
-cout<<char(219)<<char(219);
-rlutil::locate (124,7);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
-rlutil::locate (124,8);
-cout<<char(219)<<char(219);
-
-rlutil::locate (129,5);
-cout<<char(219)<<char(219);
-rlutil::locate (129,6);
-cout<<char(219)<<char(219);
-rlutil::locate (129,7);
-cout<<char(219)<<char(219);
-rlutil::locate (129,8);
-cout<<char(219)<<char(219);
-///FIN A
-rlutil::locate (134,5);
-cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
-rlutil::locate (134,6);
-cout<<char(219)<<char(219);
-rlutil::locate (134,7);
-cout<<char(219)<<char(219);
-rlutil::locate (134,8);
-cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
-///FIN C
-rlutil::locate (144,5);
-cout<<char(219)<<char(219);
-rlutil::locate (144,6);
-cout<<char(219)<<char(219);
-rlutil::locate (144,7);
-cout<<char(219)<<char(219);
-rlutil::locate (144,8);
-cout<<char(219)<<char(219);
 ///FIN I
-rlutil::locate (150,5);
+rlutil::locate (120,5);
 cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(219)<<char(219);
-rlutil::locate (150,6);
+rlutil::locate (120,6);
 cout<<char(219)<<char(219);
-rlutil::locate (150,7);
+rlutil::locate (120,7);
 cout<<char(219)<<char(219);
-rlutil::locate (150,8);
+rlutil::locate (120,8);
 cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(219)<<char(219);
 
-rlutil::locate (155,6);
+rlutil::locate (125,6);
 cout<<char(219)<<char(219);
-rlutil::locate (155,7);
+rlutil::locate (125,7);
 cout<<char(219)<<char(219);
 ///FIN O
-rlutil::locate (160,5);
+rlutil::locate (130,5);
 cout<<char(219)<<char(219);
-rlutil::locate (160,6);
+rlutil::locate (130,6);
 cout<<char(219)<<char(219);
-rlutil::locate (160,7);
+rlutil::locate (130,7);
 cout<<char(219)<<char(219);
-rlutil::locate (160,8);
+rlutil::locate (130,8);
 cout<<char(219)<<char(219);
 
-rlutil::locate (161,5);
+rlutil::locate (131,5);
 cout<<char(219);
-rlutil::locate (162,6);
+rlutil::locate (132,6);
 cout<<char(219);
-rlutil::locate (163,7);
+rlutil::locate (133,7);
 cout<<char(219);
-rlutil::locate (164,8);
+rlutil::locate (134,8);
 cout<<char(219);
 
-rlutil::locate (165,5);
+rlutil::locate (135,5);
 cout<<char(219)<<char(219);
-rlutil::locate (165,6);
+rlutil::locate (135,6);
 cout<<char(219)<<char(219);
-rlutil::locate (165,7);
+rlutil::locate (135,7);
 cout<<char(219)<<char(219);
-rlutil::locate (165,8);
+rlutil::locate (135,8);
 cout<<char(219)<<char(219);
 ///FIN N
-rlutil::locate (170,5);
+rlutil::locate (140,5);
 cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223);
-rlutil::locate (170,6);
+rlutil::locate (140,6);
 cout<<char(219)<<char(219)<<char(220)<<char(220);
-rlutil::locate (170,7);
+rlutil::locate (140,7);
 cout<<char(219)<<char(219);
-rlutil::locate (170,8);
+rlutil::locate (140,8);
 cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220);
 ///FIN E
-rlutil::locate (178,5);
+rlutil::locate (148,5);
 cout<<char(219)<<char(219)<<char(223)<<char(223)<<char(223)<<char(223);
-rlutil::locate (178,6);
+rlutil::locate (148,6);
 cout<<char(219)<<char(219)<<char(220)<<char(220)<<char(220)<<char(220);
-rlutil::locate (182,7);
+rlutil::locate (152,7);
 cout<<char(219)<<char(219);
-rlutil::locate (178,8);
+rlutil::locate (148,8);
 cout<<char(220)<<char(220)<<char(220)<< char (220)<<char(219)<<char(219);
 ///FIN S
 }
