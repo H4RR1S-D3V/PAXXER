@@ -36,6 +36,7 @@ int main()
     arc.setearCantMesas(10);
 
 
+
     //ArchivoFactura arc;
     //arc.listarRegistros();
 

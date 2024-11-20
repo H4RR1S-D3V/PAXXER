@@ -8,6 +8,7 @@ using namespace std;
 #include "funcionesDibujar.h"
 #include "declaracionOpcionesConfiguraciones.h"
 #include "../controller/clasesArchivos.h"
+#include "menuPrincipal.h"
 
 
 void mostrarConfiguraciones()
@@ -89,6 +90,7 @@ void mostrarConfiguraciones()
             case 6:
                 rlutil::cls();
                 salir=false;
+                mostrarMenuPrincipal();
                 break;
 
 
