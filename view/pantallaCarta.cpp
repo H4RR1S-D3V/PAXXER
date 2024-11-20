@@ -15,16 +15,17 @@ void mostrarCarta()
     do
     {
   rlutil::setColor(rlutil::BROWN);
-        dibujarBordeSyI(44,12);
-           dibujarBordeSyI(44,14);
+        dibujarBordeSyI(11,12);
+           dibujarBordeSyI(11,14);
              rlutil::setColor(rlutil::CYAN);
-        rlutil::locate (95,13);
+        rlutil::locate (65,13);
         cout << "P       A       X       X       E       R";
 
         rlutil::setColor(rlutil::MAGENTA);
         dibujarTituloNUESTRACARTA();
         rlutil::setColor(rlutil::WHITE);
-        dibujarBordeSyI(44,20);
+        ///VERIFICAR SI ES POSIBLE DIBUJAR ESTOS BORDES DE FORMA DINAMICA
+      /*  dibujarBordeSyI(44,20);
         dibujarBordeSyI(44,22);
         ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
         dibujarBordesDeI(43,21,20);
@@ -39,26 +40,26 @@ void mostrarCarta()
         rlutil::locate (165,21);
         cout<< "PRECIO";
         rlutil::locate (185,21);
-        cout<< "ESTADO";
+        cout<< "ESTADO";*/
 
-        rlutil:: locate (89+(x),17);
+        rlutil:: locate (41+(x),17);
         cout << char (16);
-        pintarOpciones("VOLVER AL MENU PRINCIPAL",90,17, x==0);
-        pintarOpciones("IR A CONFIGURACIONES DE CARTA",120,17, x==30);
+        pintarOpciones("VOLVER AL MENU PRINCIPAL",42,17, x==0);
+        pintarOpciones("IR A CONFIGURACIONES DE CARTA",92,17, x==50);
 
          int key=rlutil::getkey();
         switch(key){
         case 17:
-           rlutil:: locate (89+(x),17);
+           rlutil:: locate (41+(x),17);
             cout << " ";
-            x+=30;
-            if (x>30) x=30;
+            x+=50;
+            if (x>50) x=50;
 
             break;
         case 16:
-             rlutil:: locate (89+(x),17);
+             rlutil:: locate (41+(x),17);
             cout << " ";
-            x-=30;
+            x-=50;
             if (x<0) x=0;
             break;
 
@@ -69,7 +70,7 @@ void mostrarCarta()
             rlutil::cls();
             salir=false;
             break;
-        case 30:
+        case 50:
             int resultado=MessageBox(NULL,"¿Desea ingresar su contraseña de Encargado?","INGRESO RESTRINGIDO - SOLO ENCARGADOS",MB_OKCANCEL|MB_ICONINFORMATION);
                 if (resultado==IDOK)
                 {

@@ -115,7 +115,7 @@ bool ArchivoDelivery::agregarRegistro(Delivery &obj)
     {
         return 0;
     }
-    bool escribio = fwrite(&obj, sizeof(Delivery), 1, p) == 1;
+    bool escribio = fwrite(&obj, _tamanioRegistro, 1, p) == 1;
     fclose(p);
     return escribio;
 }
@@ -150,26 +150,29 @@ Delivery ArchivoDelivery::leerRegistro(int pos)
         obj.setNumero(-2);
         return obj;
     }
-    obj.setNumero(pos+1); // ?
-    fseek(p, sizeof obj * pos, 0);
+    obj.setNumero(pos+1); //
+    fseek(p, _tamanioRegistro * pos, 0);
     fread(&obj, sizeof obj, 1, p);
     fclose(p);
     return obj;
 }
-
-bool ArchivoDelivery::actualizarRegstro(Delivery obj)
+/*
+bool ArchivoDelivery::actualizarEstado(int pos);
 {
     FILE *p;
+    Delivery obj;
     p = fopen(_nombre, "rb+");
     if(p == nullptr)
     {
         return false;
     }
-    fseek(p, _tamanioRegistro * (obj.getNumero()-1), 0);
+
+    fseek(p, _tamanioRegistro * pos, 0);
     bool escribio = fwrite(&obj, _tamanioRegistro, 1, p) == 1;
     fclose(p);
     return escribio;
 }
+*/
 
 int ArchivoDelivery::contarRegistros()
 {
@@ -240,6 +243,147 @@ int ArchivoDelivery::eliminarRegistro(int pos)
 
 /// FIN ARCHIVO DELIVERY
 
+/// ARCHIVO TAKEAWAY
+
+ArchivoTakeAway::ArchivoTakeAway(const char* n)
+{
+    strcpy(_nombre, n);
+    _tamanioRegistro = sizeof(TakeAway);
+}
+
+bool ArchivoTakeAway::agregarRegistro(TakeAway &obj)
+{
+    FILE *p;
+    p = fopen(_nombre, "ab");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    bool escribio = fwrite(&obj, sizeof(TakeAway), 1, p) == 1;
+    fclose(p);
+    return escribio;
+}
+
+bool ArchivoTakeAway::listarRegistros()
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return false;
+    }
+    TakeAway obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        obj.mostrarTakeAway();
+    }
+    fclose(p);
+    return true;
+}
+
+TakeAway ArchivoTakeAway::leerRegistro(int pos)
+{
+    FILE *p;
+    TakeAway obj;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        obj.setNumero(-2);
+        return obj;
+    }
+    obj.setNumero(pos+1); // ?
+    fseek(p, sizeof obj * pos, 0);
+    fread(&obj, sizeof obj, 1, p);
+    fclose(p);
+    return obj;
+}
+
+bool ArchivoTakeAway::actualizarRegstro(TakeAway obj)
+{
+    FILE *p;
+    p = fopen(_nombre, "rb+");
+    if(p == nullptr)
+    {
+        return false;
+    }
+    fseek(p, _tamanioRegistro * (obj.getNumero()-1), 0);
+    bool escribio = fwrite(&obj, _tamanioRegistro, 1, p) == 1;
+    fclose(p);
+    return escribio;
+}
+
+int ArchivoTakeAway::contarRegistros()
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    fseek(p, 0, 2);
+    int tam = ftell(p);
+    fclose(p);
+    return tam/sizeof(TakeAway);
+}
+
+int ArchivoTakeAway::eliminarRegistro(int pos)
+{
+    /// LEER EL ARCHIVO PARA GUARDAR LOS REGISTROS EN UN ARRAY
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    int cantRegistros = contarRegistros();
+
+    if(pos > cantRegistros)
+    {
+        return -2;
+    }
+
+    TakeAway *vBackUpRegistros = new TakeAway[cantRegistros];
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        vBackUpRegistros[i] = leerRegistro(i);
+    }
+    fclose(p);
+
+    /// ENCONTRAR EL REGISTRO A ALIMINAR Y OBVIARLO
+
+    p = fopen(_nombre, "wb");
+    if(p == nullptr)
+    {
+        return -3;
+    }
+
+    // REGISTROS ANTES DEL ELIMINADO (NO CAMBIAN)
+    int j = 0;
+    while(j < pos-1)
+    {
+        agregarRegistro(vBackUpRegistros[j]);
+        j++;
+    }
+    // SE SALTEA EL REGISTRO A ELIMINAR
+
+    // SE LES DISMINUYE EN UN EL NUMERO A LOS REGISTROS SIGUIENTES Y SE GUARDAN
+    for(int k=j+1; k<cantRegistros; k++)
+    {
+        vBackUpRegistros[k].disminuirNumero();
+        agregarRegistro(vBackUpRegistros[k]);
+    }
+
+    delete vBackUpRegistros;
+    fclose(p);
+    return 1;
+}
+
+/// FIN ARCHIVO TakeAway
+
 /// ARCHIVO FACTURA
 
 ArchivoFactura::ArchivoFactura(const char* n)
@@ -295,7 +439,6 @@ int ArchivoFactura::contarRegistros()
 
 bool ArchivoFactura::listarRegistros()
 {
-    cout<< "a";
     FILE *p;
     Factura factura;
     p=fopen(_nombre, "rb");
@@ -347,32 +490,28 @@ bool ArchivoFactura::actualizarRegistro(Factura factura)
     int pos = arc.buscarRegistro(factura.getId());
 
     FILE *p;
-    p=fopen(_nombre, "rb+");
-    if(p==NULL)
+    p = fopen(_nombre, "rb+");
+    if(p == nullptr)
     {
         return false;
     }
-    fseek(p, _tamanioRegistro * pos , 0);
+    fseek(p, _tamanioRegistro * pos, 0);
     bool escribio=fwrite(&factura, _tamanioRegistro,1, p);
     fclose(p);
     return escribio;
 }
 
-
+/// FIN ARCHIVO FACTURA
 
 /// ARCHIVO PRODUCTO
 
-ArchivoProducto::ArchivoProducto(const char* nombre)
-{
-    strcpy(_nombre, nombre);
-}
 /*
 void ArchivoProducto::eliminarRegistro(int id)
 {
     // AUN NO LISTO
     // ELIMINA TODO EL ARCHIVO
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "wb");
+    p = fopen(_nombre, "wb");
     if(p == nullptr)
     {
         return;
@@ -393,10 +532,14 @@ void ArchivoProducto::eliminarRegistro(int id)
     fclose(p);
 }
 */
+ArchivoProducto::ArchivoProducto(const char* nombre)
+{
+    strcpy(_nombre, nombre);
+}
 void ArchivoProducto::listarRegistrosPorTipo(const int tipo)
 {
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb");
+    p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         return;
@@ -417,7 +560,7 @@ void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
 {
     // PROBAR IMPLEMENTAR GETCHAR() O GETCH() PARA ACTUALIZAR EN TIEMPO REAL
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb");
+    p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         return;
@@ -437,7 +580,7 @@ void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
 bool ArchivoProducto::modificarTipoRegistro(const int tipo, int id)
 {
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb+");
+    p = fopen(_nombre, "rb+");
     if(p == nullptr)
     {
         return 0;
@@ -457,7 +600,7 @@ bool ArchivoProducto::modificarTipoRegistro(const int tipo, int id)
 bool ArchivoProducto::modificarNombreRegistro(const char *nombre, int id)
 {
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb+");
+    p = fopen(_nombre, "rb+");
     if(p == nullptr)
     {
         return 0;
@@ -476,7 +619,7 @@ bool ArchivoProducto::modificarNombreRegistro(const char *nombre, int id)
 
 int ArchivoProducto::contarRegistros()
 {
-    FILE *p = fopen(ARCHIVO_PRODUCTOS, "rb");
+    FILE *p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         return -1;
@@ -489,7 +632,7 @@ int ArchivoProducto::contarRegistros()
 
 bool ArchivoProducto::listarRegistros()
 {
-    FILE *p = fopen(ARCHIVO_PRODUCTOS, "rb");
+    FILE *p = fopen(_nombre, "rb");
 
     if(p==nullptr)
     {
@@ -516,7 +659,7 @@ bool ArchivoProducto::cambiarEstadoRegistro(int id)
     int pos = buscarRegistroPorId(id);
     Producto obj;
 
-    FILE* p = fopen(ARCHIVO_PRODUCTOS, "rb+");
+    FILE* p = fopen(_nombre, "rb+");
     if(p == nullptr)
     {
         return 0;
@@ -534,7 +677,7 @@ bool ArchivoProducto::cambiarEstadoRegistro(int id)
 int ArchivoProducto::buscarRegistroPorId(int id)
 {
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb");
+    p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         return -1;
@@ -556,7 +699,7 @@ int ArchivoProducto::buscarRegistroPorId(int id)
 bool ArchivoProducto::modificarPrecioRegistro(float precio, int id)
 {
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb+");
+    p = fopen(_nombre, "rb+");
     if(p == nullptr)
     {
         return 0;
@@ -576,7 +719,7 @@ bool ArchivoProducto::modificarPrecioRegistro(float precio, int id)
 bool ArchivoProducto::agregarRegistro(Producto &obj)
 {
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "ab");
+    p = fopen(_nombre, "ab");
     if(p == nullptr)
     {
         return 0;
@@ -591,7 +734,7 @@ Producto ArchivoProducto::leerRegistro(int pos)
     Producto obj;
 
     FILE *p;
-    p = fopen(ARCHIVO_PRODUCTOS, "rb");
+    p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         obj.setId(-1);
@@ -602,3 +745,212 @@ Producto ArchivoProducto::leerRegistro(int pos)
     fclose(p);
     return obj;
 }
+/// FIN ARCHIVO PRODUCTOS
+
+/// ARCHIVO USUARIOS
+
+ArchivoUsuario::ArchivoUsuario(const char* nombre)
+{
+    strcpy(_nombre, nombre);
+    _tamanioRegistro=sizeof(Usuario);
+}
+
+bool ArchivoUsuario::agregarRegistro(Usuario &obj)
+{
+    FILE *p;
+    p = fopen(_nombre, "ab");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    bool escribio = fwrite(&obj, _tamanioRegistro, 1, p);
+    fclose(p);
+    return escribio;
+}
+
+Usuario ArchivoUsuario::leerRegistro(int pos)
+{
+    Usuario obj;
+
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        obj.setId(-1);
+        return obj;
+    }
+    fseek(p, _tamanioRegistro * pos, 0);
+    fread(&obj, _tamanioRegistro, 1, p);
+    fclose(p);
+    return obj;
+}
+
+int ArchivoUsuario::contarRegistros()
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -1;
+    }
+    fseek(p, 0, 2);
+    int tam = ftell(p);
+    fclose(p);
+    return tam/_tamanioRegistro;
+}
+
+bool ArchivoUsuario::listarRegistros()
+{
+    FILE *p;
+    Usuario obj;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return false;
+    }
+
+    while(fread(&obj, _tamanioRegistro, 1, p)==1)
+    {
+        obj.Mostrar();
+        cout << endl;
+    }
+    fclose(p);
+    return true;
+}
+
+int ArchivoUsuario::buscarRegistro(int id)
+{
+    FILE *p;
+    Usuario obj;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -2;
+    }
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getId() == id)
+        {
+            fclose(p);
+            return i;
+        }
+    }
+    fclose(p);
+    return -1;
+}
+
+int ArchivoUsuario::buscarRegistroDNI(char* DNI)
+{
+    FILE *p;
+    Usuario obj;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -2;
+    }
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(strcmp(obj.getDNI(), DNI))
+        {
+            fclose(p);
+            return i;
+        }
+    }
+    fclose(p);
+    return -1;
+}
+
+bool ArchivoUsuario::cambiarEstadoRegistro(int id)
+{
+    int pos = buscarRegistro(id);
+    Usuario obj;
+
+    FILE* p = fopen(_nombre, "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    obj = leerRegistro(pos);
+    obj.cambiarEstado();
+
+    fseek(p, _tamanioRegistro * pos, 0);
+    bool modifico = fwrite(&obj, _tamanioRegistro, 1, p);
+    fclose(p);
+    return modifico;
+}
+
+bool ArchivoUsuario::modificarNombreRegistro(const char *nombre, int id)
+{
+    FILE *p;
+    p = fopen(_nombre, "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    Usuario obj;
+    int pos = buscarRegistro(id);
+
+    obj = leerRegistro(pos);
+    obj.setNombre(nombre);
+
+    fseek(p, _tamanioRegistro * pos, 0);
+    bool modifico = fwrite(&obj, _tamanioRegistro, 1, p);
+    fclose(p);
+    return modifico;
+}
+
+bool ArchivoUsuario::modificarDNIRegistro(const char *DNI, int id)
+{
+    FILE *p;
+    p = fopen(_nombre, "rb+");
+    if(p == nullptr)
+    {
+        return 0;
+    }
+    Usuario obj;
+    int pos = buscarRegistro(id);
+
+    obj = leerRegistro(pos);
+    obj.setDNI(DNI);
+
+    fseek(p, _tamanioRegistro * pos, 0);
+    bool modifico = fwrite(&obj, _tamanioRegistro, 1, p) == 1;
+    fclose(p);
+    return modifico;
+}
+
+void ArchivoUsuario::listarRegistrosPorNombre(const char *nombre)
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return;
+    }
+
+    Usuario obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        fread(&obj, _tamanioRegistro, 1, p);
+        if(strstr(obj.getNombre(), nombre))
+        {
+            cout << "---------------" << endl;
+            obj.Mostrar();
+        }
+    }
+}
+/*
+    CAMBIAR ROL
+    TRAER POR ROL
+*/
+
+
+/// FIN ARCHIVO USUARIOS

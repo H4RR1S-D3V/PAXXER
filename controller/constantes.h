@@ -12,3 +12,5 @@ const char ARCHIVO_PRODUCTOS[40] = "model/productos.dat";
 const char ARCHIVO_FACTURAS[40] = "model/facturas.dat";
 const char ARCHIVO_MESAS_LOCAL[40] = "model/mesasLocal.dat";
 const char ARCHIVO_DELIVERY[40] = "model/deliveries.dat";
+const char ARCHIVO_TAKEAWAY[30] = "takeaway.dat";
+const char ARCHIVO_USUARIOS[30] = "usuarios.dat";

@@ -1,6 +1,8 @@
 #pragma once
 #include "clases.h"
 
-int horaActual();
+string horaActual();
 
 Fecha fechaActual();
+
+void cargarCadena(char *pal, int tam);

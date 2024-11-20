@@ -1,8 +1,14 @@
-
-
+#include <iostream>
+#include <string>
+#include <cstring>
 #include "clases.h"
 #include "funciones.h"
 #include "clasesArchivos.h"
+#include "../rlutil.h"
+#include "../view/funcionesDibujar.h"
+#include "../view/pantallasMenuPrincipal.h"
+#include <cctype>
+
 
 
 /// CLASES AUXILIARES
@@ -53,6 +59,10 @@ int Tiempo::getHora()
     return _local->tm_hour;
 }
 
+int Tiempo::getMinutos()
+{
+    return _local->tm_min;
+}
 
 Fecha Tiempo::getFecha()
 {
@@ -67,28 +77,19 @@ Fecha Tiempo::getFecha()
 void Domicilio::Cargar()
 {
     cout << "CALLE: ";
-    cin.getline(_calle, 20);
+    cargarCadena(_calle, 20);
 
     cout << "ALTURA: ";
     cin >> _altura;
 
-    cin.ignore();
-
     cout << "LOCALIDAD: ";
-    cin.getline(_localidad, 20);
+    cargarCadena(_localidad, 20);
 }
 
 void Domicilio::Mostrar()
 {
     cout << _calle << " " << _altura << " - " << _localidad << endl;
 }
-
-/// CLASE AUXILIAR CONTROLADOR DE VECTORES DE PRODUCTOS
-/*
-controladorProductos::controladorProductos()
-    : _vIdsProductos(_tamanio, 0), _vCantPorProductos(_tamanio, 0), _vPreciosProductos(_tamanio, 0.0f) {}
-
-*/
 
 
 void controladorProductos::ordenarVectores()
@@ -102,7 +103,7 @@ void controladorProductos::ordenarVectores()
             _vIdsProductos[pos] = _vIdsProductos[i];
             _vCantPorProductos[pos] = _vCantPorProductos[i];
             _vPreciosProductos[pos] = _vPreciosProductos[i];
-            ++pos;
+            pos++;
         }
     }
     // LLENAR CON CEROS DESDE POS HASTA EL FINAL
@@ -217,6 +218,8 @@ Mesa::Mesa(int numero)
 }
 
 void Mesa::abrirMesa(){}
+void Mesa::cerrarMesa(){}
+
 
 void Mesa::cargarMesa()
 {
@@ -224,26 +227,21 @@ void Mesa::cargarMesa()
     _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
     /// GENERAR Factura Y ASIGNARLO
 
-   /* _idFactura = generarId(3);
+    _idFactura = generarId(3);
     Factura obj(_idFactura);
 
     ArchivoFactura arc;
 
-    arc.agregarRegistro(obj);*/
+    arc.agregarRegistro(obj);
 }
 
 void Mesa::mostrarMesa()
 {
-    cout << "N� " << _numero << endl;
+    ///METODO INNECESARIO??
+    ///cout << "N� " << _numero << endl;
 
     // SETEAR COLOR Y FUNCIONALIDADES SEGUN DISPONBLE
     /// DIBUJAR()
-}
-
-void Mesa::cerrarMesa()
-{
-    // ENTRAR AL ARCHIVO Y LIMPIAR EL REGISTRO
-    _disponible = true;
 }
 
 void Mesa::setNumero(int numero)
@@ -286,48 +284,192 @@ void Local::cargarLocal()
     Factura obj;
     cargarMesa();
 
-
+    /*
     // CUANDO SE ABRE POR PRIMERA VEZ
     cout << "INGRESE EL ID EL CAMARERO ASIGNADO: ";
     cin >> _empleadoAsignado;
 
     cout << "INGRESE LA CANTIDAD DE COMENSALES: ";
     cin >> _comensales;
+    */
+    /// seccion grafica
+    bool salir = true;
+    int y=0;
+    do
+    {
 
-    _horaApertura = horaActual();
+        ///MOSTRAR NUM MESA ELEGIDA
+        rlutil::hidecursor();
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        dibujarBordesPantallas(42,8);
+        dibujarBordesPantallas(42,10);
+        rlutil::setColor(rlutil::BROWN);
+        rlutil::locate (57,9);
 
-    /// buscar factura y pasar hora para calcular turno
-    int pos = archiFac.buscarRegistro(_idFactura);
-    obj = archiFac.leerRegistro(pos);
-    obj.setTurno(_horaApertura);
-    obj.setIdEmpleado(_empleadoAsignado);
 
-    archiFac.actualizarRegistro(obj);
+        cout << "TIPO DE PEDIDO LOCAL - MESA NUMERO " << _numero << " SELECCIONADA";
+        rlutil::locate (40,12);
+        rlutil::setColor(rlutil::WHITE);
 
-}
+
+        cout << "PORFAVOR INGRESE SU ID DE EMPLEADO: ";
+        rlutil::locate (40,13);
+        cin >> _empleadoAsignado;
+
+
+        rlutil::locate(40,14);
+        cout << "PORFAVOR INGRESE LA CANTIDAD DE COMENSALES: ";
+        rlutil::locate(40,15);
+        cin >> _comensales;
+
+
+
+        ///PEDIR CONFIRMACION Y QUE ESO LLEVE A MOSTRAR VISTA MESA
+        rlutil::locate(40,16);
+        cout << "CONFIRMA QUE LOS DATOS INGRESADOS SON CORRECTOS?" <<endl;
+        rlutil::setColor(rlutil::GREEN);
+        rlutil::locate(40,17);
+        cout << "Y";
+        rlutil::setColor(rlutil::WHITE);
+        cout << "/";
+        rlutil::setColor(rlutil::RED);
+        cout << "N";
+        rlutil::setColor(rlutil::WHITE);
+        cout<< " - 0 PARA VOLVER";
+
+
+        rlutil:: locate (77,18);
+        char opcion;
+        cin >> opcion;
+            switch (tolower(opcion))
+            {
+            case 'y': //si
+                {
+
+                rlutil::cls();
+                _horaApertura = horaActual();
+
+                /// buscar factura y pasar hora para calcular turno
+                int pos = archiFac.buscarRegistro(_idFactura);
+                obj = archiFac.leerRegistro(pos);
+                obj.setTurno(_horaApertura);
+                obj.setIdEmpleado(_empleadoAsignado);
+                obj.setTipo(1);
+
+                archiFac.actualizarRegistro(obj);
+                return;
+                break;
+                }
+            case 'n': //no
+                {
+                rlutil::cls();
+                this->cargarLocal();
+                break;
+                }
+            case '0'://volver
+                {
+                rlutil::cls();
+                salir=false;
+                mostrarMapaMesas();
+                break;
+                }
+            }
+            break;
+
+        }
+
+    while(salir==true);
+    }
+
+
 
 void Local::mostrarLocal()
 {
     mostrarMesa();
-
-    if(!_disponible)
+        bool salir = true;
+        int x=0;
+    do
     {
-        cout << "HORA DE APERTURA: " << _horaApertura << endl;
-        cout << "CAMARERO ASIGNADO: " << _empleadoAsignado << endl;
-        cout << "COMENSALES: " << _comensales << endl;
+        rlutil::hidecursor();
+         rlutil::setColor(rlutil::LIGHTCYAN);
+        dibujarBordeSyI(10,3);
+        dibujarBordeSyI(10,6);
+        rlutil::setColor(rlutil::BROWN);
+        rlutil::locate(42, 4);
+        cout<<"NRO. MESA";
+        rlutil::locate(46, 5);
+        cout << _numero;
+        rlutil::locate(80, 4);
+        cout <<"HORA APERTURA";
+        rlutil::locate(80, 5);
+        cout << _horaApertura;
+        rlutil::locate(110, 4);
+        cout <<"CANT. COMENSALES";
+        rlutil::locate(121, 5);
+        cout << _comensales;
+ rlutil::setColor(rlutil::WHITE);
+        pintarOpciones("CARGAR ITEM",30, 8, x==0);
+        pintarOpciones("QUITAR ITEM",60, 8,x==30);
+        pintarOpciones("CERRAR MESA",90, 8, x==60);
+        pintarOpciones("VOLVER A MAPA",120, 8, x==90);
 
+
+        ///BUSCAR FACTURA Y MOSTRARLA
+
+ rlutil::setColor(rlutil::WHITE);
+        rlutil:: locate (29+x,8);
+        cout << char (16);
+        int key=rlutil::getkey();
+        rlutil::locate(29 + x, 8);
+        cout << " ";
+        switch (key)
+        {
+        case 17:
+            x+=30;
+            if (x>90) x=90;
+            break;
+        case 16:
+            x-=30;
+            if (x<0) x=0;
+            break;
+        case 1:
+            switch (x)
+            {
+            case 0://CARGAR
+                {
+                rlutil::cls();
+                ///cargarItem();
+                break;
+                }
+            case 30://QUITAR
+
+
+                break;
+                }
+            case 60://CERRAR MESA
+
+                break;
+            case 90://VOLVER
+                rlutil::cls();
+                salir=false;
+                mostrarMapaMesas();
+                break;
+            }
+            break;
+        }
+    }
+    while (salir==true);
+
+        ///BUSCAR FACTURA Y MOSTRARLA
         ArchivoFactura arc;
         Factura obj;
         int pos = arc.buscarRegistro(_idFactura);
         obj = arc.leerRegistro(pos);
         obj.mostrarFactura();
 
-        //obj.mostrarFactura();
-
-
         /// SACAR EL ID Y BUSCAR EL PEIDOD (FACTURA) PARA MOSTRAR EL TOTAL
         //cout << "TOTAL: " <<  _Factura.getImporteTotal() << endl;
-    }
+    //}
 }
 
 void Local::abrirMesa()
@@ -357,6 +499,80 @@ void Local::abrirMesa()
 
 }
 
+void Local::liberarMesa()
+{
+    _disponible = true;
+    _idFactura = -1;
+    _horaApertura = -1;
+    _comensales = -1;
+    _empleadoAsignado = -1;
+}
+
+void Local::cerrarMesa()
+{
+    Factura objFac;
+    ArchivoFactura arcFac;
+    int pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    int opcion;
+
+    cout << " DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
+    cin >> opcion;
+
+    if(opcion)
+    {
+        float descuento;
+
+        cout << "SELLECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
+        cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1:
+            cout << "DESCUENTO A APLICAR: ";
+            cin >> descuento;
+
+            if(descuento > objFac.getImporteSubTotal())
+            {
+                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA" << endl;
+                system("pause");
+            }
+            else
+            {
+                objFac.aplicarDescuento(1, descuento);
+            }
+            break;
+        case 2:
+            cout << "DESCUENTO A APLICAR: ";
+            cin >> descuento;
+
+            if(descuento > 100 || descuento < 0)
+            {
+                cout << "PORCENTAJE INVALIDO" << endl;
+                system("pause");
+            }
+            else
+            {
+                objFac.aplicarDescuento(2, descuento);
+            }
+            break;
+        default:
+            cout << "INGRESE UNA OPCION VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+    else
+    {
+        objFac.setImporteTotal(objFac.getImporteSubTotal());
+    }
+    arcFac.actualizarRegistro(objFac);
+    ArchivoMesasLocal arcLocal;
+
+    liberarMesa();
+    arcLocal.actualizarMesa(*this);
+}
 
 /// CLASE HEREDADA DELIVERY
 
@@ -387,7 +603,7 @@ void Delivery::cargarDelivery()
     /// buscar factura y pasar hora para calcular turno
 
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
-    cin.getline(_telefonoCliente, 20);
+    cargarCadena(_telefonoCliente, 20);
 
     cout << "INGRESE EL ID DEL DELIVERY ASIGNADO: ";
     cin >> _deliveryAsignado;
@@ -395,20 +611,30 @@ void Delivery::cargarDelivery()
     cout << "INGRESE LA HORA DE ENTREGA: ";
     cin >> _horaEntrega;
 
-    strcpy(_deliveryAsignado, "MANUEL");
+    ArchivoFactura arc;
+    Factura obj;
 
-    cin.ignore();
+    int pos = arc.buscarRegistro(_idFactura);
+    obj = arc.leerRegistro(pos);
+    obj.setTurno(horaActual());
+    obj.setIdEmpleado(_deliveryAsignado);
+    arc.actualizarRegistro(obj);
 }
 
 void Delivery::mostrarDelivery()
 {
+    ArchivoFactura arcFac;
+
+    Factura objFac;
+    int pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
     cout << _numero << " | ";
     cout << _direccionEntrega << " | ";
     cout << _deliveryAsignado << " | "; // SACAR NOMBRE CON ID
     cout << _horaEntrega << "Hs. | ";
-    cout << "$15.300 | "; /// SACAR DE FACTURA
+    cout << "$" << objFac.getImporteSubTotal() << " | ";
 
-    /// IMPLEMENTAR abrirMesa() PARA MOSTRAR LA DEMAS INFO
 
     if(!_entregado)
     {
@@ -418,6 +644,106 @@ void Delivery::mostrarDelivery()
     {
         cout << "ENTREGADO" << endl;
     }
+}
+
+void Delivery::abrirMesa()
+{
+    // PREGUNTAR SI LA MESA ESTA DISPO PARA ASIGNAR CAMARERO Y FACTURA Y CAMBIAR ESTADO
+
+    Delivery obj;
+    ArchivoDelivery arcDel;
+    ArchivoFactura arcFac;
+
+    int pos = _numero -1;
+    obj = arcDel.leerRegistro(pos);
+
+    cout << "# | ";
+    cout << "DIRECCION DE ENTREGA | ";
+    cout << "RESPONSALBLE | ";
+    cout << "HORA DE ENTREGA | ";
+    cout << "TOTAL | ";
+    cout << "ESTADO | " << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+
+    obj.mostrarDelivery();
+
+    /// MOSTRAR FACTURA (PEDIDO)
+    Factura objFac;
+    pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    objFac.mostrarFactura();
+
+    return;
+
+    /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
+    /// lo de arriba / _comensales
+
+    /// SUBMENU DE OPCIONES
+}
+
+void Delivery::cerrarMesa()
+{
+    Factura objFac;
+    ArchivoFactura arcFac;
+    int pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    int opcion;
+
+    cout << " DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
+    cin >> opcion;
+
+    if(opcion)
+    {
+        float descuento;
+
+        cout << "SELLECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
+        cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1:
+            cout << "DESCUENTO A APLICAR: ";
+            cin >> descuento;
+
+            if(descuento > objFac.getImporteSubTotal())
+            {
+                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA" << endl;
+                system("pause");
+            }
+            else
+            {
+                objFac.aplicarDescuento(1, descuento);
+            }
+            break;
+        case 2:
+            cout << "DESCUENTO A APLICAR: ";
+            cin >> descuento;
+
+            if(descuento > 100 || descuento < 0)
+            {
+                cout << "PORCENTAJE INVALIDO" << endl;
+                system("pause");
+            }
+            else
+            {
+                objFac.aplicarDescuento(2, descuento);
+            }
+            break;
+        default:
+            cout << "INGRESE UNA OPCION VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+    else
+    {
+        objFac.setImporteTotal(objFac.getImporteSubTotal());
+    }
+    arcFac.actualizarRegistro(objFac);
+    ArchivoDelivery arcDel;
+    arcDel.eliminarRegistro(_numero - 1);
 }
 
 void Delivery::entregarDelivery()
@@ -431,57 +757,270 @@ void Delivery::disminuirNumero()
 }
 
 /// CLASE HEREDADA TAKEAWAY
+// SETTERS
+void TakeAway::setNumero(int num)
+{
+    _numero = num;
+    _entregado = false;
+}
+// GETTERS
+int TakeAway::getNumero()
+{
+    return _numero;
+}
+// METHODS
+TakeAway::TakeAway() {}
+
+TakeAway::TakeAway(int num)
+{
+    _numero = num;
+}
 
 void TakeAway::cargarTakeAway()
 {
     cargarMesa();
     /// buscar factura y pasar hora para calcular turno
 
-    cout << "INGRESE LA HORA DE RETIRO: ";
-
-    cin >> _horaRetiro;
+    cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
+    cargarCadena(_telefonoCliente, 20);
 
     cout << "INGRESE EL NOMBRE DEL CLIENTE: ";
-    cin.getline(_nombreCliente, 50);
+    cargarCadena(_nombreCliente, 50);
+
+    cout << "INGRESE LA HORA DE RETIRO: ";
+    cin >> _horaRetiro;
+
+    ArchivoFactura arc;
+    Factura obj;
+
+    int pos = arc.buscarRegistro(_idFactura);
+    obj = arc.leerRegistro(pos);
+    obj.setTipo(3);
+    obj.setTurno(horaActual());
+
+    arc.actualizarRegistro(obj);
 }
 
 void TakeAway::mostrarTakeAway()
 {
     Mesa::mostrarMesa();
+    ArchivoFactura arcFac;
 
-    cout << "HORA DE RETIRO: " << _horaRetiro;
-    cout << "NOMBRE DEL CLIENTE: " << _nombreCliente;
+    Factura objFac;
+    int pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    cout << _numero << " | ";
+    cout << _nombreCliente << " | ";
+    cout << _telefonoCliente << " | ";
+    cout << _horaRetiro << "Hs. | ";
+    cout << "$" << objFac.getImporteTotal() << " | ";
+
+    if(!_entregado)
+    {
+        cout << "PENDIENTE" << endl;
+    }
+    else
+    {
+        cout << "ENTREGADO" << endl;
+    }
+}
+
+void TakeAway::abrirMesa()
+{
+    // PREGUNTAR SI LA MESA ESTA DISPO PARA ASIGNAR CAMARERO Y FACTURA Y CAMBIAR ESTADO
+
+    TakeAway obj;
+    ArchivoTakeAway arcTake;
+    ArchivoFactura arcFac;
+
+    int pos = _numero -1;
+    obj = arcTake.leerRegistro(pos);
+
+    cout << "# | ";
+    cout << "NOMBRE | ";
+    cout << "TELEFONO | ";
+    cout << "HORA RETIRO | ";
+    cout << "TOTAL | ";
+    cout << "ESTADO | " << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+
+    obj.mostrarTakeAway();
+
+    /// MOSTRAR FACTURA (PEDIDO)
+    Factura objFac;
+    pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    objFac.mostrarFactura();
+
+    return;
+
+    /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
+    /// lo de arriba / _comensales
+
+    /// SUBMENU DE OPCIONES
+}
+
+void TakeAway::cerrarMesa()
+{
+    Factura objFac;
+    ArchivoFactura arcFac;
+    int pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    int opcion;
+
+    cout << " DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
+    cin >> opcion;
+
+    if(opcion)
+    {
+        float descuento;
+
+        cout << "SELLECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
+        cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1:
+            cout << "DESCUENTO A APLICAR: ";
+            cin >> descuento;
+
+            if(descuento > objFac.getImporteSubTotal())
+            {
+                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA" << endl;
+                system("pause");
+            }
+            else
+            {
+                objFac.aplicarDescuento(1, descuento);
+            }
+            break;
+        case 2:
+            cout << "DESCUENTO A APLICAR: ";
+            cin >> descuento;
+
+            if(descuento > 100 || descuento < 0)
+            {
+                cout << "PORCENTAJE INVALIDO" << endl;
+                system("pause");
+            }
+            else
+            {
+                objFac.aplicarDescuento(2, descuento);
+            }
+            break;
+        default:
+            cout << "INGRESE UNA OPCION VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+    else
+    {
+        objFac.setImporteTotal(objFac.getImporteSubTotal());
+    }
+    arcFac.actualizarRegistro(objFac);
+    ArchivoTakeAway arcTake;
+    arcTake.eliminarRegistro(_numero - 1);
+}
+
+void TakeAway::entregarTakeAway()
+{
+    _entregado = true;
+}
+
+void TakeAway::disminuirNumero()
+{
+    _numero--;
 }
 
 /// CLASE BASE USUARIO
+Usuario::Usuario(){}
 
-void Usuario::cargar()
+Usuario::Usuario(char* nombre, char* dni){
+    strcpy(_nombre, nombre);
+    strcpy(_dni, dni);
+    _id = generarId(1);
+}
+
+// SETTERS
+void Usuario::setId(int id)
+{
+    _id = id;
+}
+void Usuario::setNombre(const char* nombre)
+{
+    strcpy(_nombre, nombre);
+}
+void Usuario::setDNI(const char *DNI)
+{
+    strcpy(_dni, DNI);
+}
+void Usuario::setRol(int rol)
+{
+    if(rol != 1 || rol != 2)
+    {
+        cout << "INGRESE UN CODIGO DE ROL VALIDO:" << endl;
+        cout << "1 - USUARIO | 2 - ADMINISTRADOR" << endl;
+    }
+}
+
+// GETTERS
+int Usuario::getId()
+{
+    return _id;
+}
+char* Usuario::getDNI()
+{
+    return _dni;
+}
+bool Usuario::getEstado()
+{
+    return _estado;
+}
+const char* Usuario::getNombre()
+{
+    return _nombre;
+}
+int Usuario::getRol()
+{
+    return _rol;
+}
+
+// METHODS
+void Usuario::Cargar()
 {
     cout << "INGRESE NOMBRE COMPLETO: " << endl;
-    cin >> _nombre;
+    cargarCadena(_nombre, 50);
 
     cout << "INGRESE DNI: " << endl;
     cin >> _dni;
 
     _id=generarId(1);
-    mostrar();
 }
 
-void Usuario::mostrar()
+void Usuario::Mostrar()
 {
     cout << "NOMBRE: " << _nombre << endl;
     cout << "DNI: " << _dni << endl;
     cout << "ID: " << _id << endl;
 }
 
+void Usuario::cambiarEstado()
+{
+    _estado = !_estado;
+}
+
 /// CLASE BASE CREDENCIAL
 
-void Credencial::setPassword(char* newPassword[12])
+void Credencial::setPassword(const char* newPassword[12])
 {
     strcpy(_password, *newPassword);
 }
 
-char* Credencial::getPassword()
+const char* Credencial::getPassword()
 {
     return _password;
 }
@@ -490,15 +1029,19 @@ char* Credencial::getPassword()
 
 void Producto::Cargar()
 {
+    rlutil::locate (20,12);
     cout << "NOMBRE: ";
-    cin.getline(_nombre, 30);
+    cargarCadena(_nombre, 30);
 
+    rlutil::locate (40,12);
     cout << "PRECIO: ";
     cin >> _precio;
 
-    cout << "TIPO (1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida : ";
+    rlutil::locate (80,12);
+    cout << "TIPO: (1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida : ";
     cin >> _tipo;
 
+    cin.clear();
     cin.ignore();
 
     _disponible = true;
@@ -609,6 +1152,21 @@ void Factura::setId(int id)
     _id = id;
 }
 
+void Factura::setTipo(int tipo)
+{
+    _tipo = tipo;
+}
+
+void Factura::setImporteSubTotal(float monto)
+{
+    _importeSubTotal = monto;
+}
+
+void Factura::setImporteTotal(float monto)
+{
+    _importeTotal = monto;
+}
+
 void Factura::setIdEmpleado(int idEmpleado){
     _idEmpleado = idEmpleado;
 }
@@ -624,10 +1182,10 @@ void Factura::cargarItem(int idProducto)
 
     _productos.cargarProducto(idProducto);
 
+    actualizarImporteTotal();
+
     /// agregar los cambios en el archivo segun id.
     arcFac.actualizarRegistro(*this);
-
-    actualizarImporteTotal();
 }
 
 void Factura::quitarItem(int pos, int cant)
@@ -636,26 +1194,56 @@ void Factura::quitarItem(int pos, int cant)
     _productos.quitarProducto(pos, cant);
     /// agregar los cambios en el archivo segun id.
     ArchivoFactura archi;
-    archi.actualizarRegistro(*this);
     actualizarImporteTotal();
+    archi.actualizarRegistro(*this);
 }
 
 
 void Factura::mostrarFactura()
 {
+        rlutil::setColor(rlutil::MAGENTA);
+        dibujarBordeSyI(10,12);
+        dibujarBordeSyI(10,14);
+        ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
+        dibujarBordesDeI(9,13,30);
+        dibujarBordesDeI(160,13,30);
+        rlutil::setColor(rlutil::YELLOW);
+        rlutil::locate(12, 11);
+        cout<<"NRO. FACTURA: "<< _id;
+        rlutil::locate(50, 11);
+        cout<<"ID EMPLEADO: "<< _idEmpleado;
+         rlutil::locate(90, 11);
+        cout<<"TURNO: "<< 1;
+            rlutil::locate(130, 11);
+        cout<<"FECHA: ";
+         _fecha.Mostrar();
 
-    cout << endl<< "factura:" <<endl;
-    cout << "ID :" << _id << endl;
-    _fecha.Mostrar();
-    cout << "turno :" << _turno << endl;
-    cout << "ID Empleado:" << _idEmpleado << endl;
+        /// AGREGAR IMPORTES TOTAL Y SUB
 
+        ///MARCO TABLA PRODUCTOS
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        rlutil::locate(12, 11);
+        cout<<"NRO."; //POSICIONAR SU COUT EN EL 13,12
+        rlutil::locate(52, 11);
+        cout <<"NOMBRE"; //POSICIONAR SU COUT A PARTIR DEL 16,12
+        rlutil::locate(100, 11);
+        cout <<"CANTIDAD";
+        rlutil::locate(122, 11);
+        cout <<"PRECIO";
+        rlutil::locate(135, 11);
+        cout <<"SUB-TOTAL";
+        rlutil::locate(152, 11);
+        cout <<"TOTAL";
+
+        ///MOSTAR PRODUCTOS
    _productos.mostrarProductos();
 
 }
 // FIN FUNCIONES ARRAY _PRODUCTOS
 
-void Factura::setTurno(int hora){
+void Factura::setTurno(string horaString){
+
+    int hora = stoi(horaString.substr(0, 2));
     if(hora >= 9 && hora <= 14)
     {
         _turno = 1;
@@ -670,16 +1258,18 @@ void Factura::setTurno(int hora){
     }
 }
 
+
+
 float Factura::getImporteTotal()
 {
     actualizarImporteTotal();
-    return _importeSubTotal;
+    return _importeTotal;
 }
 
-void Factura::cerrarFactura()
+float Factura::getImporteSubTotal()
 {
-    /// preguntar por descuento
-    /// guardar Factura en archivo
+    actualizarImporteTotal();
+    return _importeSubTotal;
 }
 
 char Factura::getTipo()
@@ -702,114 +1292,11 @@ void Factura::aplicarDescuento(int tipo, float descuento)
 
     if(tipo == 1)
     {
-        _importeTotal -= descuento;
+        _importeTotal = _importeSubTotal - descuento;
     }
-    else
+    else if(tipo == 2)
     {
-        _importeTotal -= ((_importeTotal * descuento) / 100 );
+        _importeTotal = _importeSubTotal - ((_importeSubTotal * descuento) / 100 );
     }
 }
 
-/// CLASE BASE RECAUDACION
-/*
-void Recaudacion::setFecha()
-{
-    _fecha.Cargar();
-}
-void Recaudacion::setTurno(int turno)
-{
-    _turno = turno;
-}
-void Recaudacion::setId(int id)
-{
-    _id = id;
-}
-void Recaudacion::setImporteSubTotal(float importe)
-{
-    _importeSubTotal = importe;
-}
-void Recaudacion::setImporteFinal(float importe)
-{
-    _importeFinal = importe;
-}
-void Recaudacion::setTipoMesa(int tipoMesa)
-{
-    _tipoMesa = tipoMesa;
-}
-void Recaudacion::setIdEmpleado(int id)
-{
-    _idEmpleado = id;
-}
-void Recaudacion::setCantComensales(int cantidad)
-{
-    _cantComensales = cantidad;
-}
-void Recaudacion::setIdFactura(int IDFactura)
-{
-    _IDFactura = IDFactura;
-}
-// GETTERS
-
-Fecha Recaudacion::getFecha(){return _fecha;}
-int Recaudacion::getAnio(){return _fecha.getAnio();}
-int Recaudacion::getMes(){return _fecha.getMes();}
-int Recaudacion::getDia(){return _fecha.getDia();}
-int Recaudacion::getTurno(){return _turno;}
-int Recaudacion::getId(){return _id;}
-float Recaudacion::getImporteSubTotal(){return _importeSubTotal;}
-float Recaudacion::getImporteFinal(){return _importeFinal;}
-int Recaudacion::getIdFactura(){return _IDFactura;}
-
-// METHODS
-
-void Recaudacion::Cargar()
-{
-    // CAPAZ NO SEA NECESARIO
-    cout << "ID: ";
-    cin >> _id;
-
-    cout << "FECHA: ";
-    _fecha.Cargar();
-
-    cout << "TURNO: ";
-    cin >> _turno;    /// DECODIFICAR A: 1=MANIANA; 2=TARDE; 3=NOCHE
-
-    cout << "SUB TOTAL: ";
-    cin >> _importeSubTotal;
-
-    cout << "TOTAL: ";
-    cin >> _importeFinal;
-
-    cout << "TIPO DE MESA: ";
-    cin >> _tipoMesa;   /// DECODIFICAR A: 1=LOCAL; 2=DELIVERY; 3=TAKE AWAY
-
-    cout << "RESPONSABLE DE LA VENTA: ";
-    cin >> _idEmpleado;
-
-    cout << "CANT. COMENSALES: ";
-    cin >> _cantComensales;
-}
-
-void Recaudacion::Mostrar()
-{
-    cout << "ID: " << _id << endl;
-    cout << "FECHA: ";
-    _fecha.Mostrar();
-    cout << "TURNO: " << _turno << endl;    /// DECODIFICAR A: 1=MANIANA; 2=TARDE; 3=NOCHE
-    if(_importeFinal != _importeSubTotal)
-    {
-        cout << "IMPORTE SUB TOTAL: $" << _importeSubTotal << endl;
-    }
-    cout << "IMPORTE FINAL: $" << _importeFinal << endl;
-    cout << "TIPO DE MESA: " << _tipoMesa << endl;  /// DECODIFICAR A: 1=LOCAL; 2=DELIVERY; 3=TAKE AWAY
-    if(_tipoMesa != 3) /// TAKE AWAY NO TIENE EMPLEADO ASIGNADO
-    {
-        cout << "RESPONSABLE DE LA VENTA: " << _idEmpleado << endl;
-    }
-    if(_tipoMesa == 1)
-    {
-        cout << "COMENSALES: " << _cantComensales << endl;
-    }
-}
-
-*/

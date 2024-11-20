@@ -31,14 +31,16 @@ using namespace std;
 
 int main()
 {
-
-
-
+    //ArchivoProducto arc;
+    //arc.listarRegistros();
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
+    ArchivoMesasLocal arcMesa;
+    arcMesa.setearCantMesas(10);
+
+    mostrarMenuPrincipal();
 
 
-mostrarMenuPrincipal();
 
 
   return 0;
