@@ -52,22 +52,22 @@ void mostrarConfigurarCarta()
         int posYinicial=20;
 
         Producto obj;
-
+        int j = 0;
         for (int i=0; i < arc.contarRegistros(); i++)
         {
             rlutil::setColor(rlutil::WHITE);
             obj=arc.leerRegistro(i);
             if(obj.getDisponibilidad()){
 
-            rlutil::locate(posXinicial, posYinicial+i);
+            rlutil::locate(posXinicial, posYinicial+j);
             cout<< obj.getId();
-            rlutil::locate(posXinicial+13,  posYinicial+i);
+            rlutil::locate(posXinicial+13,  posYinicial+j);
             cout <<obj.getTipo();
-            rlutil::locate(posXinicial+50,  posYinicial+i);
+            rlutil::locate(posXinicial+50,  posYinicial+j);
             cout <<obj.getNombre();
-            rlutil::locate(posXinicial+120,  posYinicial+i);
+            rlutil::locate(posXinicial+120,  posYinicial+j);
             cout <<fixed<<setprecision(2)<<obj.getPrecio();
-
+                j++;
             }
 
         }
@@ -132,8 +132,12 @@ void mostrarConfigurarCarta()
                 int resultado=MessageBox(NULL, "Desea eliminar este item de la carta?", "ELIMINAR ITEM", MB_YESNO|MB_ICONQUESTION);
                 if (resultado==IDYES) //&& SI LA OPERACION FUE EXITOSA
                 {
+
+
                     arc.cambiarEstadoRegistro(idItem);
                     MessageBox(NULL,"Item eliminado exitosamente", "OPERACION EXITOSA", MB_OK|MB_ICONINFORMATION);
+
+                    }
 
                 }
                 rlutil::cls();
@@ -175,10 +179,10 @@ void mostrarConfigurarCarta()
             break;
         }
 
-    }
     while (salir==true);
+    }
 
-}
+
 
 
 
