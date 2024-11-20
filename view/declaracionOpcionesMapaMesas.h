@@ -5,7 +5,7 @@ void seleccionarTipoPedido();
 void mostrarPantallaPedidos();
 void armarPedidoLocal();
 void mostrarVistaMesa();
-void cargarItem();
-void quitarItem();
+void cargarItem(int idFactura);
+void quitarItem(int idFactura);
 
 #endif // DECLARACIONOPCIONESMAPAMESAS_H_INCLUDED

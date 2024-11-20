@@ -21,27 +21,26 @@
 #include "./view/pantallasMenuPrincipal.h"
 #include "./view/funcionesDibujar.h"
 #include "./view/funcionesDibujarTitulos.h"
+#include "./view/pantallaDelivery.h"
 
 
 
 using namespace std;
 
-
-
-
 int main()
 {
-    //ArchivoProducto arc;
-    //arc.listarRegistros();
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
-    ArchivoMesasLocal arcMesa;
-    arcMesa.setearCantMesas(10);
+
+    ArchivoMesasLocal arc;
+    arc.setearCantMesas(10);
+
+
+    //ArchivoFactura arc;
+    //arc.listarRegistros();
 
     mostrarMenuPrincipal();
 
 
-
-
-  return 0;
+    return 0;
 }

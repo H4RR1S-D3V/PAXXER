@@ -20,7 +20,7 @@ void pantallaContrasenaI()
     if (constrasenaM==40999923)
     {
         rlutil::cls();
-        //mostrarInformes();
+        mostrarInformes();
     }
     else
         MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);

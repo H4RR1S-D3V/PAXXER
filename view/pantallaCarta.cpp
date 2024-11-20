@@ -1,11 +1,13 @@
-
 #include <iostream>
+#include <iomanip>
 #include "../rlutil.h"
 #include "windows.h"
 
 using namespace std;
 #include "pantallasMenuPrincipal.h"
 #include "funcionesDibujar.h"
+#include "../controller/clases.h"
+#include "../controller/clasesArchivos.h"
 
 
 void mostrarCarta()
@@ -25,23 +27,30 @@ void mostrarCarta()
         dibujarTituloNUESTRACARTA();
         rlutil::setColor(rlutil::WHITE);
         ///VERIFICAR SI ES POSIBLE DIBUJAR ESTOS BORDES DE FORMA DINAMICA
-      /*  dibujarBordeSyI(44,20);
-        dibujarBordeSyI(44,22);
-        ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
-        dibujarBordesDeI(43,21,20);
-        dibujarBordesDeI(193,21,20);
 
-        rlutil::locate (50,21);
-        cout<<"ID";
-        rlutil::locate (65,21);
-        cout<< "TIPO";
-        rlutil::locate (115,21);
-        cout<< "NOMBRE";
-        rlutil::locate (165,21);
-        cout<< "PRECIO";
-        rlutil::locate (185,21);
-        cout<< "ESTADO";*/
+///ITEMS PRUEBA
 
+int cantItems=30;
+int posXinicial=13;
+int posYinicial=23;
+
+Producto obj;
+ArchivoProducto arc;
+
+for (int i=0; i < cantItems; i++) {
+         rlutil::setColor(rlutil::WHITE);
+         obj=arc.leerRegistro(i);
+     rlutil::locate(posXinicial, posYinicial+i);
+        cout<< obj.getId();
+        rlutil::locate(posXinicial+13,  posYinicial+i);
+        cout <<obj.getTipo();
+      rlutil::locate(posXinicial+50,  posYinicial+i);
+        cout <<obj.getNombre();
+        rlutil::locate(posXinicial+120,  posYinicial+i);
+        cout <<fixed<<setprecision(2)<<obj.getPrecio();
+
+
+}
         rlutil:: locate (41+(x),17);
         cout << char (16);
         pintarOpciones("VOLVER AL MENU PRINCIPAL",42,17, x==0);
@@ -57,7 +66,7 @@ void mostrarCarta()
 
             break;
         case 16:
-             rlutil:: locate (41+(x),17);
+            rlutil:: locate (41+(x),17);
             cout << " ";
             x-=50;
             if (x<0) x=0;
@@ -75,8 +84,8 @@ void mostrarCarta()
                 if (resultado==IDOK)
                 {
                     rlutil::cls();
-                    mostrarConfiguraciones();
                       //pantallaContrasenaC();
+                    mostrarConfiguraciones();
                 }
             break;
         }
@@ -86,4 +95,3 @@ void mostrarCarta()
     }
     while(salir==true);
 }
-

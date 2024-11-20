@@ -1,11 +1,15 @@
 #include <iostream>
 #include "../rlutil.h"
 #include "windows.h"
+#include <iomanip>
 
 using namespace std;
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
 #include "pantallasMenuPrincipal.h"
+#include "../controller/clases.h"
+#include "../controller/clasesArchivos.h"
+
 
 void seleccionarTipoPedido()
 {
@@ -58,6 +62,10 @@ void armarPedidoLocal()
 {
     bool salir = true;
     int y=0;
+    // string IDEMP;
+    // string CANTCOM;
+    /* int idEmp;
+     int cantCom;*/
     do
     {
 
@@ -70,11 +78,17 @@ void armarPedidoLocal()
         rlutil:: locate (57,9);
         cout << "TIPO DE PEDIDO LOCAL - MESA NUMERO X SELECCIONADA";
         rlutil:: locate (40,12);
-         rlutil::setColor(rlutil::WHITE);
+        rlutil::setColor(rlutil::WHITE);
         cout << "PORFAVOR INGRESE SU ID DE EMPLEADO: ";
+        //  cin>>IDEMP;
         rlutil:: locate (40,13);
         cout << "PORFAVOR INGRESE LA CANTIDAD DE COMENSALES: ";
+        //   cin>>CANTCOM;
+//cin.ignore();
+
+        // cout << IDEMP << CANTCOM << endl;
         ///PEDIR CONFIRMACION Y QUE ESO LLEVE A MOSTRAR VISTA MESA
+
         rlutil:: locate (57,15);
         cout << "CONFIRMA QUE LOS DATOS INGRESADOS SON CORRECTOS?";
         pintarOpciones("SI",78,16,y==0);
@@ -103,7 +117,6 @@ void armarPedidoLocal()
             {
             case 0: //si
                 rlutil::cls();
-                mostrarVistaMesa();
                 break;
             case 1: //no
                 rlutil::cls();
@@ -115,59 +128,94 @@ void armarPedidoLocal()
                 mostrarMapaMesas();
                 break;
             }
-
+            break;
         }
     }
     while(salir==true);
 }
+/*
 void mostrarVistaMesa()
 {
+    int posItem, cantItem, descuentoTipo,descuentoMonto;;
     bool salir = true;
     int x=0;
     do
     {
         rlutil::hidecursor();
-         rlutil::setColor(rlutil::LIGHTCYAN);
+        rlutil::setColor(rlutil::LIGHTCYAN);
         dibujarBordeSyI(10,3);
         dibujarBordeSyI(10,6);
-        rlutil::locate(22, 4);
-         rlutil::setColor(rlutil::BROWN);
+        rlutil::setColor(rlutil::BROWN);
+        rlutil::locate(42, 4);
         cout<<"NRO. MESA";
-        rlutil::locate(52, 4);
-        cout <<"EMPLEADO ASIGNADO";
-        rlutil::locate(100, 4);
-        cout <<"TURNO";
-        rlutil::locate(135, 4);
+        rlutil::locate(46, 5);
+        cout<<"5";
+        rlutil::locate(80, 4);
+        cout <<"HORA";
+        rlutil::locate(80, 5);
+        cout<<"22:00";
+        rlutil::locate(110, 4);
         cout <<"CANT. COMENSALES";
- rlutil::setColor(rlutil::WHITE);
+        rlutil::locate(121, 5);
+        cout<<"4";
+        rlutil::setColor(rlutil::WHITE);
         pintarOpciones("CARGAR ITEM",30, 8, x==0);
         pintarOpciones("QUITAR ITEM",60, 8,x==30);
         pintarOpciones("CERRAR MESA",90, 8, x==60);
         pintarOpciones("VOLVER A MAPA",120, 8, x==90);
 
- rlutil::setColor(rlutil::MAGENTA);
-        dibujarBordeSyI(10,10);
-        dibujarBordeSyI(10,12);
-        ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
-        dibujarBordesDeI(9,11,30);
-        dibujarBordesDeI(160,11,30);
-        ///
- rlutil::setColor(rlutil::LIGHTCYAN);
-        rlutil::locate(12, 11);
-        cout<<"NRO."; //POSICIONAR SU COUT EN EL 13,12
-        rlutil::locate(52, 11);
-        cout <<"NOMBRE"; //POSICIONAR SU COUT A PARTIR DEL 16,12
-        rlutil::locate(100, 11);
+        rlutil::setColor(rlutil::MAGENTA);
+        dibujarBordeSyI(10,16);
+        dibujarBordeSyI(10,18);
+
+
+        rlutil::setColor(rlutil::YELLOW);
+        rlutil::locate(12, 15);
+        cout<<"NRO. FACTURA: "<< 3;
+        rlutil::locate(50, 15);
+        cout<<"ID EMPLEADO: "<< 07;
+        rlutil::locate(90, 15);
+        cout<<"TURNO: "<< 1;
+        rlutil::locate(130, 15);
+        cout<<"FECHA: "<< "19/11/2024";
+
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        rlutil::locate(12, 17);
+        cout<<"NRO.";
+        rlutil::locate(52, 17);
+        cout <<"NOMBRE";
+        rlutil::locate(100, 17);
         cout <<"CANTIDAD";
-        rlutil::locate(122, 11);
+        rlutil::locate(122, 17);
         cout <<"PRECIO";
-        rlutil::locate(135, 11);
+        rlutil::locate(135, 17);
         cout <<"SUB-TOTAL";
-        rlutil::locate(152, 11);
-        cout <<"TOTAL";
 
 
- rlutil::setColor(rlutil::WHITE);
+
+        int cantItems=5;
+        int posXinicial=13;
+        int posYinicial=19;
+
+        for (int i=0; i < cantItems; i++)
+        {
+            rlutil::setColor(rlutil::WHITE);
+
+            obj=arc.leerRegistro(i);
+            rlutil::locate(posXinicial, posYinicial+i);
+            cout<< obj.getId();
+            rlutil::locate(posXinicial+35,  posYinicial+i);
+            cout <<obj.getNombre();
+            rlutil::locate(posXinicial+90,  posYinicial+i);
+            cout <<"4";
+            rlutil::locate(posXinicial+108,  posYinicial+i);
+            cout <<obj.getPrecio();
+            rlutil::locate(posXinicial+122,  posYinicial+i);
+            cout <<fixed<<setprecision(2)<<obj.getPrecio()*4;
+            //dibujarBordeSyI(13,posYinicial+i);
+        }
+
+        rlutil::setColor(rlutil::WHITE);
         rlutil:: locate (29+x,8);
         cout << char (16);
         int key=rlutil::getkey();
@@ -191,8 +239,43 @@ void mostrarVistaMesa()
                 cargarItem();
                 break;
             case 30://QUITAR
+        {
+                rlutil::setColor(rlutil::WHITE);
+                rlutil::locate(48, 11);
+                cout<<"PORFAVOR INGRESE ID DE ITEM A ELIMINAR: ";
+                cin >> posItem;
+                    rlutil::locate(48, 12);
+        cout<<"PORFAVOR INGRESE LA CANTIDAD DE ITEMS A ELIMINAR";
+         cin >> cantItem;
+int resultado = MessageBox(NULL, "Desea quitar esta cantidad de items?", "CONFIRMACION DE OPERACION", MB_OKCANCEL);
+        if (resultado==IDOK)
+        {
+            MessageBox(NULL, "Se quito el item exitosamente", "OPERACION EXITOSA", MB_OK);
+        }
+        rlutil::cls();
+
+        }
                 break;
             case 60://CERRAR MESA
+        {
+                int resultado = MessageBox(NULL, "Desea aplicar algun descuento antes de cerrar mesa?", "CONFIRMACION DE OPERACION", MB_YESNO);
+        if (resultado==IDNO)
+        {
+            MessageBox(NULL, "Se cerro la mesa exitosamente", "OPERACION EXITOSA", MB_OK);
+        }
+        else   rlutil::locate(48, 11);
+               /* cout<<"PORFAVOR INGRESE TIPO DESCUENTO: ";
+                cin >> descuentoTipo;
+                 rlutil::locate(48, 12);
+                 cout<<"PORFAVOR INGRESE MONTO A DESCONTAR: ";
+                  cin >> descuentoMonto;
+        int seleccion  = MessageBox(NULL, "Desea aplicar este descuento?", "CONFIRMACION DE OPERACION", MB_OKCANCEL);
+        if (resultado==IDOK){
+            MessageBox(NULL, "Se aplico el descuento exitosamente", "OPERACION EXITOSA", MB_OK);
+        }
+        rlutil::cls();
+
+        }
                 break;
             case 90://VOLVER
                 rlutil::cls();
@@ -205,49 +288,48 @@ void mostrarVistaMesa()
     }
     while (salir==true);
 }
+*/
 
-void cargarItem()
+void cargarItem(int idFactura)
 {
+    int idItem;
     int x=0;
     bool salir=true;
-do{
-rlutil::hidecursor();
- rlutil::setColor(rlutil::LIGHTCYAN);
-dibujarBordesPantallas(42,2);
-dibujarBordesPantallas(42,4);
- rlutil::setColor(rlutil::BROWN);
-rlutil::locate(62, 3);
+    do
+    {
+        rlutil::hidecursor();
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        dibujarBordesPantallas(42,2);
+        dibujarBordesPantallas(42,4);
+        rlutil::setColor(rlutil::BROWN);
+        rlutil::locate(62, 3);
         cout<<"F  I  L  T  R  A  R     P  L  A  T O";
 
- rlutil::setColor(rlutil::WHITE);
+        rlutil::setColor(rlutil::WHITE);
         pintarOpciones("POR ENTRADA",10, 5, x==0);
         pintarOpciones("POR PLATO PRINCIPAL",40, 5,x==30);
         pintarOpciones("POR POSTRE",70, 5, x==60);
         pintarOpciones("POR BEBIDA",100, 5, x==90);
         pintarOpciones("VOLVER A PANTALLA ANTERIOR",130, 5, x==120);
 
- rlutil::setColor(rlutil::MAGENTA);
+        rlutil::setColor(rlutil::MAGENTA);
         dibujarBordeSyI(10,8);
         dibujarBordeSyI(10,10);
+        dibujarBordeSyI(10,30);
         ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
-        dibujarBordesDeI(9,9,30);
-        dibujarBordesDeI(160,9,30);
- rlutil::setColor(rlutil::LIGHTCYAN);
+        dibujarBordesDeI(9,9,20);
+        dibujarBordesDeI(160,9,20);
+        rlutil::setColor(rlutil::LIGHTCYAN);
         rlutil::locate(12, 9);
-        cout<<"NRO."; //POSICIONAR SU COUT EN EL 13,12
+        cout<<"NRO.";
         rlutil::locate(52, 9);
-        cout <<"NOMBRE"; //POSICIONAR SU COUT A PARTIR DEL 16,12
+        cout <<"NOMBRE";
         rlutil::locate(100, 9);
-        cout <<"CANTIDAD";
-        rlutil::locate(122, 9);
         cout <<"PRECIO";
-        rlutil::locate(135, 9);
-        cout <<"SUB-TOTAL";
-        rlutil::locate(152, 9);
-        cout <<"TOTAL";
+        rlutil::locate(122, 9);
+        cout <<"TIPO";
 
-
- rlutil::setColor(rlutil::WHITE);
+        rlutil::setColor(rlutil::WHITE);
         rlutil:: locate (9+x,5);
         cout << char (16);
         int key=rlutil::getkey();
@@ -267,113 +349,196 @@ rlutil::locate(62, 3);
             switch (x)
             {
             case 0://ENTRADA
+            {
+                ///PRIMERO SE MUESTRA LA CARTA CON EL FILTRO
+                ArchivoProducto arc;
+                arc.listarRegistrosPorTipo(1);
+                rlutil::locate (70, 31);
+                cout<<"INGRESE ID DE ITEM A CARGAR";
+                rlutil::showcursor();
+                rlutil::locate (84, 32);
+                cin >> idItem;
+                int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
+                if (seleccion==IDOK)
+                {
+                    ///ACA LOGICA PARA AGREGAR ITEM
+
+                    ArchivoFactura arcFac;
+                    Factura objFac;
+
+                    int pos = arcFac.buscarRegistro(idFactura);
+
+                    objFac = arcFac.leerRegistro(pos);
+                    objFac.cargarItem(idItem);
+
+                    rlutil::cls();
+                    return;
+                }
+                else  rlutil::cls();
                 break;
+            }
             case 30://P. PRINCIPAL
+            {
+                ///PRIMERO SE MUESTRA LA CARTA CON EL FILTRO
+                ArchivoProducto arc;
+                arc.listarRegistrosPorTipo(2);
+                rlutil::locate (70, 31);
+                cout<<"INGRESE ID DE ITEM A CARGAR";
+                rlutil::showcursor();
+                rlutil::locate (84, 32);
+                cin >> idItem;
+                int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
+                if (seleccion==IDOK)
+                {
+                    ///ACA LOGICA PARA AGREGAR ITEM
+
+                    ArchivoFactura arcFac;
+                    Factura objFac;
+
+                    int pos = arcFac.buscarRegistro(idFactura);
+
+                    objFac = arcFac.leerRegistro(pos);
+                    objFac.cargarItem(idItem);
+
+                    rlutil::cls();
+                    return;
+                }
+                else  rlutil::cls();
                 break;
+            }
             case 60://POSTRE
+            {
+                ///PRIMERO SE MUESTRA LA CARTA CON EL FILTRO
+                ArchivoProducto arc;
+                arc.listarRegistrosPorTipo(3);
+                rlutil::locate (70, 31);
+                cout<<"INGRESE ID DE ITEM A CARGAR";
+                rlutil::showcursor();
+                rlutil::locate (84, 32);
+                cin >> idItem;
+                int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
+                if (seleccion==IDOK)
+                {
+                    ///ACA LOGICA PARA AGREGAR ITEM
+
+                    ArchivoFactura arcFac;
+                    Factura objFac;
+
+                    int pos = arcFac.buscarRegistro(idFactura);
+
+                    objFac = arcFac.leerRegistro(pos);
+                    objFac.cargarItem(idItem);
+
+                    rlutil::cls();
+                    return;
+                }
+                else  rlutil::cls();
                 break;
-                  case 90://BEBIDA
+            }
+            case 90://BEBIDA
+            {
+                ///PRIMERO SE MUESTRA LA CARTA CON EL FILTRO
+                ArchivoProducto arc;
+                arc.listarRegistrosPorTipo(4);
+                rlutil::locate (70, 31);
+                cout<<"INGRESE ID DE ITEM A CARGAR";
+                rlutil::showcursor();
+                rlutil::locate (84, 32);
+                cin >> idItem;
+                int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
+                if (seleccion==IDOK)
+                {
+                    ///ACA LOGICA PARA AGREGAR ITEM
+
+                    ArchivoFactura arcFac;
+                    Factura objFac;
+
+                    int pos = arcFac.buscarRegistro(idFactura);
+
+                    objFac = arcFac.leerRegistro(pos);
+                    objFac.cargarItem(idItem);
+
+                    rlutil::cls();
+                    return;
+                }
+                else  rlutil::cls();
                 break;
+            }
             case 120://VOLVER
                 rlutil::cls();
                 salir=false;
-                mostrarVistaMesa();
-                break;
+                return;
             }
             break;
         }
 
-}while (salir==true);
+    }
+    while (salir==true);
 }
 
-void quitarItem()
+void quitarItem(int idFactura)
 {
     int y = 0;
-    int posItem, cantItem;
- bool salir=true;
-do{
+    int idItem, cantItem;
+    bool salir=true;
+    do
+    {
+        rlutil::locate(60, 36);
+        cout<<"PORFAVOR INGRESE ID DE ITEM A ELIMINAR";
+        rlutil::locate(60, 37);
+        cout<<"UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
+        rlutil::locate(80, 38);
+        rlutil::setColor(rlutil::WHITE);
+        cin >> idItem;
 
-dibujarBordesPantallas(42,2);
-dibujarBordesPantallas(42,4);
+        rlutil::setColor(rlutil::BROWN);
+        rlutil::locate(60, 36);
+        cout<<"PORFAVOR INGRESE LA CANTIDAD DE ITEMS A ELIMINAR";
+        rlutil::locate(60, 37);
+        cout<<"UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
+        rlutil::locate(80, 38);
+        rlutil::setColor(rlutil::WHITE);
+        cout << "     ";
+        cin>> cantItem;
 
-rlutil::setColor(rlutil::WHITE);
-rlutil::locate(58, 3);
- cout<<"PORFAVOR INGRESE LA POSICION DEL ITEM A ELIMINAR";
-  rlutil::locate(60, 7);
- cout<<"UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
- rlutil::locate(80, 5);
-//cin.getline() >> posItem;
-
-dibujarBordesPantallas(42,9);
-dibujarBordesPantallas(42,11);
-rlutil::locate(58, 10);
- cout<<"PORFAVOR INGRESE LA CANTIDAD DE ITEMS A ELIMINAR";
-  rlutil::locate(60, 14);
- cout<<"UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
- rlutil::locate(80, 12);
-//cin.getline>> cantItem;
-
-//cin.ignore();
-
-rlutil::hidecursor();
- rlutil::setColor(rlutil::MAGENTA);
+        /*
+        rlutil::hidecursor();
+        rlutil::setColor(rlutil::MAGENTA);
         dibujarBordeSyI(10,16);
         dibujarBordeSyI(10,18);
-         dibujarBordeSyI(10,23);
+        dibujarBordeSyI(10,23);
         ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
         dibujarBordesDeI(9,17,5);
         dibujarBordesDeI(160,17,5);
- rlutil::setColor(rlutil::LIGHTCYAN);
+        rlutil::setColor(rlutil::LIGHTCYAN);
         rlutil::locate(12, 17);
         cout<<"NRO."; //POSICIONAR SU COUT EN EL 13,12
         rlutil::locate(80, 17);
         cout <<"NOMBRE"; //POSICIONAR SU COUT A PARTIR DEL 16,12
         rlutil::locate(130, 17);
         cout <<"CANTIDAD";
+        */
 
-      rlutil::locate(70, 25);
- cout << "ESTA SEGURO DE ELIMINAR EL ITEM NRO X?";
-        pintarOpciones("SI",78,26,y==0);
-        pintarOpciones("NO",78,27,y==1);
-        pintarOpciones("CANCELAR OPERACION Y VOLVER A PANTALLA ANTERIOR",78,28,y==2);
-
- rlutil::setColor(rlutil::WHITE);
-      rlutil:: locate (77,26+y);
-        cout << char (16);
-        int key = rlutil::getkey();
-        rlutil::locate(77, 26+y);
-
-        switch (key)
+        int resultado = MessageBox(NULL, "Desea quitar esta cantidad de items?", "CONFIRMACION DE OPERACION", MB_OKCANCEL);
+        if (resultado==IDOK)
         {
-        case 14:
-            y+=1;
-            if (y>2) y=2;
+            ArchivoFactura arcFac;
+            Factura objFac;
 
-            break;
-        case 15:
-            y-=1;
-            if (y<0) y=0;
+            int pos = arcFac.buscarRegistro(idFactura);
+            objFac = arcFac.leerRegistro(pos);
 
-            break;
-        case 1:
-            switch (y)
+            if(objFac.quitarItem(idItem, cantItem))
             {
-            case 0://si
-                break;
-            case 1://no
-                  rlutil::cls();
-                  quitarItem();
-                break;
-            case 2://cancelar y volver
-
-                rlutil::cls();
-                salir=false;
-                mostrarVistaMesa();
-                break;
+                MessageBox(NULL, "Se quito el item exitosamente", "OPERACION EXITOSA", MB_OK);
             }
-            break;
+            else
+            {
+                MessageBox(NULL, "NO SE ENCONTRO EL PRODUCTO", "ERROR ELIMINAR PRODUCTO", MB_OKCANCEL);
+            }
         }
-
-}while (salir==true);
+        rlutil::cls();
+        return;
+    }
+    while (salir==true);
 }
-
