@@ -25,6 +25,9 @@ int main()
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
 
+    //ArchivoMesasLocal arc;
+    //arc.setearCantMesas(10);
+
     mostrarMenuPrincipal();
 
     return 0;
