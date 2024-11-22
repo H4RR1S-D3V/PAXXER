@@ -7,7 +7,6 @@ using namespace std;
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
 #include "pantallasMenuPrincipal.h"
-#include "../controller/clases.h"
 #include "../controller/clasesArchivos.h"
 
 

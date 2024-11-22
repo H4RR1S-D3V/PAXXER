@@ -6,7 +6,6 @@
 #include "rlutil.h"
 
 ///INCLUDES /CONTROLLER
-#include "./controller/clases.h"
 #include "./controller/clasesArchivos.h"
 #include "./controller/constantes.h"
 #include "./controller/generadorIDs.h"

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-#include "clases.h"
 #include "clasesArchivos.h"
 
 using namespace std;

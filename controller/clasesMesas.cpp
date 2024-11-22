@@ -1,5 +1,7 @@
 /// FACTURA (CAMBIAR LUEGO)
-#include "clases.h"
+
+#include <iostream>
+
 #include "clasesMesas.h"
 #include "clasesArchivos.h"
 #include "generadorIDs.h"
@@ -7,6 +9,8 @@
 #include "../view/pantallasMenuPrincipal.h"
 #include "../view/declaracionOpcionesMapaMesas.h"   /// WTF... cargarItem() viene de aca??
 #include "../rlutil.h"
+
+using namespace std;
 
 /// CLASE BASE MESA
 
