@@ -9,7 +9,6 @@ using namespace std;
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
 #include "../controller/clasesArchivos.h"
-#include "../controller/clases.h"
 #include "pantallaDelivery.h"
 
 
@@ -134,8 +133,8 @@ void mostrarMapaMesas()
             case 60:///DIRIGE A PANTALLA TAKE AWAY
             {
                 rlutil::cls();
-                ArchivoTakeAway arc;
-                arc.listarRegistros();
+                ArchivoTakeAway arcTake;
+                arcTake.listarRegistros();
                 system("pause");
 
                 break;

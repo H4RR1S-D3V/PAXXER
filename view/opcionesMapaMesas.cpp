@@ -7,7 +7,6 @@ using namespace std;
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
 #include "pantallasMenuPrincipal.h"
-#include "../controller/clases.h"
 #include "../controller/clasesArchivos.h"
 
 
@@ -264,7 +263,7 @@ int resultado = MessageBox(NULL, "Desea quitar esta cantidad de items?", "CONFIR
             MessageBox(NULL, "Se cerro la mesa exitosamente", "OPERACION EXITOSA", MB_OK);
         }
         else   rlutil::locate(48, 11);
-               /* cout<<"PORFAVOR INGRESE TIPO DESCUENTO: ";
+               cout<<"PORFAVOR INGRESE TIPO DESCUENTO: ";
                 cin >> descuentoTipo;
                  rlutil::locate(48, 12);
                  cout<<"PORFAVOR INGRESE MONTO A DESCONTAR: ";

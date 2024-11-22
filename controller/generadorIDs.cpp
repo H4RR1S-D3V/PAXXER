@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-
 /// EN EL CONSTRUCTOR, LE PASAMOS CUAL ARCHIVO QUEREMOS USAR
 /// "id_empleados.txt" - "id_productos.txt" - "id_facturas.txt" -
 

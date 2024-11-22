@@ -6,7 +6,6 @@ using namespace std;
 #include "pantallasMenuPrincipal.h"
 #include "declaracionOpcionesConfiguraciones.h"
 #include "funcionesDibujar.h"
-#include "../controller/clases.h"
 #include "../controller/clasesArchivos.h"
 
 
@@ -181,11 +180,6 @@ void mostrarConfigurarCarta()
 
     while (salir==true);
     }
-
-
-
-
-
 
 void mostrarEmpleados()
 {

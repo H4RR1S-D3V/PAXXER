@@ -6,7 +6,6 @@
 using namespace std;
 #include "pantallasMenuPrincipal.h"
 #include "funcionesDibujar.h"
-#include "../controller/clases.h"
 #include "../controller/clasesArchivos.h"
 
 

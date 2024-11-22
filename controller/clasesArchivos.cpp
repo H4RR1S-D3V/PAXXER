@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 
-#include "clases.h"
 #include "clasesArchivos.h"
 
 using namespace std;
@@ -659,6 +658,7 @@ bool ArchivoProducto::listarRegistros()
             obj.Mostrar(13, 15+i);
         }
     }
+    return true;
 }
 
 bool ArchivoProducto::cambiarEstadoRegistro(int id)

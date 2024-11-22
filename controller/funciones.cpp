@@ -1,4 +1,9 @@
-#include "clases.h"
+#include <iostream>
+#include <cstring>
+
+#include "clasesAuxiliares.h"
+
+using namespace std;
 
 string horaActual(){
 Tiempo tiempo;

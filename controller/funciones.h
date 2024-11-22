@@ -1,7 +1,10 @@
 #pragma once
-#include "clases.h"
 
-string horaActual();
+#include <cstring>
+
+#include "clasesAuxiliares.h"
+
+std::string horaActual();
 
 Fecha fechaActual();
 

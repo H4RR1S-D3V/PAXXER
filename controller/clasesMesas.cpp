@@ -1,348 +1,82 @@
+/// FACTURA (CAMBIAR LUEGO)
+
 #include <iostream>
-#include <string>
-#include <cstring>
-#include <iomanip>
-#include "clases.h"
-#include "funciones.h"
+
+#include "clasesMesas.h"
 #include "clasesArchivos.h"
-#include "../rlutil.h"
-#include "../view/declaracionOpcionesMapaMesas.h"
+#include "generadorIDs.h"
 #include "../view/funcionesDibujar.h"
 #include "../view/pantallasMenuPrincipal.h"
-#include <cctype>
+#include "../view/declaracionOpcionesMapaMesas.h"   /// WTF... cargarItem() viene de aca??
+#include "../rlutil.h"
 
-
-
-/// CLASES AUXILIARES
-
-
-void Fecha::Cargar()
-{
-    cin>>_dia;
-    cin>>_mes;
-    cin>>_anio;
-}
-void Fecha::Mostrar()
-{
-    cout<<_dia<<"/";
-    cout<<_mes<<"/";
-    cout<<_anio<<endl;
-}
-
-int Fecha::getDia()
-{
-    return _dia;
-}
-int Fecha::getMes()
-{
-    return _mes;
-}
-int Fecha::getAnio()
-{
-    return _anio;
-}
-
-void Fecha::setDia(int d)
-{
-    _dia=d;
-}
-void Fecha::setMes(int m)
-{
-    _mes=m;
-}
-void Fecha::setAnio(int a)
-{
-    _anio=a;
-}
-
-
-int Tiempo::getHora()
-{
-    return _local->tm_hour;
-}
-
-int Tiempo::getMinutos()
-{
-    return _local->tm_min;
-}
-
-Fecha Tiempo::getFecha()
-{
-    Fecha fecha;
-    fecha.setDia(_local->tm_mday);
-    fecha.setMes(_local->tm_mon+1);
-    fecha.setAnio(_local->tm_year + 1900);
-
-    return fecha;
-}
-
-void Domicilio::Cargar()
-{
-    cout << "CALLE: ";
-    cargarCadena(_calle, 20);
-
-    cout << "ALTURA: ";
-    cin >> _altura;
-
-    cout << "LOCALIDAD: ";
-    cargarCadena(_localidad, 20);
-}
-
-void Domicilio::Mostrar()
-{
-    cout << _calle << " " << _altura << " - " << _localidad;
-}
-
-
-void controladorProductos::ordenarVectores()
-{
-    int pos = 0;
-
-    for (int i = 0; i < _tamanio; ++i)
-    {
-        if (_vCantPorProductos[i] != 0)
-        {
-            _vIdsProductos[pos] = _vIdsProductos[i];
-            _vCantPorProductos[pos] = _vCantPorProductos[i];
-            _vPreciosProductos[pos] = _vPreciosProductos[i];
-            pos++;
-        }
-    }
-    // LLENAR CON CEROS DESDE POS HASTA EL FINAL
-    for (int i = pos; i < _tamanio; ++i)
-    {
-        _vIdsProductos[i] = 0;
-        _vCantPorProductos[i] = 0;
-        _vPreciosProductos[i] = 0;
-    }
-}
-
-float controladorProductos::calcularPrecioTotal()
-{
-    float acumulador = 0;
-    int i = 0;
-
-    ordenarVectores();
-
-    while(_vPreciosProductos[i] != 0)
-    {
-        acumulador += (_vPreciosProductos[i] * float(_vCantPorProductos[i]));
-        i++;
-    }
-    return acumulador;
-}
-
-void controladorProductos::cargarProducto(int idProducto)
-{
-    int i = 0;
-
-    Producto obj;
-    ArchivoFactura arcFac;
-    ArchivoProducto arcPro;
-
-    while(_vIdsProductos[i] != 0)
-    {
-        if(_vIdsProductos[i] == idProducto)
-        {
-            _vCantPorProductos[i]++;
-
-            return;
-        }
-        i++;
-    }
-
-    int pos = arcPro.buscarRegistroPorId(idProducto);
-    obj = arcPro.leerRegistro(pos);
-
-    _vIdsProductos[i] = idProducto;
-    _vCantPorProductos[i]++;
-    _vPreciosProductos[i] = obj.getPrecio();
-}
-
-bool controladorProductos::quitarProducto(int id, int cant)
-{
-    int i=0;
-    while(_vIdsProductos[i] != 0)
-    {
-        if(_vIdsProductos[i] == id)
-        {
-
-            _vCantPorProductos[i] -= cant;
-            /// CHEQUEAR SI SE QUEDA SIN CANTIDAD
-
-            if(_vCantPorProductos[i] <= 0)
-            {
-                _vIdsProductos[i] = 0;
-                _vCantPorProductos[i] = 0;
-                _vPreciosProductos[i] = 0.0;
-            }
-            ordenarVectores();
-            return true;
-        }
-        i++;
-    }
-    return false;
-}
-
-void controladorProductos::mostrarProductos()
-{
-    int i = 0;
-
-    Producto obj;
-    ArchivoProducto arc;
-
-    ///MARCO TABLA PRODUCTOS
-    rlutil::setColor(rlutil::LIGHTCYAN);
-    rlutil::locate(12, 13);
-    cout<<"ID."; //POSICIONAR SU COUT EN EL 13,12
-    rlutil::locate(52, 13);
-    cout <<"NOMBRE"; //POSICIONAR SU COUT A PARTIR DEL 16,12
-    rlutil::locate(100, 13);
-    cout <<"CANTIDAD";
-    rlutil::locate(122, 13);
-    cout <<"PRECIO";
-    rlutil::locate(135, 13);
-    cout <<"TOTAL";
-
-    int posXinicial=13;
-    int posYinicial=19;
-
-    while(_vIdsProductos[i] != 0)
-    {
-        int pos = arc.buscarRegistroPorId(_vIdsProductos[i]);
-        obj = arc.leerRegistro(pos);
-
-        rlutil::setColor(rlutil::WHITE);
-
-        rlutil::locate(posXinicial, posYinicial+i);
-        cout << obj.getId();
-
-        rlutil::locate(posXinicial+35, posYinicial+i);
-        cout << obj.getNombre();
-
-        rlutil::locate(posXinicial+90, posYinicial+i);
-        cout << _vCantPorProductos[i];
-
-        rlutil::locate(posXinicial+108, posYinicial+i);
-        cout << obj.getPrecio();
-
-        rlutil::locate(posXinicial+122, posYinicial+i);
-        cout << fixed<<setprecision(2)<<obj.getPrecio()*_vCantPorProductos[i];
-
-        i++;
-    }
-}
-controladorProductos& controladorProductos::operator=(const controladorProductos& otro)
-{
-    if (this != &otro)
-    {
-        for (int i = 0; i < 30; ++i)
-        {
-            _vIdsProductos[i] = otro._vIdsProductos[i];
-            _vCantPorProductos[i] = otro._vCantPorProductos[i];
-            _vPreciosProductos[i] = otro._vPreciosProductos[i];
-        }/*
-            _vIdsProductos = otro._vIdsProductos;
-            _vCantPorProductos = otro._vCantPorProductos;
-            _vPreciosProductos = otro._vPreciosProductos;*/
-    }
-    return *this;
-}
+using namespace std;
 
 /// CLASE BASE MESA
 
+//SETTERS
+void Mesa::setNumero(int numero)
+{
+    _numero = numero;
+}
+//GETTERS
+bool Mesa::getDisponibilidad()
+{
+    return _disponible;
+}
+int Mesa::getNumero()
+{
+    return _numero;
+}
+int Mesa::getIdFactura()
+{
+    return _idFactura;
+}
+//METHODS
 Mesa::Mesa()
 {
     _numero = 0;
-    ///_disponible = true;
 }
-
 Mesa::Mesa(int numero)
 {
     _numero = numero;
-    ///_disponible = true;
 
 }
-
-void Mesa::abrirMesa() {}
-void Mesa::cerrarMesa() {}
-
-
+void Mesa::abrirMesa(){}
+void Mesa::cerrarMesa(){}
 void Mesa::cargarMesa()
 {
     // FALTA SETEAR EL NUMERO DE MESA
-    _disponible = false;    /// LA MESA SE OCUPA AL ABRIRLA
-    /// GENERAR Factura Y ASIGNARLO
+    _disponible = false;
 
     _idFactura = generarId(3);
     Factura obj(_idFactura);
 
     ArchivoFactura arc;
-
     arc.agregarRegistro(obj);
 }
-
-void Mesa::mostrarMesa()
-{
-    ///METODO INNECESARIO??
-    ///cout << "Nï¿½ " << _numero << endl;
-
-    // SETEAR COLOR Y FUNCIONALIDADES SEGUN DISPONBLE
-    /// DIBUJAR()
-}
-
-void Mesa::setNumero(int numero)
-{
-    _numero = numero;
-}
-
-bool Mesa::getDisponibilidad()
-{
-    return _disponible;
-}
-
-int Mesa::getNumero()
-{
-    return _numero;
-}
-
-int Mesa::getIdFactura()
-{
-    return _idFactura;
-}
+/// FIN CLASE BASE MESA
 
 /// CLASE HEREDADA LOCAL
 
+//METHODS
+Local::Local(){}
 Local::Local(int numeroMesa)
 {
     _numero = numeroMesa;
     _disponible = true;
-    _empleadoAsignado;
 }
-
-Local::Local()
-{
-
-}
-
 void Local::cargarLocal()
 {
+
     ArchivoFactura archiFac;
     Factura obj;
+
     cargarMesa();
 
-    /*
-    // CUANDO SE ABRE POR PRIMERA VEZ
-    cout << "INGRESE EL ID EL CAMARERO ASIGNADO: ";
-    cin >> _empleadoAsignado;
-
-    cout << "INGRESE LA CANTIDAD DE COMENSALES: ";
-    cin >> _comensales;
-    */
-    /// seccion grafica
     bool salir = true;
     int y=0;
-    do
+    do  //! PASAR A FUNCION
     {
 
         ///MOSTRAR NUM MESA ELEGIDA
@@ -427,15 +161,11 @@ void Local::cargarLocal()
 
     while(salir==true);
 }
-
-
-
 void Local::mostrarLocal()
 {
-    mostrarMesa();
     bool salir = true;
     int x=0;
-    do
+    do  //! PASAR A FUNCION
     {
         rlutil::hidecursor();
         rlutil::setColor(rlutil::LIGHTCYAN);
@@ -510,11 +240,8 @@ void Local::mostrarLocal()
     while (salir==true);
 
 }
-
 void Local::abrirMesa()
 {
-    // PREGUNTAR SI LA MESA ESTA DISPO PARA ASIGNAR CAMARERO Y FACTURA Y CAMBIAR ESTADO
-
     Local obj;
     ArchivoMesasLocal arcMesa;
     ArchivoFactura arcFac;
@@ -530,23 +257,17 @@ void Local::abrirMesa()
 
     obj.mostrarLocal();
     return;
-
-    /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
-    /// lo de arriba / _comensales
-
-    /// SUBMENU DE OPCIONES
-
 }
-
 void Local::liberarMesa()
 {
+    /// Mesa(numero)?
+
     _disponible = true;
     _idFactura = -1;
     _horaApertura = -1;
     _comensales = -1;
     _empleadoAsignado = -1;
 }
-
 void Local::cerrarMesa()
 {
     Factura objFac;
@@ -556,6 +277,7 @@ void Local::cerrarMesa()
 
     int opcion;
 
+    /// PASAR A FUNCION
     rlutil::locate(60, 36);
     cout << "DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
     rlutil::locate(60, 37);
@@ -657,6 +379,7 @@ void Local::cerrarMesa()
     arcLocal.actualizarMesa(*this);
     mostrarMapaMesas();
 }
+/// FIN CLASE HEREDADA LOCAL
 
 /// CLASE HEREDADA DELIVERY
 
@@ -672,8 +395,7 @@ int Delivery::getNumero()
     return _numero;
 }
 // METHODS
-Delivery::Delivery() {}
-
+Delivery::Delivery(){}
 Delivery::Delivery(int num)
 {
     _numero = num;
@@ -707,7 +429,6 @@ void Delivery::cargarDelivery()
 
     arc.actualizarRegistro(obj);
 }
-
 void Delivery::mostrarDelivery()
 {
 
@@ -732,11 +453,8 @@ void Delivery::mostrarDelivery()
         cout << "ENTREGADO" << endl;
     }
 }
-
 void Delivery::abrirMesa()
 {
-    // PREGUNTAR SI LA MESA ESTA DISPO PARA ASIGNAR CAMARERO Y FACTURA Y CAMBIAR ESTADO
-
     Delivery obj;
     ArchivoDelivery arcDel;
     ArchivoFactura arcFac;
@@ -765,13 +483,7 @@ void Delivery::abrirMesa()
     system("pause");
 
     return;
-
-    /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
-    /// lo de arriba / _comensales
-
-    /// SUBMENU DE OPCIONES
 }
-
 void Delivery::cerrarMesa()
 {
     Factura objFac;
@@ -839,13 +551,14 @@ void Delivery::entregarDelivery()
 {
     _entregado = true;
 }
-
 void Delivery::disminuirNumero()
 {
     _numero--;
 }
+/// FIN CLASE HEREDADA DELIVERY
 
 /// CLASE HEREDADA TAKEAWAY
+
 // SETTERS
 void TakeAway::setNumero(int num)
 {
@@ -858,17 +571,14 @@ int TakeAway::getNumero()
     return _numero;
 }
 // METHODS
-TakeAway::TakeAway() {}
-
+TakeAway::TakeAway(){}
 TakeAway::TakeAway(int num)
 {
     _numero = num;
 }
-
 void TakeAway::cargarTakeAway()
 {
     cargarMesa();
-    /// buscar factura y pasar hora para calcular turno
 
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
     cargarCadena(_telefonoCliente, 20);
@@ -889,10 +599,8 @@ void TakeAway::cargarTakeAway()
 
     arc.actualizarRegistro(obj);
 }
-
 void TakeAway::mostrarTakeAway()
 {
-    Mesa::mostrarMesa();
     ArchivoFactura arcFac;
 
     Factura objFac;
@@ -914,11 +622,8 @@ void TakeAway::mostrarTakeAway()
         cout << "ENTREGADO" << endl;
     }
 }
-
 void TakeAway::abrirMesa()
 {
-    // PREGUNTAR SI LA MESA ESTA DISPO PARA ASIGNAR CAMARERO Y FACTURA Y CAMBIAR ESTADO
-
     TakeAway obj;
     ArchivoTakeAway arcTake;
     ArchivoFactura arcFac;
@@ -944,13 +649,7 @@ void TakeAway::abrirMesa()
     objFac.mostrarFactura(0);
 
     return;
-
-    /// buscar el id asignado a _IDFactura en el archivo de Facturas y sacar el total
-    /// lo de arriba / _comensales
-
-    /// SUBMENU DE OPCIONES
 }
-
 void TakeAway::cerrarMesa()
 {
     Factura objFac;
@@ -1014,375 +713,11 @@ void TakeAway::cerrarMesa()
     ArchivoTakeAway arcTake;
     arcTake.eliminarRegistro(_numero - 1);
 }
-
 void TakeAway::entregarTakeAway()
 {
     _entregado = true;
 }
-
 void TakeAway::disminuirNumero()
 {
     _numero--;
 }
-
-/// CLASE BASE USUARIO
-Usuario::Usuario() {}
-
-Usuario::Usuario(char* nombre, char* dni)
-{
-    strcpy(_nombre, nombre);
-    strcpy(_dni, dni);
-    _id = generarId(1);
-}
-
-// SETTERS
-void Usuario::setId(int id)
-{
-    _id = id;
-}
-void Usuario::setNombre(const char* nombre)
-{
-    strcpy(_nombre, nombre);
-}
-void Usuario::setDNI(const char *DNI)
-{
-    strcpy(_dni, DNI);
-}
-void Usuario::setRol(int rol)
-{
-    if(rol != 1 || rol != 2)
-    {
-        cout << "INGRESE UN CODIGO DE ROL VALIDO:" << endl;
-        cout << "1 - USUARIO | 2 - ADMINISTRADOR" << endl;
-    }
-}
-
-// GETTERS
-int Usuario::getId()
-{
-    return _id;
-}
-char* Usuario::getDNI()
-{
-    return _dni;
-}
-bool Usuario::getEstado()
-{
-    return _estado;
-}
-const char* Usuario::getNombre()
-{
-    return _nombre;
-}
-int Usuario::getRol()
-{
-    return _rol;
-}
-
-// METHODS
-void Usuario::Cargar()
-{
-    cout << "INGRESE NOMBRE COMPLETO: " << endl;
-    cargarCadena(_nombre, 50);
-
-    cout << "INGRESE DNI: " << endl;
-    cin >> _dni;
-
-    _id=generarId(1);
-}
-
-void Usuario::Mostrar()
-{
-    cout << "NOMBRE: " << _nombre << endl;
-    cout << "DNI: " << _dni << endl;
-    cout << "ID: " << _id << endl;
-}
-
-void Usuario::cambiarEstado()
-{
-    _estado = !_estado;
-}
-
-/// CLASE BASE CREDENCIAL
-
-void Credencial::setPassword(const char* newPassword[12])
-{
-    strcpy(_password, *newPassword);
-}
-
-const char* Credencial::getPassword()
-{
-    return _password;
-}
-
-/// CLASE BASE PRODUCTO
-
-void Producto::Cargar()
-{
-    rlutil::locate (20,12);
-    cout << "NOMBRE: ";
-    cargarCadena(_nombre, 30);
-
-    rlutil::locate (40,12);
-    cout << "PRECIO: ";
-    cin >> _precio;
-
-    rlutil::locate (80,12);
-    cout << "TIPO: (1-Entrada | 2-Plato Principal | 3-Postre | 4-Bebida : ";
-    cin >> _tipo;
-
-    cin.clear();
-    cin.ignore();
-
-    _disponible = true;
-
-
-    _id = generarId(2);
-}
-void Producto::Mostrar(int posX, int posY)
-{
-    rlutil::setColor(rlutil::WHITE);
-
-    rlutil::locate(posX, posY);
-    cout << _id;
-
-    rlutil::locate(posX+35, posY);
-    cout << _nombre;
-
-    rlutil::locate(posX+90, posY);
-    cout << _precio;
-
-    rlutil::locate(posX+108, posY);
-    cout << _tipo;
-}
-void Producto::cambiarEstado()
-{
-    _disponible = !_disponible;
-}
-void Producto::setId(int id)
-{
-    _id = id;
-}
-void Producto::setPrecio(float precio)
-{
-    _precio = precio;
-}
-void Producto::setNombre(const char* nombre)
-{
-    if(strlen(nombre) > 50)
-    {
-        cout << "EL NOMBRE NO PUEDE TENER MAS DE 50 CARACTERES" << endl;
-        return;
-    }
-    strcpy(_nombre, nombre);
-}
-void Producto::setTipo(const int tipo)
-{
-    _tipo = tipo;
-}
-float Producto::getPrecio()
-{
-    return _precio;
-}
-const char* Producto::getNombre()
-{
-    return _nombre;
-}
-int Producto::getId()
-{
-    return _id;
-}
-bool Producto::getDisponibilidad()
-{
-    return _disponible;
-}
-const int Producto::getTipo()
-{
-    return _tipo;
-}
-
-
-/// CLASE BASE FACTURA
-Factura::Factura()
-{
-    controladorProductos();
-}
-
-Factura& Factura::operator=(const Factura& otro)
-{
-    if (this != &otro)
-    {
-
-        _id = otro._id;
-        _productos = otro._productos;
-        _fecha = otro._fecha;
-        _turno = otro._turno;
-        _tipo = otro._tipo;
-        _importeSubTotal = otro._importeSubTotal;
-        _importeTotal = otro._importeTotal;
-        _tipoYDescuentoAplicado[0] = otro._tipoYDescuentoAplicado[0];
-        _tipoYDescuentoAplicado[1] = otro._tipoYDescuentoAplicado[1];
-        _idEmpleado = otro._idEmpleado;
-    }
-    return *this;
-}
-
-Factura::Factura(int id)
-{
-    _id = id;
-    //controladorProductos();
-
-
-}
-
-/// FUNCIONES DEL ARRAY _PRODUCTOS
-
-void Factura::setId(int id)
-{
-    _id = id;
-}
-
-void Factura::setTipo(int tipo)
-{
-    _tipo = tipo;
-}
-
-void Factura::setImporteSubTotal(float monto)
-{
-    _importeSubTotal = monto;
-}
-
-void Factura::setImporteTotal(float monto)
-{
-    _importeTotal = monto;
-}
-
-void Factura::setIdEmpleado(int idEmpleado)
-{
-    _idEmpleado = idEmpleado;
-}
-
-void Factura::actualizarImporteTotal()
-{
-    _importeSubTotal = _productos.calcularPrecioTotal();
-}
-
-void Factura::cargarItem(int idProducto)
-{
-    ArchivoFactura arcFac;
-
-    _productos.cargarProducto(idProducto);
-
-    actualizarImporteTotal();
-
-    /// agregar los cambios en el archivo segun id.
-    arcFac.actualizarRegistro(*this);
-}
-
-bool Factura::quitarItem(int pos, int cant)
-{
-    // PEDIR CONTRASENIA
-    bool elimino = _productos.quitarProducto(pos, cant);
-    /// agregar los cambios en el archivo segun id.
-    ArchivoFactura archi;
-    actualizarImporteTotal();
-    archi.actualizarRegistro(*this);
-    return elimino;
-}
-
-void Factura::mostrarFacturaDetalle()
-{
-    mostrarFactura(-3);
-    ///MOSTAR PRODUCTOS
-    _productos.mostrarProductos();
-
-}
-
-void Factura::mostrarFactura(int i)
-{
-    rlutil::setColor(rlutil::MAGENTA);
-    dibujarBordeSyI(10,12);
-    dibujarBordeSyI(10,14);
-    ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
-    dibujarBordesDeI(9,13,30);
-    dibujarBordesDeI(160,13,30);
-    rlutil::setColor(rlutil::YELLOW);
-    rlutil::locate(12, 11+i+3);
-    cout<<"NRO. FACTURA: "<< _id;
-    rlutil::locate(40, 11+i+3);
-    cout<<"ID EMPLEADO: "<< _idEmpleado;
-    rlutil::locate(60, 11+i+3);
-    cout<<"TURNO: "<< _turno;
-    rlutil::locate(75, 11+i+3);
-    cout<<"FECHA: ";
-    _fecha.Mostrar();
-    rlutil::locate(100, 11+i+3);
-    cout<<"SUBTOTAL: " << _importeSubTotal;
-    rlutil::locate(130, 11+i+3);
-    cout<<"TOTAL: " << _importeTotal;
-
-
-}
-// FIN FUNCIONES ARRAY _PRODUCTOS
-
-void Factura::setTurno(string horaString)
-{
-
-    int hora = stoi(horaString.substr(0, 2));
-    if(hora >= 9 && hora <= 14)
-    {
-        _turno = 1;
-    }
-    else if (hora >= 15 && hora <= 20)
-    {
-        _turno = 2;
-    }
-    else
-    {
-        _turno = 3;
-    }
-}
-
-
-
-float Factura::getImporteTotal()
-{
-    actualizarImporteTotal();
-    return _importeTotal;
-}
-
-float Factura::getImporteSubTotal()
-{
-    actualizarImporteTotal();
-    return _importeSubTotal;
-}
-
-char Factura::getTipo()
-{
-    return _tipo;
-}
-
-controladorProductos Factura::getProductos()
-{
-    return _productos;
-}
-
-int Factura::getId()
-{
-    return _id;
-}
-
-void Factura::aplicarDescuento(int tipo, float descuento)
-{
-    /// pedir contraseÃ‘a maestra
-
-    if(tipo == 1)
-    {
-        _importeTotal = _importeSubTotal - descuento;
-    }
-    else if(tipo == 2)
-    {
-        _importeTotal = _importeSubTotal - ((_importeSubTotal * descuento) / 100 );
-    }
-}
-
