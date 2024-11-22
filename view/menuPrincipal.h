@@ -1,7 +1,3 @@
-
-#ifndef MENUPRINCIPAL_H_INCLUDED
-#define MENUPRINCIPAL_H_INCLUDED
+#pragma once
 
 void mostrarMenuPrincipal();
-
-#endif // MENUPRINCIPAL_H_INCLUDED

@@ -1,5 +1,4 @@
-#ifndef FUNCIONESDIBUJAR_H_INCLUDED
-#define FUNCIONESDIBUJAR_H_INCLUDED
+#pragma once
 
 void dibujarTituloPAXXER();
 void dibujarTituloNUESTRACARTA();
@@ -13,6 +12,3 @@ void dibujarBordeSyI(int posicionX, int posicionY);
 void dibujarBordesDeI(int posicionX, int posicionY, int largo);
 void dibujarMesa(int posX, int posY);
 void pintarOpciones(const char* texto, int posX, int posY, bool seleccion);
-
-
-#endif // FUNCIONESDIBUJAR_H_INCLUDED

@@ -1,5 +1,4 @@
-#ifndef CLASESARCHIVOS_H_INCLUDED
-#define CLASESARCHIVOS_H_INCLUDED
+#pragma once
 
 #include "clases.h"
 #include "constantes.h"
@@ -102,8 +101,3 @@ class ArchivoUsuario
         void listarRegistrosPorNombre(const char *nombre);
         // void eliminarRegistro(int id);
 };
-
-#endif // CLASESARCHIVOS_H_INCLUDED
-
-
-

@@ -1,6 +1,3 @@
-#ifndef PANTALLADELIVERY_H_INCLUDED
-#define PANTALLADELIVERY_H_INCLUDED
+#pragma once
 
 void pantallaDelivery();
-
-#endif // PANTALLADELIVERY_H_INCLUDED

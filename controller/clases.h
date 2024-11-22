@@ -3,12 +3,11 @@
 #include <iostream>
 #include <cstring>
 #include <ctime>
-#include <vector>
+
 using namespace std;
 
-
 #include "generadorIDs.h"
-
+#include "funciones.h"
 
 /// CLASES AUXILIARES
 
@@ -57,11 +56,8 @@ class Domicilio
 
 /// FIN CLASES AUXILIARES
 
-#include "funciones.h"
-
 class Producto
 {
-
     private:
         int _id;
         char _nombre[50];
@@ -84,62 +80,61 @@ class Producto
         /// METHODS
         void Cargar();
         void Mostrar(int posX, int posY);
-
 };
 
-class controladorProductos{
-private:
-    const int _tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
-    int _vIdsProductos[30]{0};
-    int _vCantPorProductos[30]{0};
-    int _vPreciosProductos[30]{0};
+class controladorProductos
+{
+    private:
+        const int _tamanio = 30; /// CONSTANTE DE TAMAÑO E ITERACION
+        int _vIdsProductos[30]{0};
+        int _vCantPorProductos[30]{0};
+        int _vPreciosProductos[30]{0};
 
-public:
-    controladorProductos& operator=(const controladorProductos& otro);
-    void ordenarVectores();
-    float calcularPrecioTotal();
-    void cargarProducto(int idProducto);
-    bool quitarProducto(int id, int cant);
-    void mostrarProductos();
+    public:
+        controladorProductos& operator=(const controladorProductos& otro);
+        void ordenarVectores();
+        float calcularPrecioTotal();
+        void cargarProducto(int idProducto);
+        bool quitarProducto(int id, int cant);
+        void mostrarProductos();
 };
 
 class Factura
 {
-private:
-    int _id;
-    controladorProductos _productos;
-    Fecha _fecha = fechaActual();
-    int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
-    int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-    float _importeSubTotal = 0;
-    float _importeTotal = 0;
-    int _tipoYDescuentoAplicado[2];
-    int _idEmpleado = NULL;
-public:
+    private:
+        int _id;
+        controladorProductos _productos;
+        Fecha _fecha = fechaActual();
+        int _turno; /// 1-MAÑANA / 2-TARDE / 3-NOCHE
+        int _tipo; /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+        float _importeSubTotal = 0;
+        float _importeTotal = 0;
+        int _tipoYDescuentoAplicado[2];
+        int _idEmpleado = NULL;
 
-    Factura();
-    Factura(int id);
-    Factura& operator=(const Factura& otro);
-    void actualizarImporteTotal();
-    void cargarItem(int IdProducto);
-    bool quitarItem(int pos, int cant);
-    void mostrarFactura(int i);
-    void mostrarFacturaDetalle();
-    void aplicarDescuento(int tipo, float descuento);
-    ///setters
-    void setId(int id);
-    void setTipo(const int tipo);
-    void setIdEmpleado(int idEmpleado);
-    void setTurno(string horaString);
-    void setImporteTotal(float monto);
-    void setImporteSubTotal(float monto);
-
-    ///getters
-    controladorProductos getProductos();
-    float getImporteTotal();
-    float getImporteSubTotal();
-    char getTipo();
-    int getId();
+    public:
+        Factura();
+        Factura(int id);
+        Factura& operator=(const Factura& otro);
+        void actualizarImporteTotal();
+        void cargarItem(int IdProducto);
+        bool quitarItem(int pos, int cant);
+        void mostrarFactura(int i);
+        void mostrarFacturaDetalle();
+        void aplicarDescuento(int tipo, float descuento);
+        ///setters
+        void setId(int id);
+        void setTipo(const int tipo);
+        void setIdEmpleado(int idEmpleado);
+        void setTurno(string horaString);
+        void setImporteTotal(float monto);
+        void setImporteSubTotal(float monto);
+        ///getters
+        controladorProductos getProductos();
+        float getImporteTotal();
+        float getImporteSubTotal();
+        char getTipo();
+        int getId();
 };
 
 class Mesa
@@ -266,5 +261,3 @@ private:
         /// GETTERS
         const char* getPassword();
 };
-
-
