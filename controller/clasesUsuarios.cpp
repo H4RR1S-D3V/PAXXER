@@ -1,26 +1,13 @@
 #include <iostream>
-#include <string>
 #include <cstring>
 
-#include "clases.h"
+#include "clasesUsuarios.h"
+#include "generadorIDs.h"
 #include "funciones.h"
-#include "clasesArchivos.h"
-#include "../rlutil.h"
-#include "../view/declaracionOpcionesMapaMesas.h"
-#include "../view/funcionesDibujar.h"
-#include "../view/pantallasMenuPrincipal.h"
-#include <cctype>
 
+using namespace std;
 
-/// CLASE BASE USUARIO
-Usuario::Usuario() {}
-
-Usuario::Usuario(char* nombre, char* dni)
-{
-    strcpy(_nombre, nombre);
-    strcpy(_dni, dni);
-    _id = generarId(1);
-}
+/// CLASE USUARIO
 
 // SETTERS
 void Usuario::setId(int id)
@@ -43,7 +30,6 @@ void Usuario::setRol(int rol)
         cout << "1 - USUARIO | 2 - ADMINISTRADOR" << endl;
     }
 }
-
 // GETTERS
 int Usuario::getId()
 {
@@ -65,8 +51,14 @@ int Usuario::getRol()
 {
     return _rol;
 }
-
-// METHODS
+//METHODS
+Usuario::Usuario(){}
+Usuario::Usuario(char* nombre, char* dni)
+{
+    strcpy(_nombre, nombre);
+    strcpy(_dni, dni);
+    _id = generarId(1);
+}
 void Usuario::Cargar()
 {
     cout << "INGRESE NOMBRE COMPLETO: " << endl;
@@ -77,30 +69,28 @@ void Usuario::Cargar()
 
     _id=generarId(1);
 }
-
 void Usuario::Mostrar()
 {
     cout << "NOMBRE: " << _nombre << endl;
     cout << "DNI: " << _dni << endl;
     cout << "ID: " << _id << endl;
 }
-
 void Usuario::cambiarEstado()
 {
     _estado = !_estado;
 }
+/// FIN CLASE USUARIO
 
-/// CLASE BASE CREDENCIAL
+/// CLASE CREDENCIAL
 
+//SETTERS
 void Credencial::setPassword(const char* newPassword[12])
 {
     strcpy(_password, *newPassword);
 }
-
+//GETTERS
 const char* Credencial::getPassword()
 {
     return _password;
 }
-
-
-
+/// FIN CLASE CREDENCIAL
