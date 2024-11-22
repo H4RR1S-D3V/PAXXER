@@ -659,6 +659,7 @@ bool ArchivoProducto::listarRegistros()
             obj.Mostrar(13, 15+i);
         }
     }
+    return true;
 }
 
 bool ArchivoProducto::cambiarEstadoRegistro(int id)

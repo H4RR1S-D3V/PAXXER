@@ -1,6 +1,10 @@
 #pragma once
 
 #include "clases.h"
+#include "clasesMesas.h"
+#include "clasesAuxiliares.h"
+#include "clasesFactura.h"
+
 #include "constantes.h"
 
 class ArchivoMesasLocal

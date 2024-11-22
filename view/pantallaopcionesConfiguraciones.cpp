@@ -182,11 +182,6 @@ void mostrarConfigurarCarta()
     while (salir==true);
     }
 
-
-
-
-
-
 void mostrarEmpleados()
 {
     char dniEmpleado[10];

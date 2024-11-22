@@ -1,13 +1,9 @@
+///INCLUDES /LIBRARIES
 #include <iostream>
-
 #include <cstring>
 #include <ctime>
-#include "rlutil.h"
 #include <windows.h>
-
-
-
-
+#include "rlutil.h"
 
 ///INCLUDES /CONTROLLER
 #include "./controller/clases.h"
@@ -23,8 +19,6 @@
 #include "./view/funcionesDibujarTitulos.h"
 #include "./view/pantallaDelivery.h"
 
-
-
 using namespace std;
 
 int main()
@@ -32,16 +26,7 @@ int main()
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
 
-    ArchivoMesasLocal arc;
-    arc.setearCantMesas(10);
-
-
-
-    //ArchivoFactura arc;
-    //arc.listarRegistros();
-
     mostrarMenuPrincipal();
-
 
     return 0;
 }
