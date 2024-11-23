@@ -2,7 +2,7 @@
 
 #include "../rlutil.h"
 #include "funcionesDibujar.h"
-#include "../controller/clasesArchivos.h"
+#include "../controller/clasesArchivosMesas.h"
 
 
 using namespace std;

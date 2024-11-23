@@ -6,7 +6,7 @@
 using namespace std;
 #include "pantallasMenuPrincipal.h"
 #include "funcionesDibujar.h"
-#include "../controller/clasesArchivos.h"
+#include "../controller/clasesArchivosFacturas.h"
 
 
 void mostrarCarta()

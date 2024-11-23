@@ -7,7 +7,7 @@ using namespace std;
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
 #include "pantallasMenuPrincipal.h"
-#include "../controller/clasesArchivos.h"
+#include "../controller/clasesArchivosFacturas.h"
 
 
 void seleccionarTipoPedido()

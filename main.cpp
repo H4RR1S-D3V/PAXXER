@@ -1,3 +1,4 @@
+/*
 ///INCLUDES /LIBRARIES
 #include <iostream>
 #include <cstring>
@@ -6,7 +7,6 @@
 #include "rlutil.h"
 
 ///INCLUDES /CONTROLLER
-#include "./controller/clasesArchivos.h"
 #include "./controller/constantes.h"
 #include "./controller/generadorIDs.h"
 
@@ -19,14 +19,12 @@
 #include "./view/pantallaDelivery.h"
 
 using namespace std;
+*/
 
 int main()
 {
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
-
-    //ArchivoMesasLocal arc;
-    //arc.setearCantMesas(10);
 
     mostrarMenuPrincipal();
 
