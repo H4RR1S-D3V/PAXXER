@@ -1,18 +1,19 @@
-/*
 ///INCLUDES /LIBRARIES
+#include <windows.h>
+
+///INCLUDES /VIEW
+#include "./view/menuPrincipal.h"
+/*
 #include <iostream>
 #include <cstring>
 #include <ctime>
-#include <windows.h>
 #include "rlutil.h"
 
 ///INCLUDES /CONTROLLER
 #include "./controller/constantes.h"
 #include "./controller/generadorIDs.h"
 
-///INCLUDES /VIEW
 #include "./view/declaracionOpcionesMapaMesas.h"
-#include "./view/menuPrincipal.h"
 #include "./view/pantallasMenuPrincipal.h"
 #include "./view/funcionesDibujar.h"
 #include "./view/funcionesDibujarTitulos.h"
