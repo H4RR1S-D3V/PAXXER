@@ -3,7 +3,7 @@
 #include <iomanip>
 
 #include "ClasesFactura.h"
-#include "ClasesArchivos.h"
+#include "clasesArchivosFacturas.h"
 #include "generadorIDs.h"
 #include "../view/funcionesDibujar.h"
 #include "../rlutil.h"

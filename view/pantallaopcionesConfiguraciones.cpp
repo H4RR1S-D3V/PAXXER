@@ -3,12 +3,11 @@
 #include "../rlutil.h"
 
 using namespace std;
+#include "../controller/clasesArchivosFacturas.h"
+#include "../controller/clasesArchivosUsuarios.h"
 #include "pantallasMenuPrincipal.h"
 #include "declaracionOpcionesConfiguraciones.h"
 #include "funcionesDibujar.h"
-#include "../controller/clasesArchivos.h"
-
-
 
 void mostrarConfigurarCarta()
 {

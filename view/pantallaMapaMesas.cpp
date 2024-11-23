@@ -8,7 +8,7 @@ using namespace std;
 #include "menuPrincipal.h"
 #include "declaracionOpcionesMapaMesas.h"
 #include "funcionesDibujar.h"
-#include "../controller/clasesArchivos.h"
+#include "../controller/clasesArchivosMesas.h"
 #include "pantallaDelivery.h"
 
 
