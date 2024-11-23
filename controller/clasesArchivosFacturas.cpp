@@ -316,7 +316,6 @@ bool ArchivoProducto::agregarRegistro(Producto &obj)
 }
 Producto ArchivoProducto::leerRegistro(int pos)
 {
-    Producto obj;
 
     FILE *p;
     p = fopen(_nombre, "rb");
@@ -325,9 +324,57 @@ Producto ArchivoProducto::leerRegistro(int pos)
         obj.setId(-1);
         return obj;
     }
+
+    Producto obj;
+
     fseek(p, sizeof(Producto) * pos, 0);
     fread(&obj, sizeof(Producto), 1, p);
     fclose(p);
     return obj;
+}
+//FILTERS
+bool ArchivoProducto::filtrarRegistrosPorEstado(int tipo)
+{
+    FILE *p;
+    p = fopen(_nombre, rb);
+    if(p == nullptr)
+    {
+        return false;
+    }
+    Producto obj;
+
+    int cantRegistros = contarRegistros();
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getTipo() == tipo)
+        {
+            obj.Mostrar();
+        }
+    }
+    fclose(p);
+    return true;
+}
+void ArchivoProducto::filtrarRegistrosPorEstado(bool estado)
+{
+    FILE *p;
+    p = fopen(_nombre, rb);
+    if(p == nullptr)
+    {
+        return false;
+    }
+    Producto obj;
+
+    int cantRegistros = contarRegistros();
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getDisponibilidad() == estado)
+        {
+            obj.Mostrar();
+        }
+    }
+    fclose(p);
+    return true;
 }
 /// FIN ARCHIVO PRODUCTOS
