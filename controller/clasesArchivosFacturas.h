@@ -36,4 +36,7 @@ class ArchivoFactura
         bool listarRegistros();
         bool actualizarRegistro(Factura factura);
         int buscarRegistro(int id);
+        ///FILTERS
+        void filtrarRegistrosPorTipo(int tipo);
+        void filtrarRegistrosPorEstado(bool estado);
 };
