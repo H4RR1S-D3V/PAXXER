@@ -10,7 +10,6 @@ ArchivoFactura::ArchivoFactura(const char* n)
     strcpy(_nombre, n);
     _tamanioRegistro=sizeof(Factura);
 }
-
 /// PARA TRAER EL Factura DESDE EL ARCHIVO A LA MESA
 Factura ArchivoFactura::leerRegistro(int pos)
 {
@@ -28,7 +27,6 @@ Factura ArchivoFactura::leerRegistro(int pos)
     fclose(p);
     return obj;
 }
-
 bool ArchivoFactura::agregarRegistro(Factura &obj)
 {
     FILE *p;
@@ -41,7 +39,6 @@ bool ArchivoFactura::agregarRegistro(Factura &obj)
     fclose(p);
     return writed;
 }
-
 int ArchivoFactura::contarRegistros()
 {
     FILE *p;
@@ -55,7 +52,6 @@ int ArchivoFactura::contarRegistros()
     fclose(p);
     return tam/sizeof (Factura);
 }
-
 bool ArchivoFactura::listarRegistros()
 {
     FILE *p;
@@ -74,7 +70,6 @@ bool ArchivoFactura::listarRegistros()
     fclose(p);
     return true;
 }
-
 int ArchivoFactura::buscarRegistro(int id)
 {
     FILE *p;
@@ -98,7 +93,6 @@ int ArchivoFactura::buscarRegistro(int id)
     fclose(p);
     return -1;
 }
-
 bool ArchivoFactura::actualizarRegistro(Factura factura)
 {
     ArchivoFactura arc;
@@ -115,7 +109,112 @@ bool ArchivoFactura::actualizarRegistro(Factura factura)
     fclose(p);
     return escribio;
 }
+/// PROBAR DE PASAR LOS FILTRADOS A UNA SOLA FUNCION
+void ArchivoFactura::listarRegistrosPorResponsable(int idEmpleado)
+{
+    FILE *p = fopen(_nombre, "rb");
+    if(p = nullptr)
+    {
+        std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
+        return;
+    }
+    Factura obj;
+    int cantRegistros = contarRegistros();
 
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getIdEmpleado() == idEmpleado)
+        {
+            obj.mostrarFactura(-3);
+        }
+    }
+    fclose(p);
+}
+void ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
+{
+    FILE *p = fopen(_nombre, "rb");
+    if(p = nullptr)
+    {
+        std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
+        return;
+    }
+    Factura obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getTipo() == tipoServicio)
+        {
+            obj.mostrarFactura(-3);
+        }
+    }
+    fclose(p);
+}
+void ArchivoFactura::listarRegistrosPorTurno(int turno)
+{
+    FILE *p = fopen(_nombre, "rb");
+    if(p = nullptr)
+    {
+        std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
+        return;
+    }
+    Factura obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getTurno() == turno)
+        {
+            obj.mostrarFactura(-3);
+        }
+    }
+    fclose(p);
+}
+void ArchivoFactura::listarRegistrosPorAnio(int anio)
+{
+    FILE *p = fopen(_nombre, "rb");
+    if(p = nullptr)
+    {
+        std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
+        return;
+    }
+    Factura obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getFecha().getAnio() == anio)
+        {
+            obj.mostrarFactura(-3);
+        }
+    }
+    fclose(p);
+}
+void ArchivoFactura::listarRegistrosPorMes(int mes)
+{
+    FILE *p = fopen(_nombre, "rb");
+    if(p = nullptr)
+    {
+        std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
+        return;
+    }
+    Factura obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getFecha().getMes() == mes)
+        {
+            obj.mostrarFactura(-3);
+        }
+    }
+    fclose(p);
+}
 /// FIN ARCHIVO FACTURA
 
 /// ARCHIVO PRODUCTO

@@ -71,8 +71,11 @@ class Factura
         controladorProductos getProductos();
         float getImporteTotal();
         float getImporteSubTotal();
-        char getTipo();
+        int getTipo();
+        int getTurno();
         int getId();
+        Fecha getFecha();
+        int getIdEmpleado();
         ///METHODS
         Factura();
         Factura(int id);

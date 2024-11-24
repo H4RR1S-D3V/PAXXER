@@ -297,9 +297,13 @@ float Factura::getImporteSubTotal()
     actualizarImporteTotal();
     return _importeSubTotal;
 }
-char Factura::getTipo()
+int Factura::getTipo()
 {
     return _tipo;
+}
+int Factura::getTurno()
+{
+    return _turno;
 }
 controladorProductos Factura::getProductos()
 {
@@ -308,6 +312,14 @@ controladorProductos Factura::getProductos()
 int Factura::getId()
 {
     return _id;
+}
+Fecha Factura::getFecha()
+{
+    return _fecha;
+}
+int Factura::getIdEmpleado()
+{
+    return _idEmpleado;
 }
 //METHODS
 Factura::Factura()
