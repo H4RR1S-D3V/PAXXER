@@ -21,6 +21,7 @@ public:
     bool modificarTipoRegistro(const int tipo, int id);
     void listarRegistrosPorNombre(const char *nombre);
     void listarRegistrosPorTipo(const int tipo);
+    void ordenarRegistrosPorCantDeVentas(const int orden);
 };
 
 class ArchivoFactura
@@ -41,4 +42,7 @@ class ArchivoFactura
         void listarRegistrosPorTurno(int turno);
         void listarRegistrosPorAnio(int anio);
         void listarRegistrosPorMes(int mes);
+        void filtrarRegistrosPorTipo(int tipo);
+        void filtrarRegistrosPorEstado(bool estado);
+
 };
