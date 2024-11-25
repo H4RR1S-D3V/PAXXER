@@ -172,69 +172,8 @@ void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
         }
     }
 }
-void ArchivoProducto::ordenarRegistrosPorCantDeVentas(const int orden)  /// 1-ASCENDENTE 0-DESCENDENTE
-{
-    FILE *p;
-    p = fopen(_nombre, "rb");
-    if(p == nullptr)
-    {
-        return;
-    }
-    Producto obj;
-    int cantRegistros = contarRegistros();
 
-    Producto *vProductos = new Producto[cantRegistros];
 
-    for(int i=0; i<cantRegistros; i++)
-    {
-        vProductos[i] = leerRegistro(i);
-    }
-
-    int aux;
-
-    if(orden)
-    {
-        int posMin;
-
-        for(int j=0; j<cantRegistros-1; j++)
-        {
-            posMin = j;
-
-            for(int k=i+1; k<cantRegistros; k++)
-            {
-                if(vProductos[k] < vProductos[posMin])
-                {
-                    posMin = k;
-                }
-            }
-            aux = vProductos[j];
-            vProductos[j] = vProductos[posMin];
-            vProductos[posMin] = aux;
-        }
-    }
-    else
-    {
-        int posMax;
-
-        for(int j=0; j<cantRegistros-1; j++)
-        {
-            posMax = j;
-
-            for(int k=j+1; k<cantRegistros; k++)
-            {
-                if(vProductos[k] > vProductos[posMax])
-                {
-                    posMax = k;
-                }
-            }
-            aux = vProductos[j];
-            vProductos[j] = vProductos[posMax];
-            vProductos[posMax] = aux;
-        }
-    }
-    close(p);
-    delete vProductos;
-}
 bool ArchivoProducto::modificarTipoRegistro(const int tipo, int id)
 {
     FILE *p;
@@ -382,13 +321,13 @@ Producto ArchivoProducto::leerRegistro(int pos)
 
     FILE *p;
     p = fopen(_nombre, "rb");
+    Producto obj;
     if(p == nullptr)
     {
         obj.setId(-1);
         return obj;
     }
 
-    Producto obj;
 
     fseek(p, sizeof(Producto) * pos, 0);
     fread(&obj, sizeof(Producto), 1, p);
@@ -399,7 +338,7 @@ Producto ArchivoProducto::leerRegistro(int pos)
 bool ArchivoProducto::filtrarRegistrosPorEstado(int tipo)
 {
     FILE *p;
-    p = fopen(_nombre, rb);
+    p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         return false;
@@ -412,16 +351,16 @@ bool ArchivoProducto::filtrarRegistrosPorEstado(int tipo)
         obj = leerRegistro(i);
         if(obj.getTipo() == tipo)
         {
-            obj.Mostrar();
+            obj.Mostrar(1,1); ///CAMBIAR POSICION QUE RECIBE
         }
     }
     fclose(p);
     return true;
 }
-void ArchivoProducto::filtrarRegistrosPorEstado(bool estado)
+bool ArchivoProducto::filtrarRegistrosPorEstado(bool estado)
 {
     FILE *p;
-    p = fopen(_nombre, rb);
+    p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
         return false;
@@ -434,7 +373,7 @@ void ArchivoProducto::filtrarRegistrosPorEstado(bool estado)
         obj = leerRegistro(i);
         if(obj.getDisponibilidad() == estado)
         {
-            obj.Mostrar();
+            obj.Mostrar(1,2); ///CAMBIAR POSICION QUE RECIBE
         }
     }
     fclose(p);
