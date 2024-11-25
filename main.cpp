@@ -27,9 +27,9 @@ using namespace std;
 int main()
 {
 /*
+*/
     ArchivoMesasLocal arc;
     arc.setearCantMesas(10);
-*/
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
 

@@ -67,6 +67,20 @@ void Usuario::Cargar()
     cout << "INGRESE DNI: " << endl;
     cin >> _dni;
 
+    while(_rol != 1 || _rol != 2){
+    cout << "INGRESE ROL DE EMPLEADO: (1-EMPLEADO 2-ENCARGADO)" << endl;
+    cin >> _rol;
+
+    if (_rol != 1 || _rol != 2){
+        cout << "EL VALOR INGRESADO NO ES CORRECTO, INTENTE DE NUEVO";
+    }
+    }
+
+    if (_rol == 2){
+
+
+    }
+
     _id=generarId(1);
 }
 void Usuario::Mostrar()
@@ -82,6 +96,16 @@ void Usuario::cambiarEstado()
 /// FIN CLASE USUARIO
 
 /// CLASE CREDENCIAL
+Credencial::Credencial(char* dni){
+    strcpy(_dni, dni);
+    Cargar();
+}
+
+void Credencial::Cargar(){
+    cout << "Ingrese la contraseña para el DNI: " << _dni << endl;
+    cin >> _password;
+    /// GUARDAR EN LA DB
+}
 
 //SETTERS
 void Credencial::setPassword(const char* newPassword[12])
