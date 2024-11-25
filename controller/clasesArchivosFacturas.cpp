@@ -172,6 +172,69 @@ void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
         }
     }
 }
+void ArchivoProducto::ordenarRegistrosPorCantDeVentas(const int orden)  /// 1-ASCENDENTE 0-DESCENDENTE
+{
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return;
+    }
+    Producto obj;
+    int cantRegistros = contarRegistros();
+
+    Producto *vProductos = new Producto[cantRegistros];
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        vProductos[i] = leerRegistro(i);
+    }
+
+    int aux;
+
+    if(orden)
+    {
+        int posMin;
+
+        for(int j=0; j<cantRegistros-1; j++)
+        {
+            posMin = j;
+
+            for(int k=i+1; k<cantRegistros; k++)
+            {
+                if(vProductos[k] < vProductos[posMin])
+                {
+                    posMin = k;
+                }
+            }
+            aux = vProductos[j];
+            vProductos[j] = vProductos[posMin];
+            vProductos[posMin] = aux;
+        }
+    }
+    else
+    {
+        int posMax;
+
+        for(int j=0; j<cantRegistros-1; j++)
+        {
+            posMax = j;
+
+            for(int k=j+1; k<cantRegistros; k++)
+            {
+                if(vProductos[k] > vProductos[posMax])
+                {
+                    posMax = k;
+                }
+            }
+            aux = vProductos[j];
+            vProductos[j] = vProductos[posMax];
+            vProductos[posMax] = aux;
+        }
+    }
+    close(p);
+    delete vProductos;
+}
 bool ArchivoProducto::modificarTipoRegistro(const int tipo, int id)
 {
     FILE *p;

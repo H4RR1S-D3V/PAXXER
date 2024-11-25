@@ -17,7 +17,6 @@ void mostrarMenuPrincipal()
     int y=0;
     do
     {
-
         rlutil::hidecursor();
 
         dibujarBordesMenuPrincipal(42,19);
@@ -32,7 +31,6 @@ void mostrarMenuPrincipal()
         pintarOpciones("INFORMES", 83, 28, y==4);
         pintarOpciones("CONFIGURACION", 80, 30, y==6);
         pintarOpciones("SALIR", 84, 32, y==8);
-
 
         rlutil::locate(78,24+(y));
         cout << char (26);
