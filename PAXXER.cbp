@@ -35,8 +35,12 @@
 		<Unit filename="controller/ClasesAuxiliares.cpp" />
 		<Unit filename="controller/ClasesFactura.cpp" />
 		<Unit filename="controller/ClasesFactura.h" />
-		<Unit filename="controller/clasesArchivos.cpp" />
-		<Unit filename="controller/clasesArchivos.h" />
+		<Unit filename="controller/clasesArchivosFacturas.cpp" />
+		<Unit filename="controller/clasesArchivosFacturas.h" />
+		<Unit filename="controller/clasesArchivosMesas.cpp" />
+		<Unit filename="controller/clasesArchivosMesas.h" />
+		<Unit filename="controller/clasesArchivosUsuarios.cpp" />
+		<Unit filename="controller/clasesArchivosUsuarios.h" />
 		<Unit filename="controller/clasesAuxiliares.h" />
 		<Unit filename="controller/clasesMesas.cpp" />
 		<Unit filename="controller/clasesMesas.h" />
