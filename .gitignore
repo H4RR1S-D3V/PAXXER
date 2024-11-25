@@ -1,6 +1,7 @@
 # Ignorar archivos temporales de Code::Blocks
 *.layout
 *.depend
+*.cscope_file_list
 
 # Ignorar archivos binarios
 *.o
