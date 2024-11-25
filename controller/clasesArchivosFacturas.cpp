@@ -200,7 +200,7 @@ void ArchivoProducto::ordenarRegistrosPorCantDeVentas(const int orden)  /// 1-AS
         {
             posMin = j;
 
-            for(int k=i+1; k<cantRegistros; k++)
+            for(int k=j+1; k<cantRegistros; k++)
             {
                 if(vProductos[k] < vProductos[posMin])
                 {
