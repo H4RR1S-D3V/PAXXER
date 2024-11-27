@@ -86,4 +86,5 @@ class Factura
         void mostrarFactura(int i);
         void mostrarFacturaDetalle();
         void aplicarDescuento(int tipo, float descuento);
+        bool preguntarPorDescuento();
 };

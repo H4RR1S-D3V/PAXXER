@@ -5,6 +5,7 @@
 #include "ClasesFactura.h"
 #include "clasesArchivosFacturas.h"
 #include "generadorIDs.h"
+#include "funciones.h"
 #include "../view/funcionesDibujar.h"
 #include "../rlutil.h"
 
@@ -414,5 +415,109 @@ void Factura::aplicarDescuento(int tipo, float descuento)
     {
         _importeTotal = _importeSubTotal - ((_importeSubTotal * descuento) / 100 );
     }
+}
+bool Factura::preguntarPorDescuento()
+{
+    int opcion;
+
+    rlutil::locate(60, 36);
+    cout << "DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
+    rlutil::locate(60, 37);
+    cout << "UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
+    rlutil::locate(80, 38);
+    rlutil::setColor(rlutil::WHITE);
+    cin >> opcion;
+
+    if(opcion)
+    {
+        float descuento;
+
+        rlutil::setColor(rlutil::BROWN);
+        borrarLinea(60, 36);
+        rlutil::locate(60, 36);
+        cout << "SELECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
+        borrarLinea(60, 38);
+        rlutil::locate(80, 38);
+        rlutil::setColor(rlutil::WHITE);
+        cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1:
+            rlutil::setColor(rlutil::BROWN);
+            borrarLinea(60, 36);
+            rlutil::locate(60, 36);
+            cout << "DESCUENTO A APLICAR: ";
+            borrarLinea(60, 38);
+            rlutil::locate(80, 38);
+            rlutil::setColor(rlutil::WHITE);
+            cin >> descuento;
+
+            if(descuento > _importeSubTotal || descuento < 0)
+            {
+                rlutil::setColor(rlutil::BROWN);
+                borrarLinea(60, 36);
+                rlutil::locate(60, 36);
+                cout << "IMPORTE INVALIDO";
+                borrarLinea(60, 38);
+                rlutil::locate(80, 38);
+                rlutil::setColor(rlutil::WHITE);
+                system("pause");
+            }
+            else
+            {
+                aplicarDescuento(1, descuento);
+            }
+            break;
+        case 2:
+            rlutil::setColor(rlutil::BROWN);
+            borrarLinea(60, 36);
+            rlutil::locate(60, 36);
+            cout << "DESCUENTO A APLICAR: ";
+            borrarLinea(60, 38);
+            rlutil::locate(60, 38);
+            rlutil::setColor(rlutil::WHITE);
+
+            cin >> descuento;
+
+            if(descuento > 100 || descuento < 0)
+            {
+                rlutil::setColor(rlutil::BROWN);
+                borrarLinea(60, 36);
+                rlutil::locate(60, 36);
+                cout << "IMPORTE INVALIDO";
+                borrarLinea(60, 38);
+                rlutil::locate(80, 38);
+                rlutil::setColor(rlutil::WHITE);
+                system("pause");
+            }
+            else
+            {
+                aplicarDescuento(2, descuento);
+            }
+            break;
+        default:
+            rlutil::setColor(rlutil::BROWN);
+            borrarLinea(60, 36);
+            rlutil::locate(60, 36);
+            cout << "INGRESE UNA OPCOIN VALIDA";
+            borrarLinea(60, 38);
+            rlutil::locate(80, 38);
+            rlutil::setColor(rlutil::WHITE);
+            system("pause");
+        }
+    }
+    else
+    {
+        _importeTotal = _importeSubTotal;
+    }
+
+    system("cls");
+    mostrarFacturaDetalle();
+
+    ArchivoFactura arc;
+    arc.actualizarRegistro(*this);
+    rlutil::locate(60, 36);
+    system("pause");
 }
 /// FIN CLASE FACTURA
