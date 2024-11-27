@@ -7,6 +7,7 @@
 #include "clasesArchivosMesas.h"
 #include "clasesArchivosFacturas.h"
 #include "generadorIDs.h"
+#include "funciones.h"
 #include "../view/funcionesDibujar.h"
 #include "../view/pantallasMenuPrincipal.h"
 #include "../view/declaracionOpcionesMapaMesas.h"   /// WTF... cargarItem() viene de aca??
@@ -45,7 +46,16 @@ Mesa::Mesa(int numero)
 
 }
 void Mesa::abrirMesa(){}
-void Mesa::cerrarMesa(){}
+void Mesa::cerrarMesa()
+{
+    Factura objFac;
+    ArchivoFactura arcFac;
+
+    int pos = arcFac.buscarRegistro(_idFactura);
+    objFac = arcFac.leerRegistro(pos);
+
+    objFac.preguntarPorDescuento();
+}
 void Mesa::cargarMesa()
 {
     // FALTA SETEAR EL NUMERO DE MESA
@@ -230,7 +240,7 @@ void Local::mostrarLocal()
                 quitarItem(_idFactura);
                 break;
             case 60://CERRAR MESA
-                cerrarMesa();
+                cerrarLocal();
                 break;
             case 90://VOLVER
                 rlutil::cls();
@@ -270,115 +280,14 @@ void Local::liberarMesa()
     _comensales = -1;
     _empleadoAsignado = -1;
 }
-void Local::cerrarMesa()
+void Local::cerrarLocal()
 {
-    Factura objFac;
-    ArchivoFactura arcFac;
-    int pos = arcFac.buscarRegistro(_idFactura);
-    objFac = arcFac.leerRegistro(pos);
+    cerrarMesa();
 
-    int opcion;
-
-    /// PASAR A FUNCION
-    rlutil::locate(60, 36);
-    cout << "DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
-    rlutil::locate(60, 37);
-    cout<<"UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
-    rlutil::locate(80, 38);
-    rlutil::setColor(rlutil::WHITE);
-    cin >> opcion;
-
-    if(opcion)
-    {
-        float descuento;
-
-        rlutil::setColor(rlutil::BROWN);
-        rlutil::locate(60, 36);
-        cout << "SELECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
-        rlutil::locate(60, 37);
-        cout << "UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
-        rlutil::locate(80, 38);
-        rlutil::setColor(rlutil::WHITE);
-        cout << " ";
-        cin >> opcion;
-
-        switch(opcion)
-        {
-        case 1:
-            rlutil::setColor(rlutil::BROWN);
-            rlutil::locate(60, 36);
-            cout << " ";
-            rlutil::locate(60, 36);
-            cout << "DESCUENTO A APLICAR: ";
-            rlutil::locate(60, 37);
-            cout << "UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
-            rlutil::locate(80, 38);
-            rlutil::setColor(rlutil::WHITE);
-            cout << " ";
-            cin >> descuento;
-
-            if(descuento > objFac.getImporteSubTotal())
-            {
-                rlutil::setColor(rlutil::BROWN);
-                rlutil::locate(60, 36);
-                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA";
-                rlutil::locate(80, 38);
-                rlutil::setColor(rlutil::WHITE);
-                cout << " ";
-                system("pause");
-            }
-            else
-            {
-                objFac.aplicarDescuento(1, descuento);
-            }
-            break;
-        case 2:
-            rlutil::setColor(rlutil::BROWN);
-            rlutil::locate(60, 36);
-            cout << " ";
-            rlutil::locate(60, 36);
-            cout << "DESCUENTO A APLICAR: ";
-            rlutil::locate(60, 37);
-            cout << "UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
-            rlutil::locate(80, 38);
-            rlutil::setColor(rlutil::WHITE);
-            cout << " ";
-            cin >> descuento;
-
-            if(descuento > 100 || descuento < 0)
-            {
-                rlutil::setColor(rlutil::BROWN);
-                rlutil::locate(60, 36);
-                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA";
-                rlutil::locate(80, 38);
-                rlutil::setColor(rlutil::WHITE);
-                cout << " ";
-                system("pause");
-            }
-            else
-            {
-                objFac.aplicarDescuento(2, descuento);
-            }
-            break;
-        default:
-            rlutil::setColor(rlutil::BROWN);
-            rlutil::locate(60, 36);
-            cout << "INGRESE UNA OPCOIN VALIDA";
-            rlutil::locate(80, 38);
-            rlutil::setColor(rlutil::WHITE);
-            cout << " ";
-            system("pause");
-        }
-    }
-    else
-    {
-        objFac.setImporteTotal(objFac.getImporteSubTotal());
-    }
-    arcFac.actualizarRegistro(objFac);
     ArchivoMesasLocal arcLocal;
-
     liberarMesa();
     arcLocal.actualizarMesa(*this);
+
     mostrarMapaMesas();
 }
 /// FIN CLASE HEREDADA LOCAL
@@ -486,68 +395,13 @@ void Delivery::abrirMesa()
 
     return;
 }
-void Delivery::cerrarMesa()
+void Delivery::cerrarDelivery()
 {
-    Factura objFac;
-    ArchivoFactura arcFac;
-    int pos = arcFac.buscarRegistro(_idFactura);
-    objFac = arcFac.leerRegistro(pos);
+    cerrarMesa();
+    entregarDelivery();
 
-    int opcion;
-
-    cout << "�DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
-    cin >> opcion;
-
-    if(opcion)
-    {
-        float descuento;
-
-        cout << "SELLECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
-        cin >> opcion;
-
-        switch(opcion)
-        {
-        case 1:
-            cout << "DESCUENTO A APLICAR: ";
-            cin >> descuento;
-
-            if(descuento > objFac.getImporteSubTotal())
-            {
-                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA" << endl;
-                system("pause");
-            }
-            else
-            {
-                objFac.aplicarDescuento(1, descuento);
-            }
-            break;
-        case 2:
-            cout << "DESCUENTO A APLICAR: ";
-            cin >> descuento;
-
-            if(descuento > 100 || descuento < 0)
-            {
-                cout << "PORCENTAJE INVALIDO" << endl;
-                system("pause");
-            }
-            else
-            {
-                objFac.aplicarDescuento(2, descuento);
-            }
-            break;
-        default:
-            cout << "INGRESE UNA OPCION VALIDA" << endl;
-            system("pause");
-            break;
-        }
-    }
-    else
-    {
-        objFac.setImporteTotal(objFac.getImporteSubTotal());
-    }
-    arcFac.actualizarRegistro(objFac);
-    ArchivoDelivery arcDel;
-    arcDel.eliminarRegistro(_numero - 1);
+    ArchivoDelivery arc;
+    arc.eliminarRegistro(_numero - 1);
 }
 void Delivery::entregarDelivery()
 {
@@ -652,66 +506,10 @@ void TakeAway::abrirMesa()
 
     return;
 }
-void TakeAway::cerrarMesa()
+void TakeAway::cerrarTakeAway()
 {
-    Factura objFac;
-    ArchivoFactura arcFac;
-    int pos = arcFac.buscarRegistro(_idFactura);
-    objFac = arcFac.leerRegistro(pos);
-
-    int opcion;
-
-    cout << " DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
-    cin >> opcion;
-
-    if(opcion)
-    {
-        float descuento;
-
-        cout << "SELLECCIONAR TIPO DE DESCUENTO: (1-MONTO FIJO 2-PORCENTAJE) ";
-        cin >> opcion;
-
-        switch(opcion)
-        {
-        case 1:
-            cout << "DESCUENTO A APLICAR: ";
-            cin >> descuento;
-
-            if(descuento > objFac.getImporteSubTotal())
-            {
-                cout << "MONTO SUPERIOR AL TOTAL DE LA FACTURA" << endl;
-                system("pause");
-            }
-            else
-            {
-                objFac.aplicarDescuento(1, descuento);
-            }
-            break;
-        case 2:
-            cout << "DESCUENTO A APLICAR: ";
-            cin >> descuento;
-
-            if(descuento > 100 || descuento < 0)
-            {
-                cout << "PORCENTAJE INVALIDO" << endl;
-                system("pause");
-            }
-            else
-            {
-                objFac.aplicarDescuento(2, descuento);
-            }
-            break;
-        default:
-            cout << "INGRESE UNA OPCION VALIDA" << endl;
-            system("pause");
-            break;
-        }
-    }
-    else
-    {
-        objFac.setImporteTotal(objFac.getImporteSubTotal());
-    }
-    arcFac.actualizarRegistro(objFac);
+    cerrarMesa();
+    entregarTakeAway();
     ArchivoTakeAway arcTake;
     arcTake.eliminarRegistro(_numero - 1);
 }

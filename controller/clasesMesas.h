@@ -40,7 +40,7 @@ class Local : public Mesa
         void cargarLocal();
         void mostrarLocal();
         void abrirMesa();
-        void cerrarMesa();
+        void cerrarLocal();
         void liberarMesa();
 };
 
@@ -61,7 +61,7 @@ class Delivery : public Mesa
         Delivery();
         Delivery(int num);
         void abrirMesa();
-        void cerrarMesa();
+        void cerrarDelivery();
         void cargarDelivery();
         void mostrarDelivery();
         void entregarDelivery();
@@ -84,7 +84,7 @@ class TakeAway : public Mesa
         TakeAway();
         TakeAway(int num);
         void abrirMesa();
-        void cerrarMesa();
+        void cerrarTakeAway();
         void cargarTakeAway();
         void mostrarTakeAway();
         void entregarTakeAway();
