@@ -2,6 +2,10 @@
 #include <cstring>
 
 #include "clasesAuxiliares.h"
+#include "clasesArchivosFacturas.h"
+#include "clasesArchivosUsuarios.h"
+
+
 
 using namespace std;
 
@@ -28,4 +32,32 @@ void cargarCadena(char *pal, int tam){
     }
     pal[i]='\0';
     fflush(stdin); ///vuelve a limpiar el buffer para eliminar los caracteres sobrantes
+}
+
+int generarId(int tipo){
+/// TIPO = 1 - USUARIOS | 2- PRODUCTOS | 3- FACTURAS
+    switch(tipo){
+    case 1:{
+        ArchivoUsuario arc;
+        int cant = arc.contarRegistros();
+        return cant+1;
+        break;
+        }
+    case 2:{
+        ArchivoProducto arc;
+        int cant = arc.contarRegistros();
+        return cant+1;
+        break;
+        }
+     case 3:{
+        ArchivoFactura arc;
+        int cant = arc.contarRegistros();
+        return cant+1;
+        break;
+        }
+      default:{
+        return -1; ///tipo invalido
+        break;
+        }
+    }
 }

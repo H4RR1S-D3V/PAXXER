@@ -203,7 +203,6 @@ void mostrarEmpleados()
 
         dibujarBordeSyI(10, 16);
         dibujarBordeSyI(10, 18);
-        // dibujarBordeSyI(10, 40);
         rlutil::locate(30, 17);
         cout << "NOMBRE";
         rlutil::locate(80, 17);
@@ -212,21 +211,23 @@ void mostrarEmpleados()
         cout << "DNI";
 
 
-        int cantEmp=20;
+        ArchivoUsuario arc;
+        int cantEmp=arc.contarRegistros();
         int posXinicial=25;
         int posYinicial=19;
 
         for (int i=0; i < cantEmp; i++)
         {
-            rlutil::setColor(rlutil::WHITE);
+            Usuario obj;
+            obj=arc.leerRegistro(i);
 
-            // obj=arc.leerRegistro(i);
+            rlutil::setColor(rlutil::WHITE);
             rlutil::locate(posXinicial, posYinicial+i);
-            cout<< "JUANITO PEREZ";
+            cout<< obj.getNombre();
             rlutil::locate(posXinicial+55,  posYinicial+i);
-            cout <<"07";
+            cout <<obj.getId();
             rlutil::locate(posXinicial+92,  posYinicial+i);
-            cout <<"11.222.333";
+            cout <<obj.getDNI();
             if (i==cantEmp-1)
             {
                 dibujarBordeSyI(10,posYinicial+i+1);
@@ -244,7 +245,7 @@ void mostrarEmpleados()
         cout << " ";
 
 
-        ArchivoUsuario arc;
+
 
         switch (key)
         {
@@ -283,7 +284,7 @@ void mostrarEmpleados()
             }
             break;
             case 50:
-            {
+            {   ///AGREGAR TIPO Y CONTRASE;A SI HACE FALTA
                 rlutil:: locate (60,9);
                 cout << "INGRESE DNI DE EMPLEADO: ";
                 rlutil::setCursorVisibility(true);
@@ -300,8 +301,8 @@ void mostrarEmpleados()
                 if (seleccion==IDOK)
                 {
                     ///Aqui logica de agregar empleado
-                    Usuario obj(nombreEmpleado, dniEmpleado);
-                    arc.agregarRegistro(obj);
+                    /*Usuario obj(nombreEmpleado, dniEmpleado);
+                    arc.agregarRegistro(obj);*/
                     MessageBox(NULL, "Agrego el empleado exitosamente", "OPERACION EXITOSA", MB_OK);
                     rlutil::cls();
                 }

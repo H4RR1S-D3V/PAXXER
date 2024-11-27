@@ -4,7 +4,7 @@
 
 #include "ClasesFactura.h"
 #include "clasesArchivosFacturas.h"
-#include "generadorIDs.h"
+#include "funciones.h"
 #include "../view/funcionesDibujar.h"
 #include "../rlutil.h"
 

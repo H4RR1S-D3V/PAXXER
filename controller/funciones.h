@@ -9,3 +9,5 @@ std::string horaActual();
 Fecha fechaActual();
 
 void cargarCadena(char *pal, int tam);
+
+int generarId(int tipo);

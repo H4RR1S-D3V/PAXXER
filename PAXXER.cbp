@@ -49,8 +49,6 @@
 		<Unit filename="controller/constantes.h" />
 		<Unit filename="controller/funciones.cpp" />
 		<Unit filename="controller/funciones.h" />
-		<Unit filename="controller/generadorIDs.cpp" />
-		<Unit filename="controller/generadorIDs.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="model/.gitkeep" />
 		<Unit filename="model/facturas.dat" />
