@@ -2,10 +2,10 @@
 #include <cstring>
 
 #include "clasesAuxiliares.h"
+
+#include "../rlutil.h"
 #include "clasesArchivosFacturas.h"
 #include "clasesArchivosUsuarios.h"
-
-
 
 using namespace std;
 
@@ -34,7 +34,15 @@ void cargarCadena(char *pal, int tam){
     fflush(stdin); ///vuelve a limpiar el buffer para eliminar los caracteres sobrantes
 }
 
-int generarId(int tipo){
+
+void borrarLinea(int x, int y)
+{
+    rlutil::locate(x, y); // Posiciona el cursor
+    cout << string(70, ' '); // Sobrescribe la l�nea con espacios
+    rlutil::locate(x, y); // Devuelve el cursor al inicio de la l�nea
+}
+int generarId(int tipo)
+{
 /// TIPO = 1 - USUARIOS | 2- PRODUCTOS | 3- FACTURAS
     switch(tipo){
     case 1:{
