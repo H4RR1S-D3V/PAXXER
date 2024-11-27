@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "clasesAuxiliares.h"
+#include "../rlutil.h"
 
 using namespace std;
 
@@ -28,4 +29,11 @@ void cargarCadena(char *pal, int tam){
     }
     pal[i]='\0';
     fflush(stdin); ///vuelve a limpiar el buffer para eliminar los caracteres sobrantes
+}
+
+void borrarLinea(int x, int y)
+{
+    rlutil::locate(x, y); // Posiciona el cursor
+    cout << string(70, ' '); // Sobrescribe la línea con espacios
+    rlutil::locate(x, y); // Devuelve el cursor al inicio de la línea
 }
