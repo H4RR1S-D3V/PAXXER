@@ -6,31 +6,38 @@
 using namespace std;
 
 #include "pantallasMenuPrincipal.h"
+#include "menuPrincipal.h"
 
 void pantallaContrasenaI()
 {
+
     rlutil::cls();
     rlutil::showcursor();
-    int constrasenaM=40999923;
+    int constrasenaM=123;
     rlutil::locate(90,15);
     cout<<"PORFAVOR, INGRESE SU CONTRASEÑA";
     rlutil::locate(90,16);
     cout<<"CONTRASEÑA: ";
     cin>>constrasenaM;
-    if (constrasenaM==40999923)
+
+    int respuesta;
+    if (constrasenaM==123)
     {
         rlutil::cls();
         mostrarInformes();
     }
     else
-        MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
-    if (IDYES)
+       respuesta = MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
+    if (respuesta == 6) /// LE DIO AL BOTON ACEPTAR
     {
         rlutil::cls();
         pantallaContrasenaI();
     }
-    else
+    else if (respuesta == 7) ///LE DIO AL BOTON DE NO
+        {
         rlutil::cls();
+        mostrarMenuPrincipal();
+    }
 
 
 }
@@ -38,26 +45,31 @@ void pantallaContrasenaI()
 void pantallaContrasenaC()
 {
     rlutil::showcursor();
-    int constrasenaM=40999923;
+    int constrasenaM=123;
     rlutil::locate(90,15);
     cout<<"PORFAVOR, INGRESE SU CONTRASEÑA";
     rlutil::locate(90,16);
     cout<<"CONTRASEÑA: ";
     cin>>constrasenaM;
-    if (constrasenaM==40999923)
+
+    int respuesta;
+    if (constrasenaM==123)
     {
         rlutil::cls();
         mostrarConfiguraciones();
     }
     else
-        MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
-    if (IDYES)
+      respuesta = MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
+    if (respuesta == 6) /// LE DIO AL BOTON ACEPTAR
     {
         rlutil::cls();
         pantallaContrasenaC();
     }
-    else
+    else if (respuesta == 7) ///LE DIO AL BOTON DE NO
+        {
         rlutil::cls();
+        mostrarMenuPrincipal();
+    }
 
 
 }

@@ -2,7 +2,6 @@
 #include <cstring>
 
 #include "clasesUsuarios.h"
-#include "generadorIDs.h"
 #include "funciones.h"
 
 using namespace std;
@@ -30,6 +29,10 @@ void Usuario::setRol(int rol)
         cout << "1 - USUARIO | 2 - ADMINISTRADOR" << endl;
     }
 }
+void Usuario::setPassword(const char* newPassword[12])
+{
+    strcpy(_password, *newPassword);
+}
 // GETTERS
 int Usuario::getId()
 {
@@ -51,21 +54,47 @@ int Usuario::getRol()
 {
     return _rol;
 }
+const char* Usuario::getPassword()
+{
+    return _password;
+}
 //METHODS
 Usuario::Usuario(){}
-Usuario::Usuario(char* nombre, char* dni)
+//CONSTRUCTOR PARA RECIBIR PARAMS DEL FRONT
+Usuario::Usuario(char* nombre, char* dni, int rol, char* password)
 {
     strcpy(_nombre, nombre);
     strcpy(_dni, dni);
+    _rol = rol;
+
+    if (_rol == 2){ /// ASIGNAR PASS SOLO SI ES ADMIN
+    strcpy(_password, password);
+    }
+
+
     _id = generarId(1);
 }
-void Usuario::Cargar()
+void Usuario::Cargar() /// FUNCION A BORRAR?
 {
     cout << "INGRESE NOMBRE COMPLETO: " << endl;
     cargarCadena(_nombre, 50);
 
     cout << "INGRESE DNI: " << endl;
     cin >> _dni;
+
+    while(_rol != 1 || _rol != 2){
+    cout << "INGRESE ROL DE EMPLEADO: (1-EMPLEADO 2-ENCARGADO)" << endl;
+    cin >> _rol;
+
+    if (_rol != 1 || _rol != 2){
+        cout << "EL VALOR INGRESADO NO ES CORRECTO, INTENTE DE NUEVO";
+    }
+    }
+
+    if (_rol == 2){
+
+
+    }
 
     _id=generarId(1);
 }
@@ -84,13 +113,7 @@ void Usuario::cambiarEstado()
 /// CLASE CREDENCIAL
 
 //SETTERS
-void Credencial::setPassword(const char* newPassword[12])
-{
-    strcpy(_password, *newPassword);
-}
+
 //GETTERS
-const char* Credencial::getPassword()
-{
-    return _password;
-}
+
 /// FIN CLASE CREDENCIAL
