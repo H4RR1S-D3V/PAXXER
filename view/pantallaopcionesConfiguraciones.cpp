@@ -284,7 +284,7 @@ void mostrarEmpleados()
             }
             break;
             case 50:
-            {   ///AGREGAR TIPO DE EMPLEADO
+            {   ///AGREGAR TIPO Y CONTRASE;A SI HACE FALTA
                 rlutil:: locate (60,9);
                 cout << "INGRESE DNI DE EMPLEADO: ";
                 rlutil::setCursorVisibility(true);
@@ -301,8 +301,8 @@ void mostrarEmpleados()
                 if (seleccion==IDOK)
                 {
                     ///Aqui logica de agregar empleado
-                    Usuario obj(nombreEmpleado, dniEmpleado);
-                    arc.agregarRegistro(obj);
+                    /*Usuario obj(nombreEmpleado, dniEmpleado);
+                    arc.agregarRegistro(obj);*/
                     MessageBox(NULL, "Agrego el empleado exitosamente", "OPERACION EXITOSA", MB_OK);
                     rlutil::cls();
                 }

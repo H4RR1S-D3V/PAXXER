@@ -206,6 +206,28 @@ void ArchivoUsuario::listarRegistrosPorNombre(const char *nombre)
         }
     }
 }
+
+bool ArchivoUsuario::verificarCredenciales(const char* dni, const char* password){
+    FILE *p;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return false;
+    }
+
+    Usuario obj;
+    int cantRegistros = contarRegistros();
+
+    for(int i=0; i<cantRegistros; i++)
+    {
+        fread(&obj, _tamanioRegistro, 1, p);
+        if(strcmp(obj.getDNI(), dni) == 0 && strcmp(obj.getPassword(),password) == 0){
+            return true;
+        }
+    }
+    return false;
+}
+
 /*
     CAMBIAR ROL
     TRAER POR ROL

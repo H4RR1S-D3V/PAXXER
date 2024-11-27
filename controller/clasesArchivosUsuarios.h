@@ -20,4 +20,5 @@ class ArchivoUsuario
         bool modificarNombreRegistro(const char *nombre, int id);
         bool modificarDNIRegistro(const char *DNI , int id);
         void listarRegistrosPorNombre(const char *nombre);
+        bool verificarCredenciales(const char* dni, const char* password);
 };
