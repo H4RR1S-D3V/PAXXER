@@ -166,7 +166,7 @@ void controladorProductos::cargarProducto(int idProducto, int cant)
     {
         if(_vIdsProductos[i] == idProducto)
         {
-            _vCantPorProductos[i] + cant;
+            _vCantPorProductos[i] += cant;
 
             return;
         }
@@ -176,7 +176,7 @@ void controladorProductos::cargarProducto(int idProducto, int cant)
     obj = arcPro.leerRegistro(pos);
 
     _vIdsProductos[i] = idProducto;
-    _vCantPorProductos[i]+ cant;
+    _vCantPorProductos[i]+= cant;
     _vPreciosProductos[i] = obj.getPrecio();
 }
 bool controladorProductos::quitarProducto(int id, int cant)
