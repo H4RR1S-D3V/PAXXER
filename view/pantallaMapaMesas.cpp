@@ -10,6 +10,7 @@ using namespace std;
 #include "funcionesDibujar.h"
 #include "../controller/clasesArchivosMesas.h"
 #include "pantallaDelivery.h"
+#include "pantallaTakeAway.h"
 
 
 
@@ -31,7 +32,7 @@ void mostrarMapaMesas()
 ///CONTENEDOR MESAS
 
         int posXInicial = 20; //X
-        int posYInicial = 9; //Y
+        int posYInicial = 18; //Y
         int altoMesa = 12;   //Y
         int anchoMesa = 30; //X
         int posX;
@@ -65,31 +66,31 @@ void mostrarMapaMesas()
         }
 
         rlutil::setColor(rlutil::BROWN);
-        dibujarBordeSyI(11,7);
-        dibujarBordeSyI(11,33);
+        dibujarBordeSyI(11,15);
 
 
-        rlutil::locate(40,19);
+
+        rlutil::locate(50,16);
         rlutil::setColor(rlutil::GREEN);
         cout <<"DISPONIBLE";
-        rlutil::locate(51,19);
+        rlutil::locate(61,16);
         cout<<char (176)<<char (177)<<char (178);
-        rlutil::locate(100,19);
+        rlutil::locate(100,16);
         rlutil::setColor(rlutil::LIGHTRED);
         cout<< "OCUPADA";
-        rlutil::locate(108,19);
+        rlutil::locate(108,16);
         cout<<char (176)<<char (177)<<char (178);
         rlutil::setColor(rlutil::WHITE);
 
-        pintarOpciones("SELECCIONAR MESA",30,35,x==0);
-        pintarOpciones("VER DELIVERIES",60,35,x==30);
-        pintarOpciones("VER TAKE AWAYS",90,35,x==60);
-        pintarOpciones("VOLVER A MENU PRINCIPAL",120,35, x==90);
+        pintarOpciones("SELECCIONAR MESA",30,8,x==0);
+        pintarOpciones("VER DELIVERIES",60,8,x==30);
+        pintarOpciones("VER TAKE AWAYS",90,8,x==60);
+        pintarOpciones("VOLVER A MENU PRINCIPAL",120,8,x==90);
 
-        rlutil:: locate (29+x,35);
+        rlutil:: locate (29+x,8);
         cout << char (16);
         int key=rlutil::getkey();
-        rlutil::locate(29 + x, 35);
+        rlutil::locate(29 + x,8);
         cout << " ";
 
         int nroMesaSeleccionada;
@@ -110,12 +111,12 @@ void mostrarMapaMesas()
             case 0:///INICIA PEDIDO LOCAL
             {
                 //pedir nro mesa
-                rlutil:: locate (55,37);
+                rlutil:: locate (55,10);
                 cout << "PORFAVOR ESCRIBA EL NUMERO DE MESA A SELECCIONAR";
-                rlutil:: locate (65,41);
+                rlutil:: locate (65,12);
                 cout << "PRESIONE ENTER PARA CONTINUAR";
                 rlutil::showcursor();
-                rlutil:: locate (78,39);
+                rlutil:: locate (78,11);
                 cin >> nroMesaSeleccionada;
                 rlutil::cls();
                 salir=false;
@@ -133,10 +134,7 @@ void mostrarMapaMesas()
             case 60:///DIRIGE A PANTALLA TAKE AWAY
             {
                 rlutil::cls();
-                ArchivoTakeAway arcTake;
-                arcTake.listarRegistros();
-                system("pause");
-
+                pantallaTakeAway();
                 break;
             }
             case 90:///VUELVE A MENU PRINCIPAL

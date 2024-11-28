@@ -30,11 +30,25 @@ int main()
 {
 /*
     arc.setearCantMesas(10);
-    cout << arc.contarRegistros();
 */
+    //ArchivoMesasLocal arc;
+    //cout << arc.verificarDisponibilidadGlobal();
+    //cout << arc.contarRegistros();
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
-    ArchivoMesasLocal arc;
+
+   /* ArchivoDelivery arc;
+    Delivery obj1(1);
+    Delivery obj2(2);
+    Delivery obj3(3);
+    Delivery obj4(4);
+
+    obj1.cargarDelivery();    obj2.cargarDelivery();    obj3.cargarDelivery();    obj4.cargarDelivery();
+
+    arc.agregarRegistro(obj1);
+    arc.agregarRegistro(obj2);
+    arc.agregarRegistro(obj3);
+    arc.agregarRegistro(obj4);*/
 
     //cout << arc.verificarDisponibilidadGlobal();
 

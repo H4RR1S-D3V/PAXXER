@@ -400,6 +400,7 @@ void Factura::mostrarFacturaDetalle()
 }
 void Factura::mostrarFactura(int i)
 {
+    system("cls");
     rlutil::setColor(rlutil::MAGENTA);
     dibujarBordeSyI(10,12);
     dibujarBordeSyI(10,14);

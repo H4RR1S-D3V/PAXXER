@@ -316,7 +316,7 @@ void Delivery::cargarDelivery()
     cargarMesa();
 
     /// buscar factura y pasar hora para calcular turno
-
+/*
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
     cargarCadena(_telefonoCliente, 20);
 
@@ -327,8 +327,21 @@ void Delivery::cargarDelivery()
     cin >> _horaEntrega;
 
     cout << "INGRESE EL DOMICILIO A ENTREGAR: " << endl;
+*/
+    rlutil::locate(10, 10);
+    cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
+    cargarCadena(_telefonoCliente, 20);
+    rlutil::locate(10, 11);
+    cout << "INGRESE EL ID DEL DELIVERY ASIGNADO: ";
+    cin >> _deliveryAsignado;
+    rlutil::locate(10, 12);
+    cout << "INGRESE LA HORA DE ENTREGA: ";
+    cin >> _horaEntrega;
+    rlutil::locate(10, 13);
+    cout << "INGRESE EL DOMICILIO A ENTREGAR: " << endl;
     _direccionEntrega.Cargar();
 
+    _direccionEntrega.Cargar();
     ArchivoFactura arc;
     Factura obj;
 
@@ -340,7 +353,7 @@ void Delivery::cargarDelivery()
 
     arc.actualizarRegistro(obj);
 }
-void Delivery::mostrarDelivery()
+void Delivery::mostrarDelivery(int y)
 {
 
     ArchivoFactura arcFac;
@@ -348,13 +361,17 @@ void Delivery::mostrarDelivery()
     Factura objFac;
     int pos = arcFac.buscarRegistro(_idFactura);
     objFac = arcFac.leerRegistro(pos);
-
-    cout << _numero << " | ";
+    rlutil::locate(13, y);
+    cout << _numero ;
+     rlutil::locate(20, y);
     _direccionEntrega.Mostrar();
-    cout << " | " << _deliveryAsignado << " | "; // SACAR NOMBRE CON ID
-    cout << _horaEntrega << "Hs. | ";
-    cout << "$" << objFac.getImporteSubTotal() << " | ";
-
+     rlutil::locate(64, y);
+    cout << _deliveryAsignado; // SACAR NOMBRE CON ID
+     rlutil::locate(100, y);
+    cout << _horaEntrega << "Hs.";
+     rlutil::locate(128, y);
+    cout << "$" << objFac.getImporteSubTotal();
+     rlutil::locate(148, y);
     if(!_entregado)
     {
         cout << "PENDIENTE" << endl;
@@ -372,16 +389,8 @@ void Delivery::abrirMesa()
 
     int pos = _numero -1;
     obj = arcDel.leerRegistro(pos);
-
-    cout << "# | ";
-    cout << "DIRECCION DE ENTREGA | ";
-    cout << "RESPONSALBLE | ";
-    cout << "HORA DE ENTREGA | ";
-    cout << "TOTAL | ";
-    cout << "ESTADO | " << endl;
-    cout << "-------------------------------------------------------------------" << endl;
-
-    obj.mostrarDelivery();
+    system("cls");
+    obj.mostrarDelivery(18);
 
     /// MOSTRAR FACTURA (PEDIDO)
     Factura objFac;
@@ -391,7 +400,7 @@ void Delivery::abrirMesa()
     objFac.mostrarFacturaDetalle();
 
     cout << endl;
-    system("pause");
+    //system("pause");
 
     return;
 }

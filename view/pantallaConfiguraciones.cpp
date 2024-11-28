@@ -71,22 +71,26 @@ void mostrarConfiguraciones()
                ///
                 ArchivoMesasLocal arc;
 
-               int resultado=MessageBox(NULL,"Ingrese la cantidad de mesas a dibujar (MAX 10)","CAMBIAR CANTIDAD DE MESAS - SALON",MB_OKCANCEL|MB_ICONINFORMATION);
+               int resultado=MessageBox(NULL,"Ingrese la cantidad de mesas a dibujar (MAX 30)","CAMBIAR CANTIDAD DE MESAS - SALON",MB_OKCANCEL|MB_ICONINFORMATION);
                if (resultado==IDOK)
                 {
                     int cantMesas;
                     cout << "NRO DE MESAS ";
                     cin >> cantMesas;
-                    if (cantMesas <= 10){
+                    if (cantMesas <= 30){
                     int cantDevuelta = arc.setearCantMesas(cantMesas);
-                        if (cantDevuelta < 1){
+                        if (cantDevuelta == 0){
                                 MessageBox(NULL, "VERIFIQUE QUE TODAS LAS MESAS ESTEN DESOCUPADAS", "ERROR MESAS OCUPADAS", MB_OK);
-                        } else {
+                        } else if (cantDevuelta == -2){
+                                MessageBox(NULL, "EL NUMERO INGRESADO NO ES VALIDO", "ERROR CANTIDAD MESAS", MB_OK);
+                        } else if (cantDevuelta == -1){
+                                MessageBox(NULL, "NO SE PUDO ACCEDER AL ARCHIVO DE MESAS", "ERROR ARCHIVO MESAS", MB_OK);
+                        }else {
                                 MessageBox(NULL, "LA CANTIDAD DE MESAS SE CAMBIO CORRECTAMENTE", "CANTIDAD DE MESAS CAMBIADA", MB_OK);
                         }
                     } else {
                     rlutil::cls();
-                    MessageBox(NULL, "EL MAXIMO DE MESAS ES 10", "ERROR CANTIDAD DE MESAS", MB_OK);
+                    MessageBox(NULL, "EL MAXIMO DE MESAS ES 30", "ERROR CANTIDAD DE MESAS", MB_OK);
                     }
 
                 }

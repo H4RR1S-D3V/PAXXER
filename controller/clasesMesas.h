@@ -63,7 +63,7 @@ class Delivery : public Mesa
         void abrirMesa();
         void cerrarDelivery();
         void cargarDelivery();
-        void mostrarDelivery();
+        void mostrarDelivery(int y);
         void entregarDelivery();
         void disminuirNumero();
 };
