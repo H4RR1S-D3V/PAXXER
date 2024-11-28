@@ -29,31 +29,27 @@ using namespace std;
 int main()
 {
 /*
+    ArchivoMesasLocal arc;
     arc.setearCantMesas(10);
+    ArchivoFactura arc;
+    Factura obj;
+
+    obj = arc.leerRegistro(16);
+    obj.cargarItem(5, 1);
+    obj.cargarItem(3, 3);
+    obj.cargarItem(2, 2);
+    obj.cargarItem(5, 1);
+    obj.cargarItem(10, 1);
+    obj.cargarItem(11, 1);
+    obj.cargarItem(12, 1);
 */
-    //ArchivoMesasLocal arc;
-    //cout << arc.verificarDisponibilidadGlobal();
-    //cout << arc.contarRegistros();
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
 
-   /* ArchivoDelivery arc;
-    Delivery obj1(1);
-    Delivery obj2(2);
-    Delivery obj3(3);
-    Delivery obj4(4);
-
-    obj1.cargarDelivery();    obj2.cargarDelivery();    obj3.cargarDelivery();    obj4.cargarDelivery();
-
-    arc.agregarRegistro(obj1);
-    arc.agregarRegistro(obj2);
-    arc.agregarRegistro(obj3);
-    arc.agregarRegistro(obj4);*/
-
-    //cout << arc.verificarDisponibilidadGlobal();
 
 
-    mostrarMenuPrincipal();
+
+    pantallaDelivery();
 
 
     return 0;
