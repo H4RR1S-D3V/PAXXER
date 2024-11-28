@@ -6,7 +6,6 @@
 #include "ClasesFactura.h"
 #include "clasesArchivosMesas.h"
 #include "clasesArchivosFacturas.h"
-#include "generadorIDs.h"
 #include "funciones.h"
 
 #include "../view/funcionesDibujar.h"
