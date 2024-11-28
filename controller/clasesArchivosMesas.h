@@ -15,6 +15,8 @@ class ArchivoMesasLocal
         int contarRegistros();
         Local leerRegistro(int pos);
         bool actualizarMesa(Local mesa);
+        bool verificarDisponibilidadGlobal();
+
 };
 
 class ArchivoDelivery

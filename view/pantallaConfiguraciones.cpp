@@ -69,6 +69,8 @@ void mostrarConfiguraciones()
             case 4:{
                rlutil::cls();
                ///
+                ArchivoMesasLocal arc;
+
                int resultado=MessageBox(NULL,"Ingrese la cantidad de mesas a dibujar (MAX 10)","CAMBIAR CANTIDAD DE MESAS - SALON",MB_OKCANCEL|MB_ICONINFORMATION);
                if (resultado==IDOK)
                 {
@@ -76,12 +78,15 @@ void mostrarConfiguraciones()
                     cout << "NRO DE MESAS ";
                     cin >> cantMesas;
                     if (cantMesas <= 10){
-
-                    ArchivoMesasLocal arc;
-                    arc.setearCantMesas(cantMesas);
+                    int cantDevuelta = arc.setearCantMesas(cantMesas);
+                        if (cantDevuelta < 1){
+                                MessageBox(NULL, "VERIFIQUE QUE TODAS LAS MESAS ESTEN DESOCUPADAS", "ERROR MESAS OCUPADAS", MB_OK);
+                        } else {
+                                MessageBox(NULL, "LA CANTIDAD DE MESAS SE CAMBIO CORRECTAMENTE", "CANTIDAD DE MESAS CAMBIADA", MB_OK);
+                        }
                     } else {
                     rlutil::cls();
-                    MessageBox(NULL, "EL MAXIMO DE MESAS ES 10", "ERROR CANTIDAD DE MESAS", MB_OKCANCEL);
+                    MessageBox(NULL, "EL MAXIMO DE MESAS ES 10", "ERROR CANTIDAD DE MESAS", MB_OK);
                     }
 
                 }

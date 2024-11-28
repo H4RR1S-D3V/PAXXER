@@ -9,6 +9,7 @@ using namespace std;
 #include "funcionesDibujarTitulos.h"
 #include "pantallasMenuPrincipal.h"
 #include "funcionesDibujarTitulos.h"
+#include "../controller/clasesArchivosMesas.h"
 
 
 void mostrarMenuPrincipal()
@@ -17,8 +18,18 @@ void mostrarMenuPrincipal()
     int y=0;
     do
     {
-        rlutil::hidecursor();
+        //CHECKEAR SI HAY MESAS
+        ArchivoMesasLocal arcLocal;
+        int cant = arcLocal.contarRegistros();
+        if(cant < 1) {
+            // PANTALLA PETICION DE CANTIDAD
+            int cantMesas;
+            cout << "Parece que no hay mesas cargadas, indique cuantas quiere tener ";
+            cin >> cantMesas;
+            arcLocal.setearCantMesas(cantMesas);
+        }
 
+        rlutil::hidecursor();
         dibujarBordesMenuPrincipal(42,19);
         dibujarTituloPAXXER();
         dibujarBordesMenuPrincipal(42,10);
