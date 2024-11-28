@@ -63,23 +63,54 @@ Local ArchivoMesasLocal::leerRegistro(int pos)
     return obj;
 }
 
+bool ArchivoMesasLocal::verificarDisponibilidadGlobal(){
+//REVISA QUE TODAS LAS MESAS ESTEN DISPONIBLES PARA PODER SETEARLAS SIN PERDER DATOS
+    FILE *p;
+    p=fopen(_nombre, "rb");
+    if(p==NULL)
+    {
+        return false;
+    }
+    Local obj;
+    int cantRegistros = contarRegistros();
+    if (cantRegistros < 1){
+        return true;
+    } else {
+        for(int i=0; i<cantRegistros; i++)
+        {
+            obj = leerRegistro(i);
+            if (obj.getDisponibilidad() == false) return false;
+        }
+    }
+    fclose(p);
+    return true;
+}
+
 int ArchivoMesasLocal::setearCantMesas(int cant)
 {
     FILE *p;
+    if (verificarDisponibilidadGlobal() == true){
     p=fopen(_nombre, "wb");
     if(p==nullptr)
     {
         return -1;
     }
-    for(int i=0; i<cant; i++)
-    {
-        Local obj(i+1);
-        fwrite(&obj, sizeof obj, 1, p);
+        for(int i=0; i<cant; i++)
+        {
+            Local obj(i+1);
+            fwrite(&obj, sizeof obj, 1, p);
+        }
+    } else {
+        return 0;
     }
+
     fclose(p);
     cant = contarRegistros();
     return cant;
 }
+
+
+
 
 bool ArchivoMesasLocal::actualizarMesa(Local mesa)
 {
@@ -94,6 +125,7 @@ bool ArchivoMesasLocal::actualizarMesa(Local mesa)
     fclose(p);
     return escribio;
 }
+
 
 /// FIN ARCHIVO MESAS LOCAL
 

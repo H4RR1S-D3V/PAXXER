@@ -88,7 +88,25 @@ void Producto::Mostrar(int posX, int posY)
     rlutil::locate(posX+90, posY);
     cout << _precio;
 
+    //TIPO: (1-ENTRADA | 2-PLATO PRINCIPAL | 3-POSTRE | 4-BEBIDA)
     rlutil::locate(posX+108, posY);
+    switch(_tipo){
+    case 1:
+        cout << "Entrada";
+        break;
+    case 2:
+        cout << "Principal";
+        break;
+    case 3:
+        cout << "Postre";
+        break;
+    case 4:
+        cout << "Bebida";
+        break;
+    default:
+        cout << "Error";
+        break;
+    }
     cout << _tipo;
 }
 void Producto::cambiarEstado()
@@ -136,7 +154,7 @@ float controladorProductos::calcularPrecioTotal()
     }
     return acumulador;
 }
-void controladorProductos::cargarProducto(int idProducto)
+void controladorProductos::cargarProducto(int idProducto, int cant)
 {
     int i = 0;
 
@@ -148,7 +166,7 @@ void controladorProductos::cargarProducto(int idProducto)
     {
         if(_vIdsProductos[i] == idProducto)
         {
-            _vCantPorProductos[i]++;
+            _vCantPorProductos[i] + cant;
 
             return;
         }
@@ -158,7 +176,7 @@ void controladorProductos::cargarProducto(int idProducto)
     obj = arcPro.leerRegistro(pos);
 
     _vIdsProductos[i] = idProducto;
-    _vCantPorProductos[i]++;
+    _vCantPorProductos[i]+ cant;
     _vPreciosProductos[i] = obj.getPrecio();
 }
 bool controladorProductos::quitarProducto(int id, int cant)
@@ -352,11 +370,11 @@ void Factura::actualizarImporteTotal()
 {
     _importeSubTotal = _productos.calcularPrecioTotal();
 }
-void Factura::cargarItem(int idProducto)
+void Factura::cargarItem(int idProducto, int cant)
 {
     ArchivoFactura arcFac;
 
-    _productos.cargarProducto(idProducto);
+    _productos.cargarProducto(idProducto, cant);
 
     actualizarImporteTotal();
 

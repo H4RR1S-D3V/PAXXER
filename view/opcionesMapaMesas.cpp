@@ -292,6 +292,7 @@ int resultado = MessageBox(NULL, "Desea quitar esta cantidad de items?", "CONFIR
 void cargarItem(int idFactura)
 {
     int idItem;
+    int cantItem;
     int x=0;
     bool salir=true;
     do
@@ -353,10 +354,11 @@ void cargarItem(int idFactura)
                 ArchivoProducto arc;
                 arc.listarRegistrosPorTipo(1);
                 rlutil::locate (70, 31);
-                cout<<"INGRESE ID DE ITEM A CARGAR";
+                cout<<"INGRESE ID DE ITEM A CARGAR"; /// PEDIR CANT
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                cin >> cantItem;
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)
                 {
@@ -368,7 +370,7 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem);
+                    objFac.cargarItem(idItem, cantItem);
 
                     rlutil::cls();
                     return;
@@ -386,6 +388,8 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                cin >> cantItem;
+
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)
                 {
@@ -397,7 +401,7 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem);
+                    objFac.cargarItem(idItem, cantItem);
 
                     rlutil::cls();
                     return;
@@ -415,6 +419,7 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                cin >> cantItem;
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)
                 {
@@ -426,7 +431,7 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem);
+                    objFac.cargarItem(idItem, cantItem);
 
                     rlutil::cls();
                     return;
@@ -444,6 +449,7 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                cin >> cantItem;
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)
                 {
@@ -455,7 +461,7 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem);
+                    objFac.cargarItem(idItem, cantItem);
 
                     rlutil::cls();
                     return;

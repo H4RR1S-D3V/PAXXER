@@ -103,6 +103,9 @@ void Usuario::Mostrar()
     cout << "NOMBRE: " << _nombre << endl;
     cout << "DNI: " << _dni << endl;
     cout << "ID: " << _id << endl;
+    if(_rol == 1){
+        cout << "ROL: " << "Empleado";
+    } else {cout << "ROL: " << "Encargado";};
 }
 void Usuario::cambiarEstado()
 {

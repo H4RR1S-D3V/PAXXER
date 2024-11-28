@@ -42,7 +42,7 @@ class controladorProductos
         controladorProductos& operator=(const controladorProductos& otro);
         void ordenarVectores();
         float calcularPrecioTotal();
-        void cargarProducto(int idProducto);
+        void cargarProducto(int idProducto, int cant);
         bool quitarProducto(int id, int cant);
         void mostrarProductos();
 };
@@ -81,7 +81,7 @@ class Factura
         Factura(int id);
         Factura& operator=(const Factura& otro);
         void actualizarImporteTotal();
-        void cargarItem(int IdProducto);
+        void cargarItem(int IdProducto, int cant);
         bool quitarItem(int pos, int cant);
         void mostrarFactura(int i);
         void mostrarFacturaDetalle();
