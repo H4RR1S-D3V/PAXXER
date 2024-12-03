@@ -52,3 +52,12 @@ rlutil::locate(posicionX,posicionY+y);
     cout << char (186);
 }
 }
+
+void limpiarDesdePosicion(int x, int y, int ancho, int alto) {
+    for (int i = 0; i < alto; ++i) {
+        rlutil::locate(x, y + i);
+        for (int j = 0; j < ancho; ++j) {
+            cout << " ";
+        }
+    }
+}

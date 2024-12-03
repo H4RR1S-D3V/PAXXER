@@ -25,16 +25,29 @@ void mostrarCarta()
         rlutil::setColor(rlutil::MAGENTA);
         dibujarTituloNUESTRACARTA();
         rlutil::setColor(rlutil::WHITE);
+        dibujarBordeSyI(11,20);
+        dibujarBordeSyI(11,22);
+        dibujarBordesDeI(11,21,30);
+        dibujarBordesDeI(160,21,30);
+        rlutil::locate (13,21);
+        cout << "I D";
+        rlutil::locate (26,21);
+        cout << "T  I  P  O";
+        rlutil::locate (63,21);
+        cout << "N  O  M  B  R  E";
+        rlutil::locate (130,21);
+        cout << "P  R  E  C  I  O";
+        rlutil::setColor(rlutil::WHITE);
         ///VERIFICAR SI ES POSIBLE DIBUJAR ESTOS BORDES DE FORMA DINAMICA
 
 ///ITEMS PRUEBA
 
-        int cantItems=30;
         int posXinicial=13;
         int posYinicial=23;
 
         Producto obj;
         ArchivoProducto arc;
+        int cantItems= arc.contarRegistros();
 
         for (int i=0; i < cantItems; i++)
         {

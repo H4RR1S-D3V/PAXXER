@@ -31,9 +31,6 @@ int main()
 /*
     ArchivoMesasLocal arc;
     arc.setearCantMesas(10);
-    ArchivoFactura arc;
-    Factura obj;
-
     obj = arc.leerRegistro(16);
     obj.cargarItem(5, 1);
     obj.cargarItem(3, 3);
@@ -42,6 +39,8 @@ int main()
     obj.cargarItem(10, 1);
     obj.cargarItem(11, 1);
     obj.cargarItem(12, 1);
+    ArchivoFactura arc;
+    arc.listarRegistrosPorAnio(2024);
 */
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
