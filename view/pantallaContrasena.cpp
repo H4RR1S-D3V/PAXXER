@@ -48,12 +48,13 @@ do {
     }
     else
       respuesta=  MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
-    if (IDYES)
+    if (respuesta == 6) ///CASE YES
     {
         rlutil::cls();
 
     }
-    else if (IDNO) {
+    else if (respuesta == 7) ///CASE NO
+        {
         salir=false;
         rlutil::cls();
         mostrarMenuPrincipal();
@@ -104,12 +105,13 @@ do {
     }
     else
       respuesta=  MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
-    if (IDYES)
+    if (respuesta == 6) ///CASE YES
     {
         rlutil::cls();
 
     }
-    else if (IDNO) {
+    else if (respuesta == 7) ///CASE NO
+        {
         salir=false;
         rlutil::cls();
         mostrarMenuPrincipal();
