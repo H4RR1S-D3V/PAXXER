@@ -74,6 +74,8 @@
 		<Unit filename="view/pantallaInformes.cpp" />
 		<Unit filename="view/pantallaInformesRecaudaciones.cpp" />
 		<Unit filename="view/pantallaMapaMesas.cpp" />
+		<Unit filename="view/pantallaTakeAway.cpp" />
+		<Unit filename="view/pantallaTakeAway.h" />
 		<Unit filename="view/pantallaopcionesConfiguraciones.cpp" />
 		<Unit filename="view/pantallasMenuPrincipal.h" />
 		<Unit filename="view/pintarOpcionesMenus.cpp" />

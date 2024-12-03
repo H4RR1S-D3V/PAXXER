@@ -27,7 +27,7 @@ void mostrarRecaudacionesPorFecha()
         //PODRIAMOS FILTRAR POR SEMANA O SINO FILTRAR POR DIA YQ UE TE MUESTRE TODOS LOS (POR EJ) MARTES DEL AÑO
         pintarOpciones("FILTRAR POR DIA",10,17, x==0);
         pintarOpciones("FILTRAR POR MES",45,17, x==35);
-        pintarOpciones("FILTRAR POR AÑO",80,17, x==70);
+        pintarOpciones("FILTRAR POR ANIO",80,17, x==70);
         pintarOpciones("VOLVER A INFORMES",115,17, x==105);
         pintarOpciones("VOLVER A MENU PRINCIPAL",145,17, x==140);
         int key=rlutil::getkey();
@@ -55,12 +55,28 @@ void mostrarRecaudacionesPorFecha()
                 cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR DIA";
                 break;
             case 35:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR MES";
+
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor (rlutil::BROWN);
+                rlutil:: locate (40,20);
+                cout << "MES";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
+
                 break;
             case 70:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR AÑO";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor (rlutil::BROWN);
+                rlutil:: locate (40,20);
+                cout << "A"<< char(165)<< "O";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 105:
                 rlutil::cls();
@@ -121,20 +137,45 @@ void mostrarRecaudacionesPorItemsDeCarta()
             switch (x)
             {
             case 0:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR ENTRADAS";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil:: locate (40,20);
+                cout << "ID ENTRADAS";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 20:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR PLATO PRINCIPAL";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil:: locate (30,20);
+                cout << "ID PLATOS PRINCIPALES";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 40:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR POSTRES";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil:: locate (40,20);
+                cout << "ID POSTRES";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 60:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR BEBIDA";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor (rlutil::BROWN);
+                rlutil:: locate (40,20);
+                cout << "ID BEBIDAS";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
 
             case 80:
@@ -195,16 +236,37 @@ void mostrarRecaudacionesPorTipoDePedido()
             switch (x)
             {
             case 0:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR LOCAL";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor(rlutil::BROWN);
+                rlutil:: locate (30,20);
+                cout << "ID PEDIDOS POR LOCAL";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 30:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR DELIVERY";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor(rlutil::BROWN);
+                rlutil:: locate (30,20);
+                cout << "ID PEDIDOS POR DELIVERY";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 60:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE RECAUDACIONES POR TAKE AWAY";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor(rlutil::BROWN);
+                rlutil:: locate (30,20);
+                cout << "ID PEDIDOS POR TAKE-AWAY";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION";
                 break;
             case 90:
                 rlutil::cls();
@@ -246,14 +308,14 @@ void mostrarRecaudacionesPorEmpleado()
         switch (key)
         {
         case 17:
-            rlutil:: locate (33+(x),17);
+            rlutil:: locate (9+(x),17);
             cout << " ";
             x+=30;
             if (x>120) x=120;
 
             break;
         case 16:
-            rlutil:: locate (30+(x),17);
+            rlutil:: locate (9+(x),17);
             cout << " ";
             x-=30;
             if (x<0) x=0;
@@ -267,12 +329,32 @@ void mostrarRecaudacionesPorEmpleado()
                 cout << "ACA IRIA EL <<EXCEL>> DE INFORMES RENDIMIENTO POR ID EMPLEADO";
                 break;
             case 30:
-                rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE INFORMES RENDIMIENTO POR DNI";
+                 rlutil:: locate (100,19);
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor(rlutil::BROWN);
+                rlutil:: locate (30,20);
+                cout << "ID EMPLEADO POR DNI";
+                rlutil:: locate (80,20);
+                cout << "PEDIDOS A SU CARGO";
+                rlutil:: locate (120,20);
+                cout << "RECAUDACION";
                 break;
             case 60:
                 rlutil:: locate (100,19);
-                cout << "ACA IRIA EL <<EXCEL>> DE INFORMES RENDIMIENTO POR TURNO";
+                dibujarBordeSyI (10,19);
+                dibujarBordeSyI (10,21);
+                dibujarBordesDeI (10,20,20);
+                dibujarBordesDeI (160,20,20);
+                rlutil::setColor(rlutil::BROWN);
+                rlutil:: locate (30,20);
+                cout << "ID EMPLEADO POR TURNO";
+                rlutil:: locate (80,20);
+                cout << "PEDIDOS A SU CARGO";
+                rlutil:: locate (120,20);
+                cout << "RECAUDACION";
                 break;
             case 90:
                 rlutil::cls();

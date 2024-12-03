@@ -27,7 +27,7 @@ class ArchivoDelivery
     public:
         ArchivoDelivery(const char* n=ARCHIVO_DELIVERY);
         bool agregarRegistro(Delivery &obj);
-        bool listarRegistros();
+        bool listarRegistros(int y);
         Delivery leerRegistro(int pos);
         int contarRegistros();
         int eliminarRegistro(int pos);

@@ -29,17 +29,27 @@ using namespace std;
 int main()
 {
 /*
+    ArchivoMesasLocal arc;
     arc.setearCantMesas(10);
-    cout << arc.contarRegistros();
+    ArchivoFactura arc;
+    Factura obj;
+
+    obj = arc.leerRegistro(16);
+    obj.cargarItem(5, 1);
+    obj.cargarItem(3, 3);
+    obj.cargarItem(2, 2);
+    obj.cargarItem(5, 1);
+    obj.cargarItem(10, 1);
+    obj.cargarItem(11, 1);
+    obj.cargarItem(12, 1);
 */
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
-    ArchivoMesasLocal arc;
 
-    //cout << arc.verificarDisponibilidadGlobal();
 
 
     mostrarMenuPrincipal();
+//    pantallaDelivery();
 
 
     return 0;

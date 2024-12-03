@@ -30,7 +30,7 @@ bool ArchivoMesasLocal::listarRegistros()
 {
     FILE *p;
     p=fopen(_nombre, "rb");
-    if(p==NULL)
+    if(p==nullptr)
     {
         return false;
     }
@@ -67,19 +67,24 @@ bool ArchivoMesasLocal::verificarDisponibilidadGlobal(){
 //REVISA QUE TODAS LAS MESAS ESTEN DISPONIBLES PARA PODER SETEARLAS SIN PERDER DATOS
     FILE *p;
     p=fopen(_nombre, "rb");
-    if(p==NULL)
+    if(p==nullptr)
     {
-        return false;
+        return true;
     }
     Local obj;
     int cantRegistros = contarRegistros();
     if (cantRegistros < 1){
+        fclose(p);
         return true;
     } else {
         for(int i=0; i<cantRegistros; i++)
         {
             obj = leerRegistro(i);
-            if (obj.getDisponibilidad() == false) return false;
+            if (obj.getDisponibilidad() == false){
+            fclose(p);
+             return false;
+            }
+
         }
     }
     fclose(p);
@@ -89,6 +94,9 @@ bool ArchivoMesasLocal::verificarDisponibilidadGlobal(){
 int ArchivoMesasLocal::setearCantMesas(int cant)
 {
     FILE *p;
+    if (cant < 1) {
+        return -2;
+    }
     if (verificarDisponibilidadGlobal() == true){
     p=fopen(_nombre, "wb");
     if(p==nullptr)
@@ -101,6 +109,7 @@ int ArchivoMesasLocal::setearCantMesas(int cant)
             fwrite(&obj, sizeof obj, 1, p);
         }
     } else {
+        fclose(p);
         return 0;
     }
 
@@ -150,7 +159,7 @@ bool ArchivoDelivery::agregarRegistro(Delivery &obj)
     return escribio;
 }
 
-bool ArchivoDelivery::listarRegistros()
+bool ArchivoDelivery::listarRegistros(int y)
 {
     FILE *p;
     p = fopen(_nombre, "rb");
@@ -164,7 +173,7 @@ bool ArchivoDelivery::listarRegistros()
     for(int i=0; i<cantRegistros; i++)
     {
         obj = leerRegistro(i);
-        obj.mostrarDelivery();
+        obj.mostrarDelivery(y+i);
     }
     fclose(p);
     return true;
