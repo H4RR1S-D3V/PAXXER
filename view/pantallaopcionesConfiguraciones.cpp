@@ -137,12 +137,12 @@ void mostrarConfigurarCarta()
 
                     }
 
-                }
                 rlutil::cls();
                 mostrarConfigurarCarta();
 
-            }
             break;
+                }
+
 
             case 40:///MODIFICAR PRECIO
 
@@ -166,19 +166,22 @@ void mostrarConfigurarCarta()
                 }
                 rlutil::cls();
                 mostrarConfigurarCarta();
-            }
             break;
+            }
             case 60:///VOLVER A CONFIGURACIONES
+                {
+
                 rlutil::cls();
                 salir=false;
                 break;
+                }
 
-            }
+           }
             break;
         }
 
-    while (salir==true);
     }
+    while (salir==true);}
 
 void mostrarEmpleados()
 {

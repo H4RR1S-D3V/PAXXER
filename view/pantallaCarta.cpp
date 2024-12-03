@@ -85,8 +85,8 @@ void mostrarCarta()
                 if (resultado==IDOK)
                 {
                     rlutil::cls();
-                    //pantallaContrasenaC();
-                    mostrarConfiguraciones();
+                    pantallaContrasenaC();
+                    //mostrarConfiguraciones();
                 }
                 break;
             }
