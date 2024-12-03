@@ -87,7 +87,8 @@ class TakeAway : public Mesa
         void abrirMesa();
         void cerrarTakeAway();
         void cargarTakeAway();
-        void mostrarTakeAway();
+        void mostrarTakeAway(int y);
+        void mostrarTakeAwayDetalle();
         void entregarTakeAway();
         void disminuirNumero();
 };

@@ -11,7 +11,8 @@
 #include "../view/funcionesDibujar.h"
 #include "../view/pantallasMenuPrincipal.h"
 #include "../view/pantallaDelivery.h"
-#include "../view/declaracionOpcionesMapaMesas.h"   /// WTF... cargarItem() viene de aca??
+#include "../view/pantallaTakeAway.h"
+#include "../view/declaracionOpcionesMapaMesas.h"
 #include "../rlutil.h"
 
 using namespace std;
@@ -342,30 +343,30 @@ void Delivery::cargarDelivery()
 }
 void Delivery::mostrarDelivery(int y)
 {
-        ArchivoFactura arc;
-        Factura obj;
-        int pos = arc.buscarRegistro(_idFactura);
-        obj = arc.leerRegistro(pos);
+    ArchivoFactura arc;
+    Factura obj;
+    int pos = arc.buscarRegistro(_idFactura);
+    obj = arc.leerRegistro(pos);
 
-        rlutil::locate(13, y);
-        cout << _numero ;
-        rlutil::locate(20, y);
-        _direccionEntrega.Mostrar();
-        rlutil::locate(64, y);
-        cout << _deliveryAsignado; // SACAR NOMBRE CON ID
-        rlutil::locate(100, y);
-        cout << _horaEntrega << "Hs.";
-        rlutil::locate(128, y);
-        cout << "$" << obj.getImporteSubTotal();
-        rlutil::locate(148, y);
-        if(!_entregado)
-        {
-            cout << "PENDIENTE" << endl;
-        }
-        else
-        {
-            cout << "ENTREGADO" << endl;
-        }
+    rlutil::locate(13, y);
+    cout << _numero;
+    rlutil::locate(20, y);
+    _direccionEntrega.Mostrar();
+    rlutil::locate(64, y);
+    cout << _deliveryAsignado; // SACAR NOMBRE CON ID
+    rlutil::locate(100, y);
+    cout << _horaEntrega << "Hs.";
+    rlutil::locate(128, y);
+    cout << "$" << obj.getImporteSubTotal();
+    rlutil::locate(148, y);
+    if(!_entregado)
+    {
+        cout << "PENDIENTE" << endl;
+    }
+    else
+    {
+        cout << "ENTREGADO" << endl;
+    }
 }
 void Delivery::mostrarDeliveryDetalle()
 {
@@ -386,7 +387,6 @@ void Delivery::mostrarDeliveryDetalle()
         int pos = arc.buscarRegistro(_idFactura);
         obj = arc.leerRegistro(pos);
 
-        mostrarDelivery(16);
         obj.mostrarFacturaDetalle();
 
         rlutil::setColor(rlutil::WHITE);
@@ -420,6 +420,8 @@ void Delivery::mostrarDeliveryDetalle()
                 break;
             case 60://CERRAR MESA
                 cerrarDelivery();
+                rlutil::cls();
+                pantallaDelivery();
                 break;
             case 90://VOLVER
                 rlutil::cls();
@@ -438,17 +440,6 @@ void Delivery::abrirMesa()
     int pos = _numero -1;
     obj = arcDel.leerRegistro(pos);
     obj.mostrarDeliveryDetalle();
-
-    /// MOSTRAR FACTURA (PEDIDO)
-    /*
-    Factura objFac;
-    pos = arcFac.buscarRegistro(_idFactura);
-    objFac = arcFac.leerRegistro(pos);
-
-    objFac.mostrarFacturaDetalle();
-    */
-
-    cout << endl;
 }
 void Delivery::cerrarDelivery()
 {
@@ -491,12 +482,15 @@ void TakeAway::cargarTakeAway()
 {
     cargarMesa();
 
+    rlutil::locate(10, 10);
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
     cargarCadena(_telefonoCliente, 20);
 
+    rlutil::locate(10, 11);
     cout << "INGRESE EL NOMBRE DEL CLIENTE: ";
     cargarCadena(_nombreCliente, 50);
 
+    rlutil::locate(10, 12);
     cout << "INGRESE LA HORA DE RETIRO: ";
     cin >> _horaRetiro;
 
@@ -510,20 +504,24 @@ void TakeAway::cargarTakeAway()
 
     arc.actualizarRegistro(obj);
 }
-void TakeAway::mostrarTakeAway()
+void TakeAway::mostrarTakeAway(int y)
 {
-    ArchivoFactura arcFac;
+    ArchivoFactura arc;
+    Factura obj;
+    int pos = arc.buscarRegistro(_idFactura);
+    obj = arc.leerRegistro(pos);
 
-    Factura objFac;
-    int pos = arcFac.buscarRegistro(_idFactura);
-    objFac = arcFac.leerRegistro(pos);
-
-    cout << _numero << " | ";
-    cout << _nombreCliente << " | ";
-    cout << _telefonoCliente << " | ";
-    cout << _horaRetiro << "Hs. | ";
-    cout << "$" << objFac.getImporteTotal() << " | ";
-
+    rlutil::locate(13, y);
+    cout << _numero;
+    rlutil::locate(20, y);
+    cout << _nombreCliente;
+    rlutil::locate(64, y);
+    cout << _telefonoCliente;
+    rlutil::locate(100, y);
+    cout << _horaRetiro << "Hs.";
+    rlutil::locate(128, y);
+    cout << "$" << obj.getImporteSubTotal();
+    rlutil::locate(148, y);
     if(!_entregado)
     {
         cout << "PENDIENTE" << endl;
@@ -533,6 +531,69 @@ void TakeAway::mostrarTakeAway()
         cout << "ENTREGADO" << endl;
     }
 }
+void TakeAway::mostrarTakeAwayDetalle()
+{
+    int x = 0;
+    do
+    {
+        rlutil::setColor(rlutil::WHITE);
+        pintarOpciones("CARGAR ITEM",30, 8, x==0);
+        pintarOpciones("QUITAR ITEM",60, 8,x==30);
+        pintarOpciones("CERRAR TAKEAWAY",90, 8, x==60);
+        pintarOpciones("VOLVER A TAKEAWAYS",120, 8, x==90);
+
+        ///BUSCAR FACTURA Y MOSTRARLA
+        ArchivoFactura arc;
+
+        Factura obj;
+
+        int pos = arc.buscarRegistro(_idFactura);
+        obj = arc.leerRegistro(pos);
+
+        obj.mostrarFacturaDetalle();
+
+        rlutil::setColor(rlutil::WHITE);
+        rlutil::locate(29+x, 8);
+        cout << char(16);
+        int key = rlutil::getkey();
+        rlutil::locate(29+x, 8);
+        cout << " ";
+        switch (key)
+        {
+        case 17:
+            x+=30;
+            if (x>90) x=90;
+            break;
+        case 16:
+            x-=30;
+            if (x<0) x=0;
+            break;
+        case 1:
+            switch (x)
+            {
+            // CARGAR
+            case 0:
+            {
+                rlutil::cls();
+                cargarItem(_idFactura);
+                break;
+            }
+            case 30://QUITAR
+                quitarItem(_idFactura);
+                break;
+            case 60://CERRAR MESA
+                cerrarTakeAway();
+                rlutil::cls();
+                pantallaTakeAway();
+                break;
+            case 90://VOLVER
+                rlutil::cls();
+                pantallaTakeAway();
+            }
+        }
+    }
+    while(true);
+}
 void TakeAway::abrirMesa()
 {
     TakeAway obj;
@@ -541,23 +602,7 @@ void TakeAway::abrirMesa()
 
     int pos = _numero -1;
     obj = arcTake.leerRegistro(pos);
-
-    cout << "# | ";
-    cout << "NOMBRE | ";
-    cout << "TELEFONO | ";
-    cout << "HORA RETIRO | ";
-    cout << "TOTAL | ";
-    cout << "ESTADO | " << endl;
-    cout << "-------------------------------------------------------------------" << endl;
-
-    obj.mostrarTakeAway();
-
-    /// MOSTRAR FACTURA (PEDIDO)
-    Factura objFac;
-    pos = arcFac.buscarRegistro(_idFactura);
-    objFac = arcFac.leerRegistro(pos);
-
-    objFac.mostrarFactura(0);
+    obj.mostrarTakeAwayDetalle();
 
     return;
 }
