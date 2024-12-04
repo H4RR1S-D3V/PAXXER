@@ -9,7 +9,7 @@ int main()
     HWND consola = GetConsoleWindow();
     ShowWindow(consola, SW_MAXIMIZE);
 
-    mostrarMenuPrincipal();
 
+    mostrarMenuPrincipal();
     return 0;
 }
