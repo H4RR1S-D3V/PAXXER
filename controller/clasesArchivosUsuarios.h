@@ -16,6 +16,7 @@ class ArchivoUsuario
         Usuario leerRegistro(int pos);
         bool cambiarEstadoRegistro(int id);
         int contarRegistros();
+        int contarRegistrosAdmin();
         bool listarRegistros();
         bool modificarNombreRegistro(const char *nombre, int id);
         bool modificarDNIRegistro(const char *DNI , int id);

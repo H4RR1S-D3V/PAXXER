@@ -10,7 +10,8 @@ using namespace std;
 #include "pantallasMenuPrincipal.h"
 #include "funcionesDibujarTitulos.h"
 #include "../controller/clasesArchivosMesas.h"
-
+#include "../controller/clasesArchivosUsuarios.h"
+#include "declaracionOpcionesConfiguraciones.h"
 
 void mostrarMenuPrincipal()
 {
@@ -20,13 +21,21 @@ void mostrarMenuPrincipal()
     {
         //CHECKEAR SI HAY MESAS
         ArchivoMesasLocal arcLocal;
-        int cant = arcLocal.contarRegistros();
-        if(cant < 1) {
+        int cantMesasInicio = arcLocal.contarRegistros();
+        if(cantMesasInicio < 1) {
             // PANTALLA PETICION DE CANTIDAD
             int cantMesas;
             cout << "Parece que no hay mesas cargadas, indique cuantas quiere tener ";
             cin >> cantMesas;
             arcLocal.setearCantMesas(cantMesas);
+        }
+
+        //CHEKEAR SI HAY USUARIO ADMIN
+        ArchivoUsuario arcUsuarios;
+        int cantUsuariosInicio = arcUsuarios.contarRegistros();
+        if (arcUsuarios.contarRegistrosAdmin() < 1){
+            MessageBox(NULL, "NO HAY USUARIOS ADMINISTRADOR, POR FAVOR GENERE UNO", "ERROR NO ADMINISTRADORES", MB_OK);
+            mostrarEmpleados();
         }
 
         rlutil::hidecursor();

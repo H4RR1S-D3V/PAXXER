@@ -393,19 +393,23 @@ bool Factura::quitarItem(int pos, int cant)
 }
 void Factura::mostrarFacturaDetalle()
 {
-    mostrarFactura(-3);
+
+
+    mostrarFactura(-3,true ); ///SE LE PASA TRUE COMO PARAMETRO PARA MOSTRAR LOS MARCOS DE LA VISTA DE FACTURA DETALLADA
     ///MOSTAR PRODUCTOS
     _productos.mostrarProductos();
 
 }
-void Factura::mostrarFactura(int i)
+void Factura::mostrarFactura(int i, bool dibujarMarco)
 {
+    if (dibujarMarco){
     rlutil::setColor(rlutil::MAGENTA);
     dibujarBordeSyI(10,12);
     dibujarBordeSyI(10,14);
     ///PARA MODIFICAR EL LARGO SOLAMENTE SUMARLE AL ULTIMO NUM(EJ: 20+Y(Y=1)
     dibujarBordesDeI(9,13,30);
     dibujarBordesDeI(160,13,30);
+    }
     rlutil::setColor(rlutil::YELLOW);
     rlutil::locate(12, 11+i+3);
     cout<<"NRO. FACTURA: "<< _id;

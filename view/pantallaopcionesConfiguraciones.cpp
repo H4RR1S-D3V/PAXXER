@@ -8,6 +8,7 @@ using namespace std;
 #include "pantallasMenuPrincipal.h"
 #include "declaracionOpcionesConfiguraciones.h"
 #include "funcionesDibujar.h"
+#include "../controller/clasesUsuarios.h"
 
 void mostrarConfigurarCarta()
 {
@@ -218,22 +219,25 @@ void mostrarEmpleados()
         int cantEmp=arc.contarRegistros();
         int posXinicial=25;
         int posYinicial=19;
-
+        int j=0;
         for (int i=0; i < cantEmp; i++)
         {
             Usuario obj;
             obj=arc.leerRegistro(i);
+            if (obj.getEstado()){
 
-            rlutil::setColor(rlutil::WHITE);
-            rlutil::locate(posXinicial, posYinicial+i);
-            cout<< obj.getNombre();
-            rlutil::locate(posXinicial+55,  posYinicial+i);
-            cout <<obj.getId();
-            rlutil::locate(posXinicial+92,  posYinicial+i);
-            cout <<obj.getDNI();
-            if (i==cantEmp-1)
-            {
-                dibujarBordeSyI(10,posYinicial+i+1);
+                rlutil::setColor(rlutil::WHITE);
+                rlutil::locate(posXinicial, posYinicial+j);
+                cout<< obj.getNombre();
+                rlutil::locate(posXinicial+55,  posYinicial+j);
+                cout <<obj.getId();
+                rlutil::locate(posXinicial+92,  posYinicial+j);
+                cout <<obj.getDNI();
+                if (i==cantEmp-1)
+                {
+                    dibujarBordeSyI(10,posYinicial+j+1);
+                }
+                j++;
             }
 
 
@@ -265,19 +269,19 @@ void mostrarEmpleados()
             {
             case 0:
             {
+                int id;
                 rlutil:: locate (60,9);
-                cout << "INGRESE DNI DE EMPLEADO: ";
+                cout << "INGRESE ID DE EMPLEADO: ";
                 rlutil::setCursorVisibility(true);
-                cin >> dniEmpleado;
+                cin >> id;
                 rlutil::setCursorVisibility(false);
                 rlutil::locate(55,11);
                 cout << "PULSE ENTER PARA CONTINUAR";
-                int seleccion=MessageBox(NULL, "Confirma eliminar a este empleado?", "ELIMINACION DE EMPLEADO", MB_OKCANCEL);
-                if (seleccion==IDOK)
+                int seleccion=MessageBox(NULL, "Confirma eliminar a este empleado?", "ELIMINACION DE EMPLEADO", MB_YESNO);
+                if (seleccion==6)
                 {
                     ///Aqui logica de eliminar empleado
-                    int pos = arc.buscarRegistroDNI(dniEmpleado);
-                    arc.cambiarEstadoRegistro(pos);
+                    arc.cambiarEstadoRegistro(id);
                     MessageBox(NULL, "Eliminacion de empleado exitosa", "OPERACION EXITOSA", MB_OK);
                     rlutil::cls();
                 }
@@ -288,6 +292,9 @@ void mostrarEmpleados()
             break;
             case 50:
             {   ///AGREGAR TIPO Y CONTRASE;A SI HACE FALTA
+                int tipoEmpleado;
+                char password[50] = "";
+
                 rlutil:: locate (60,9);
                 cout << "INGRESE DNI DE EMPLEADO: ";
                 rlutil::setCursorVisibility(true);
@@ -298,21 +305,35 @@ void mostrarEmpleados()
                 rlutil::setCursorVisibility(true);
                 cin >> nombreEmpleado;
                 rlutil::setCursorVisibility(false);
-                rlutil::locate(55,11);
+                rlutil:: locate (60,11);
+                cout << "INGRESE ROL (1-EMPLEADO | 2-ENCARGADO): ";
+                rlutil::setCursorVisibility(true);
+                cin >> tipoEmpleado;
+                rlutil::setCursorVisibility(false);
+                ///VERIFICA EL TIPO PARA ASIGNAR O NO PASS
+                if( tipoEmpleado == 2){
+                rlutil:: locate (60,12);
+                cout << "INGRESE CONTRASEÑA: ";
+                rlutil::setCursorVisibility(true);
+                cin >> password;
+                rlutil::setCursorVisibility(false);
+                }
+                rlutil::locate(55,13);
                 cout << "PULSE ENTER PARA CONTINUAR";
-                int seleccion=MessageBox(NULL, "Confirma agregar a este empleado?", "AGREGAR EMPLEADO", MB_OKCANCEL);
-                if (seleccion==IDOK)
+                int seleccion=MessageBox(NULL, "Confirma agregar a este empleado?", "AGREGAR EMPLEADO", MB_YESNO);
+                if (seleccion==6)
                 {
                     ///Aqui logica de agregar empleado
-                    /*Usuario obj(nombreEmpleado, dniEmpleado);
-                    arc.agregarRegistro(obj);*/
+                    Usuario obj(nombreEmpleado, dniEmpleado, tipoEmpleado, password);
+                    arc.agregarRegistro(obj);
                     MessageBox(NULL, "Agrego el empleado exitosamente", "OPERACION EXITOSA", MB_OK);
-                    rlutil::cls();
                 }
+                    rlutil::cls();
+
                 mostrarEmpleados();
 
-            }
             break;
+            }
             case 100:
                 rlutil::cls();
                 salir=false;

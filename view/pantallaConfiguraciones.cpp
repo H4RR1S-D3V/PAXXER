@@ -9,6 +9,7 @@ using namespace std;
 #include "declaracionOpcionesConfiguraciones.h"
 #include "../controller/clasesArchivosMesas.h"
 #include "menuPrincipal.h"
+#include "../controller/clasesArchivosUsuarios.h"
 
 
 void mostrarConfiguraciones()
@@ -17,6 +18,13 @@ void mostrarConfiguraciones()
     bool salir=true;
     int y=0;
 
+    //CHEKEAR SI HAY USUARIO ADMIN
+        ArchivoUsuario arcUsuarios;
+        int cantUsuariosInicio = arcUsuarios.contarRegistros();
+        if (arcUsuarios.contarRegistrosAdmin() < 1){
+            MessageBox(NULL, "NO HAY USUARIOS ADMINISTRADOR, POR FAVOR GENERE UNO", "ERROR NO ADMINISTRADORES", MB_OK);
+            mostrarEmpleados();
+        }
 
     do
     {

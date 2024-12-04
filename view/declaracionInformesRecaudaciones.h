@@ -2,6 +2,6 @@
 ///INCLUIR TODAS LAS FUNCIONES DE RECAUDACIONES
 
 void mostrarRecaudacionesPorFecha();
-void mostrarRecaudacionesPorItemsDeCarta();
+void mostrarRecaudacionesPorTurno();
 void mostrarRecaudacionesPorTipoDePedido();
 void mostrarRecaudacionesPorEmpleado();
