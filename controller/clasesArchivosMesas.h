@@ -41,7 +41,7 @@ class ArchivoTakeAway
     public:
         ArchivoTakeAway(const char* n=ARCHIVO_TAKEAWAY);
         bool agregarRegistro(TakeAway &obj);
-        bool listarRegistros();
+        bool listarRegistros(int y);
         TakeAway leerRegistro(int pos);
         bool actualizarRegstro(TakeAway obj);
         int contarRegistros();

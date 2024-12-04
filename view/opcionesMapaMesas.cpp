@@ -358,6 +358,10 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                rlutil::locate (70, 33);
+                cout<<"INGRESE LA CANTIDAD"; /// PEDIR CANT
+                rlutil::showcursor();
+                rlutil::locate (84, 34);
                 cin >> cantItem;
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)
@@ -388,6 +392,10 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                rlutil::locate (70, 33);
+                cout<<"INGRESE LA CANTIDAD"; /// PEDIR CANT
+                rlutil::showcursor();
+                rlutil::locate (84, 34);
                 cin >> cantItem;
 
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
@@ -419,6 +427,10 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                rlutil::locate (70, 33);
+                cout<<"INGRESE LA CANTIDAD"; /// PEDIR CANT
+                rlutil::showcursor();
+                rlutil::locate (84, 34);
                 cin >> cantItem;
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)
@@ -449,6 +461,10 @@ void cargarItem(int idFactura)
                 rlutil::showcursor();
                 rlutil::locate (84, 32);
                 cin >> idItem;
+                rlutil::locate (70, 33);
+                cout<<"INGRESE LA CANTIDAD"; /// PEDIR CANT
+                rlutil::showcursor();
+                rlutil::locate (84, 34);
                 cin >> cantItem;
                 int seleccion=MessageBox(NULL, "¿Desea agregar el item seleccionado?", "CONFIRMACION AGREGAR ITEM", MB_OKCANCEL);
                 if (seleccion==IDOK)

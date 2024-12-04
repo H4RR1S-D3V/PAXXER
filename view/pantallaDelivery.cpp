@@ -4,7 +4,6 @@
 #include "funcionesDibujar.h"
 #include "../controller/clasesArchivosMesas.h"
 
-
 using namespace std;
 
 #include "pantallaDelivery.h"
@@ -12,66 +11,62 @@ using namespace std;
 
 void pantallaDelivery()
 {
-    bool salir = true;
-    int x=0;
+    int x = 0;
     do
     {
         rlutil::hidecursor();
 
-        ///CUADRO INFERIOR
+        /// OPCIONES
+        rlutil::setColor(rlutil::WHITE);
+        pintarOpciones("AGREGAR DELIVERY",40, 8, x==0);
+        pintarOpciones("ABRIR DELIVERY",80, 8,x==40);
+        pintarOpciones("VOLVER A MAPA MESAS",120, 8, x==80);
+
+        /// CUADRO
         rlutil::setColor(rlutil::MAGENTA);
-        dibujarBordeSyI(10,15);
-        dibujarBordeSyI(10,17);
-        dibujarBordesDeI(9,16,30);
-        dibujarBordesDeI(160,16,30);
+        dibujarBordeSyI(10,18);
+        dibujarBordeSyI(10,20);
+        dibujarBordesDeI(9,19,30);
+        dibujarBordesDeI(160,19,30);
         rlutil::setColor(rlutil::LIGHTCYAN);
-        rlutil::locate(13, 16);
+        rlutil::locate(13, 19);
         cout <<"#";
-        rlutil::locate(20, 16);
+        rlutil::locate(20, 19);
         cout <<"DIRECCION DE ENTREGA ";
-        rlutil::locate(64, 16);
+        rlutil::locate(64, 19);
         cout <<"RESPONSABLE";
-        rlutil::locate(95, 16);
+        rlutil::locate(95, 19);
         cout <<"HORA ENTREGA";
-        rlutil::locate(128, 16);
+        rlutil::locate(128, 19);
         cout <<"TOTAL";
-        rlutil::locate(150, 16);
+        rlutil::locate(150, 19);
         cout <<"ESTADO";
 
-
+        /// MOSTRAR DELIVERIES EN CURSO
         ArchivoDelivery arc;
+        arc.listarRegistros(21);
 
-        arc.listarRegistros(18);
-
+        /// MEN� DE OPCIONES
         rlutil::setColor(rlutil::WHITE);
-
-        pintarOpciones("AGREGAR DELIVERY",30, 8, x==0);
-        pintarOpciones("CERRAR DELIVERY",60, 8,x==30);
-        pintarOpciones("ABRIR DELIVERY",90, 8, x==60);
-        pintarOpciones("VOLVER A MAPA MESAS",120, 8, x==90);
-
-
-        rlutil::setColor(rlutil::WHITE);
-        rlutil:: locate (29+x,8);
+        rlutil::locate(29+x,8);
         cout << char (16);
-        int key=rlutil::getkey();
-        rlutil::locate(29 + x, 8);
+        int key = rlutil::getkey();
+        rlutil::locate(29+x, 8);
         cout << " ";
-        switch (key)
+        switch(key)
         {
         case 17:
-            x+=30;
-
-            if (x>90) x=90;
+            x+=40;
+            if(x>80) x=80;
             break;
         case 16:
-            x-=30;
-            if (x<0) x=0;
+            x-=40;
+            if(x<0) x=0;
             break;
         case 1:
-            switch (x)
+            switch(x)
             {
-            case 0://AGREGAR DELIVERY
+            case 0:     //AGREGAR DELIVERY
             {
                 int cantRegistros = arc.contarRegistros();
                 Delivery obj(cantRegistros + 1);
@@ -81,83 +76,35 @@ void pantallaDelivery()
                 obj.abrirMesa();
                 break;
             }
-            break;
-            case 30://CERRAR DELIVERY
-                break;
-            case 60://ABRIR DELIVERY
+            case 40:    //ABRIR DELIVERY
             {
                 int pos;
                 rlutil::locate (10,10);
                 cout << "INGRESE DELIVERY A ABRIR: ";
                 cin >> pos;
 
+                if(pos > arc.contarRegistros() || pos < 1)
+                {
+                    rlutil::cls();
+                    rlutil::locate(10, 9);
+                    rlutil::setColor(rlutil::RED);
+                    cout << "DELIVERY INVALIDO, INGRESE NUEVAMENTE" << endl;
+                    break;
+                }
                 Delivery obj;
                 obj = arc.leerRegistro(pos-1);
                 rlutil::cls();
                 obj.abrirMesa();
                 break;
             }
-            break;
-            case 90://VOLVER A MAPA
-
+            case 80:    //VOLVER A MAPA
+            {
                 rlutil::cls();
-                salir = false;
                 mostrarMapaMesas();
                 break;
             }
-
+            }
         }
-
     }
-    while (true);
-
-    /*
-        ArchivoDelivery arc;
-
-        cout << "# | ";
-        cout << "DIRECCION DE ENTREGA | ";
-        cout << "RESPONSALBLE | ";
-        cout << "HORA DE ENTREGA | ";
-        cout << "TOTAL | " << endl;
-        cout << "-------------------------------------------------------------------" << endl;
-
-        arc.listarRegistros();
-
-        int opcion;
-
-        cout << "SELECCIONAR OPCION: (1-AGREGAR DELIVERY 2-ABRIR DELIVERY 3-VOLVER) ";
-        cin >> opcion;
-
-        switch(opcion)
-        {
-        case 1:
-            {
-                int cantRegistros = arc.contarRegistros();
-                Delivery obj(cantRegistros + 1);
-                obj.cargarDelivery();
-                arc.agregarRegistro(obj);
-                system("cls");
-                obj.abrirMesa();
-                break;
-            }
-        case 2:
-            {
-                int pos;
-                cout << "INGRESE DELIVERY A ABRIR: ";
-                cin >> pos;
-
-                Delivery obj;
-                obj = arc.leerRegistro(pos-1);
-                system("cls");
-                obj.abrirMesa();
-                break;
-            }
-        case 3:
-            system("cls");
-            return;
-        default:
-            cout << "INGRESE UNA OPCION VALIDA";
-            system("pause");
-        }
-    */
+    while(true);
 }
