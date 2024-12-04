@@ -286,7 +286,7 @@ bool ArchivoTakeAway::agregarRegistro(TakeAway &obj)
     return escribio;
 }
 
-bool ArchivoTakeAway::listarRegistros()
+bool ArchivoTakeAway::listarRegistros(int y)
 {
     FILE *p;
     p = fopen(_nombre, "rb");
@@ -300,7 +300,7 @@ bool ArchivoTakeAway::listarRegistros()
     for(int i=0; i<cantRegistros; i++)
     {
         obj = leerRegistro(i);
-        obj.mostrarTakeAway();
+        obj.mostrarTakeAway(y+i);
     }
     fclose(p);
     return true;

@@ -113,7 +113,7 @@ bool ArchivoFactura::actualizarRegistro(Factura factura)
 int ArchivoFactura::listarRegistrosPorResponsableID(int idEmpleado)
 {
     FILE *p = fopen(_nombre, "rb");
-    if(p = nullptr)
+    if(p == nullptr)
     {
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return -1;
@@ -136,7 +136,7 @@ int ArchivoFactura::listarRegistrosPorResponsableID(int idEmpleado)
 int ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
 {
     FILE *p = fopen(_nombre, "rb");
-    if(p = nullptr)
+    if(p == nullptr)
     {
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return 0;
@@ -159,7 +159,7 @@ int ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
 int ArchivoFactura::listarRegistrosPorTurno(int turno)
 {
     FILE *p = fopen(_nombre, "rb");
-    if(p = nullptr)
+    if(p == nullptr)
     {
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return -1;
@@ -182,7 +182,7 @@ int ArchivoFactura::listarRegistrosPorTurno(int turno)
 int ArchivoFactura::listarRegistrosPorAnio(int anio)
 {
     FILE *p = fopen(_nombre, "rb");
-    if(p = nullptr)
+    if(p == nullptr)
     {
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return 0;
@@ -205,7 +205,7 @@ int ArchivoFactura::listarRegistrosPorAnio(int anio)
 int ArchivoFactura::listarRegistrosPorMes(int mes)
 {
     FILE *p = fopen(_nombre, "rb");
-    if(p = nullptr)
+    if(p == nullptr)
     {
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return 0;
