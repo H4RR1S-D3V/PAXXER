@@ -363,9 +363,8 @@ void mostrarRecaudacionesPorEmpleado()
         rlutil:: locate (55,15);
         cout << "R E C A U D A C I O N E S   P O R   E M P L E A D O S";
         rlutil::setColor (rlutil::WHITE);
-        pintarOpciones("POR ID",40,17, x==0);
-        pintarOpciones("POR DNI",70,17, x==30);
-        pintarOpciones("VOLVER A INFORMES",100,17, x==60);
+        pintarOpciones("POR ID",50,17, x==0);
+        pintarOpciones("VOLVER A INFORMES",90,17, x==30);
 
 
         int key=rlutil::getkey();
@@ -375,8 +374,7 @@ void mostrarRecaudacionesPorEmpleado()
             rlutil:: locate (29+(x),17);
             cout << " ";
             x+=30;
-            if (x>120) x=120;
-
+            if (x>30) x=30;
             break;
         case 16:
             rlutil:: locate (29+(x),17);
@@ -422,50 +420,6 @@ void mostrarRecaudacionesPorEmpleado()
                 break;
                 }
             case 30:
-                {
-                ArchivoUsuario arcUsuario;
-                Usuario objUsuario;
-                char valor[8];
-                dibujarBordeSyI (10,19);
-                dibujarBordeSyI (10,21);
-                dibujarBordesDeI (10,20,20);
-                dibujarBordesDeI (160,20,20);
-                rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "DNI";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
-                /// LIMPIAR TABLA
-                int cantRegistrosTotal = arc.contarRegistros();
-                limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
-                rlutil:: locate (70,23);
-                cout << "INGRESE EL DNI DEL EMPLEADO QUE DESEA VER";
-                rlutil:: locate (70,24);
-                rlutil::showcursor();
-                cin >> valor;
-                rlutil::hidecursor();
-                /// LIMPIAR TABLA
-                limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
-                if (strlen(valor) < 7 || strlen(valor) > 8){
-                    rlutil::locate(70,24);
-                    cout << "Por favor ingrese un DNI valido";
-                } else {
-                int pos = arcUsuario.buscarRegistroDNI(valor);
-                if (pos == -1){
-                    rlutil::locate(58,24);
-                    cout << "NO SE ENCONTRO UN EMPLEADO CON EL DNI DADO";
-                } else {
-                    objUsuario = arcUsuario.leerRegistro(pos);
-                    int idDelDNI = objUsuario.getId();
-
-                    ///FETCH
-                    int registros = arc.listarRegistrosPorResponsableID(idDelDNI);
-                    if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
-                    }
-                }
-                break;
-                }
-            case 60:
                 rlutil::cls();
                 salir=false;
                 break;

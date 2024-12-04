@@ -18,7 +18,7 @@ int ArchivoMesasLocal::contarRegistros()
     p=fopen(_nombre, "rb");
     if(p==nullptr)
     {
-        return -1;
+        return 0;
     }
     fseek(p, 0, 2);
     int tam=ftell(p);
@@ -202,7 +202,7 @@ int ArchivoDelivery::contarRegistros()
     p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
-        return -1;
+        return 0;
     }
     fseek(p, 0, 2);
     int tam = ftell(p);
@@ -343,7 +343,7 @@ int ArchivoTakeAway::contarRegistros()
     p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
-        return -1;
+        return 0;
     }
     fseek(p, 0, 2);
     int tam = ftell(p);
