@@ -230,7 +230,7 @@ void controladorProductos::mostrarProductos()
     cout <<"TOTAL";
 
     int posXinicial=13;
-    int posYinicial=19;
+    int posYinicial=15;
 
     while(_vIdsProductos[i] != 0)
     {

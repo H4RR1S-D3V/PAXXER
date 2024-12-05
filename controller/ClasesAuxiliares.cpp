@@ -3,6 +3,7 @@
 
 #include "funciones.h"
 #include "clasesAuxiliares.h"
+#include "../rlutil.h"
 
 using namespace std;
 
@@ -76,12 +77,15 @@ Fecha Tiempo::getFecha()
 // METHODS
 void Domicilio::Cargar()
 {
+    rlutil::locate(10, 14);
     cout << "CALLE: ";
     cargarCadena(_calle, 20);
 
+    rlutil::locate(10, 15);
     cout << "ALTURA: ";
     cin >> _altura;
 
+    rlutil::locate(10, 16);
     cout << "LOCALIDAD: ";
     cargarCadena(_localidad, 20);
 }
