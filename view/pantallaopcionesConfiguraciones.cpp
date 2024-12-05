@@ -251,7 +251,7 @@ void mostrarEmpleados()
                 rlutil:: locate (60,10);
                 cout << "INGRESE NOMBRE DE EMPLEADO: ";
                 rlutil::setCursorVisibility(true);
-                cin >> nombreEmpleado;
+                cargarCadena(nombreEmpleado, 50);
                 rlutil::setCursorVisibility(false);
                 rlutil:: locate (60,11);
                 cout << "INGRESE ROL (1-EMPLEADO | 2-ENCARGADO): ";
