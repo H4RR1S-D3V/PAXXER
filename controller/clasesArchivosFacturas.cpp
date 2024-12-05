@@ -251,7 +251,7 @@ void ArchivoProducto::listarRegistrosPorTipo(const int tipo)
     {
         fread(&obj, _tamanioRegistro, 1, p);
 
-        if(obj.getTipo() == tipo)
+        if(obj.getTipo() == tipo && obj.getDisponibilidad())
         {
             obj.Mostrar(13, 11+j);
             j++;
@@ -275,7 +275,7 @@ void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
     {
         fread(&obj, _tamanioRegistro, 1, p);
 
-        if(!strcmp(obj.getNombre(), nombre))
+        if(!strcmp(obj.getNombre(), nombre) && obj.getDisponibilidad())
         {
             obj.Mostrar(13, 15+i);
         }
