@@ -84,7 +84,7 @@ int ArchivoUsuario::buscarRegistro(int id)
     p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
-        return -2;
+        return -1;
     }
     int cantRegistros = contarRegistros();
 
@@ -98,7 +98,7 @@ int ArchivoUsuario::buscarRegistro(int id)
         }
     }
     fclose(p);
-    return -1;
+    return -2;
 }
 
 int ArchivoUsuario::buscarRegistroDNI(char* DNI)
@@ -207,6 +207,23 @@ bool ArchivoUsuario::modificarDNIRegistro(const char *DNI, int id)
 
     fseek(p, _tamanioRegistro * pos, 0);
     bool modifico = fwrite(&obj, _tamanioRegistro, 1, p) == 1;
+    fclose(p);
+    return modifico;
+}
+bool ArchivoUsuario::modificarRolRegistro(int id)
+{
+    FILE *p = fopen(_nombre, "rb+");
+    if(p == nullptr)
+    {
+        return false;
+    }
+    Usuario obj;
+    int pos = buscarRegistro(id);
+    obj = leerRegistro(pos);
+    obj.cambiarRol();
+
+    fseek(p, sizeof(Usuario) * pos, 0);
+    bool modifico = fwrite(&obj, sizeof(Usuario), 1, p);
     fclose(p);
     return modifico;
 }

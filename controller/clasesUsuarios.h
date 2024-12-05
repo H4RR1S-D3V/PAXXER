@@ -30,5 +30,6 @@ class Usuario
         void Cargar();
         void Mostrar();
         void cambiarEstado();
+        void cambiarRol();
 };
 
