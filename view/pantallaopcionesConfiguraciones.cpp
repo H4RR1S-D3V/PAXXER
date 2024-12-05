@@ -133,78 +133,90 @@ void mostrarConfigurarCarta()
 }
 
 
-    void mostrarEmpleados()
+void mostrarEmpleados()
+{
+    char dniEmpleado[10];
+    char nombreEmpleado[50];
+
+    int x=0;
+    int y=0;
+    bool salir=true;
+    do
     {
-        char dniEmpleado[10];
-        char nombreEmpleado[50];
+        rlutil::hidecursor();
+        rlutil::setColor (rlutil::LIGHTCYAN);
+        dibujarBordesPantallas(42,3);
+        dibujarBordesPantallas(42,5);
+        rlutil::setColor (rlutil::MAGENTA);
+        rlutil:: locate (65,4);
+        cout << "L I S T A D O   D E   E M P L E A D O S";
+        rlutil::setColor (rlutil::WHITE);
 
-        int x=0;
-        int y=0;
-        bool salir=true;
-        do
+
+
+        dibujarBordeSyI(10, 16);
+        dibujarBordeSyI(10, 18);
+        rlutil::locate(30, 17);
+        cout << "NOMBRE";
+        rlutil::locate(80, 17);
+        cout << "ID";
+        rlutil::locate(120, 17);
+        cout << "DNI";
+
+
+        ArchivoUsuario arc;
+        int cantEmp=arc.contarRegistros();
+        int posXinicial=25;
+        int posYinicial=19;
+        int j=0;
+        for (int i=0; i < cantEmp; i++)
         {
-            rlutil::hidecursor();
-            rlutil::setColor (rlutil::LIGHTCYAN);
-            dibujarBordesPantallas(42,3);
-            dibujarBordesPantallas(42,5);
-            rlutil::setColor (rlutil::MAGENTA);
-            rlutil:: locate (65,4);
-            cout << "L I S T A D O   D E   E M P L E A D O S";
-            rlutil::setColor (rlutil::WHITE);
-
-
-
-            dibujarBordeSyI(10, 16);
-            dibujarBordeSyI(10, 18);
-            rlutil::locate(30, 17);
-            cout << "NOMBRE";
-            rlutil::locate(80, 17);
-            cout << "ID";
-            rlutil::locate(120, 17);
-            cout << "DNI";
-
-
-
-            ArchivoUsuario arc;
-            int cantEmp=arc.contarRegistros();
-            int posXinicial=25;
-            int posYinicial=19;
-
-            for (int i=0; i < cantEmp; i++)
-            {
-                Usuario obj;
-                obj=arc.leerRegistro(i);
-
+            Usuario obj;
+            obj=arc.leerRegistro(i);
+            if (obj.getEstado()){
 
                 rlutil::setColor(rlutil::WHITE);
-                rlutil::locate(posXinicial, posYinicial+i);
+                rlutil::locate(posXinicial, posYinicial+j);
                 cout<< obj.getNombre();
-                rlutil::locate(posXinicial+55,  posYinicial+i);
+                rlutil::locate(posXinicial+55,  posYinicial+j);
                 cout <<obj.getId();
-                rlutil::locate(posXinicial+92,  posYinicial+i);
+                rlutil::locate(posXinicial+92,  posYinicial+j);
                 cout <<obj.getDNI();
-                if (i==cantEmp-1)
-                {
-                    dibujarBordeSyI(10,posYinicial+i+1);
-                }
 
-
+                j++;
             }
-            pintarOpciones("ELIMINAR EMPLEADO",25,7, x==0);
-            pintarOpciones("AGREGAR EMPLEADO",75,7, x==50);
-            pintarOpciones("VOLVER A CONFIGURACIONES",125,7, x==100);
-            rlutil:: locate (24+x,7);
-            cout << char (16);
-            int key=rlutil::getkey();
-            rlutil::locate(24 + x, 7);
-            cout << " ";
+        }
+
+        dibujarBordeSyI(10,posYinicial+j);
+
+
+        pintarOpciones("ELIMINAR EMPLEADO",25,7, x==0);
+        pintarOpciones("AGREGAR EMPLEADO",75,7, x==50);
+        pintarOpciones("VOLVER A CONFIGURACIONES",125,7, x==100);
+        rlutil:: locate (24+x,7);
+        cout << char (16);
+        int key=rlutil::getkey();
+        rlutil::locate(24 + x, 7);
+        cout << " ";
 
 
 
 
-            switch (key)
+        switch (key)
+        {
+        case 17:
+            x+=50;
+            if (x>100) x=100;
+            break;
+        case 16:
+            x-=50;
+            if (x<0) x=0;
+            break;
+        case 1:
+            switch (x)
             {
-
+            case 0:
+            {
                 int id;
                 rlutil:: locate (60,9);
                 cout << "INGRESE ID DE EMPLEADO: ";
@@ -249,7 +261,7 @@ void mostrarConfigurarCarta()
                 ///VERIFICA EL TIPO PARA ASIGNAR O NO PASS
                 if( tipoEmpleado == 2){
                 rlutil:: locate (60,12);
-                cout << "INGRESE CONTRASEÃ‘A: ";
+                cout << "INGRESE CONTRASEÑA: ";
                 rlutil::setCursorVisibility(true);
                 cin >> password;
                 rlutil::setCursorVisibility(false);
@@ -274,15 +286,16 @@ void mostrarConfigurarCarta()
                 rlutil::cls();
                 salir=false;
                 mostrarConfiguraciones();
-
                 break;
             }
-
-
-
+            break;
         }
-        while(salir==true);
 
 
 
     }
+    while(salir==true);
+
+
+
+}

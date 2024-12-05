@@ -72,7 +72,7 @@ void dibujarBordesDeI(int posicionX, int posicionY, int largo)
 
 void opcionesModificarItem()
 {
-    int x;
+    int x =0;
     ArchivoProducto arc;
     Producto obj;
     int idItem;
@@ -96,7 +96,7 @@ void opcionesModificarItem()
         {
         case 17:
             x+=20;
-            if(x>120) x=120;
+            if(x>80) x=80;
             break;
         case 16:
             x-=20;
