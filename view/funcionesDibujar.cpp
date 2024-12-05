@@ -69,6 +69,7 @@ void dibujarBordesDeI(int posicionX, int posicionY, int largo)
     }
 }
 
+
 void opcionesModificarItem()
 {
     int x;
@@ -315,3 +316,13 @@ void opcionesModificarItem()
     }
     while(true);
     }
+
+void limpiarDesdePosicion(int x, int y, int ancho, int alto) {
+    for (int i = 0; i < alto; ++i) {
+        rlutil::locate(x, y + i);
+        for (int j = 0; j < ancho; ++j) {
+            cout << " ";
+        }
+    }
+}
+

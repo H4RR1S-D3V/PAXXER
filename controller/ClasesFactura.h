@@ -83,7 +83,7 @@ class Factura
         void actualizarImporteTotal();
         void cargarItem(int IdProducto, int cant);
         bool quitarItem(int pos, int cant);
-        void mostrarFactura(int i);
+        void mostrarFactura(int i, bool dibujarMarco = false);
         void mostrarFacturaDetalle();
         void aplicarDescuento(int tipo, float descuento);
         bool preguntarPorDescuento();

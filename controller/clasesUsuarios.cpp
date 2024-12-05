@@ -82,11 +82,11 @@ void Usuario::Cargar() /// FUNCION A BORRAR?
     cout << "INGRESE DNI: " << endl;
     cin >> _dni;
 
-    while(_rol != 1 || _rol != 2){
+    while(_rol != 1 && _rol != 2){
     cout << "INGRESE ROL DE EMPLEADO: (1-EMPLEADO 2-ENCARGADO)" << endl;
     cin >> _rol;
 
-    if (_rol != 1 || _rol != 2){
+    if (_rol != 1 && _rol != 2){
         cout << "EL VALOR INGRESADO NO ES CORRECTO, INTENTE DE NUEVO";
     }
     }

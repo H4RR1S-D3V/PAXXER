@@ -8,9 +8,9 @@ using namespace std;
 
 /// ARCHIVO USUARIOS
 
-ArchivoUsuario::ArchivoUsuario(const char* nombre)
+ArchivoUsuario::ArchivoUsuario(const char* n)
 {
-    strcpy(_nombre, nombre);
+    strcpy(_nombre, n);
     _tamanioRegistro=sizeof(Usuario);
 }
 
@@ -50,7 +50,7 @@ int ArchivoUsuario::contarRegistros()
     p = fopen(_nombre, "rb");
     if(p == nullptr)
     {
-        return -1;
+        return 0;
     }
     fseek(p, 0, 2);
     int tam = ftell(p);
@@ -115,7 +115,7 @@ int ArchivoUsuario::buscarRegistroDNI(char* DNI)
     for(int i=0; i<cantRegistros; i++)
     {
         obj = leerRegistro(i);
-        if(strcmp(obj.getDNI(), DNI))
+        if(obj.getDNI()== DNI)
         {
             fclose(p);
             return i;
@@ -125,10 +125,37 @@ int ArchivoUsuario::buscarRegistroDNI(char* DNI)
     return -1;
 }
 
+int ArchivoUsuario::contarRegistrosAdmin(){
+FILE *p;
+    Usuario obj;
+    p = fopen(_nombre, "rb");
+    if(p == nullptr)
+    {
+        return -2;
+    }
+    int cantRegistros = contarRegistros();
+
+    int cant =0;
+    for(int i=0; i<cantRegistros; i++)
+    {
+        obj = leerRegistro(i);
+        if(obj.getRol()== 2 && obj.getEstado())
+        {
+            cant++;
+        }
+    }
+    fclose(p);
+    return cant;
+}
+
+
 bool ArchivoUsuario::cambiarEstadoRegistro(int id)
 {
     int pos = buscarRegistro(id);
     Usuario obj;
+    if (pos < 0){
+        return 0;
+    }
 
     FILE* p = fopen(_nombre, "rb+");
     if(p == nullptr)

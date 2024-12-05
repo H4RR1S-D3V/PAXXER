@@ -8,12 +8,15 @@ using namespace std;
 #include "menuPrincipal.h"
 #include "pantallasMenuPrincipal.h"
 #include "funcionesDibujar.h"
+#include "../controller/clasesArchivosUsuarios.h"
 
 void pantallaContrasenaI()
 
 {
     int respuesta;
-bool salir = true;
+    bool salir = true;
+    ArchivoUsuario arc;
+
 
 do {
 
@@ -27,20 +30,23 @@ do {
 
     cout<< "ACCESO RESTRINGIDO  -  SOLO PERSONAL AUTORIZADO";
 
-
-  int constrasenaM =123;
-        rlutil::setColor(rlutil::WHITE);
-  rlutil::locate(60,14);
-         cout<<"PORFAVOR, INGRESE SU DNI: ";
-         ///agregar cin DNI
+    char inputDNI[10] = "";
+    char inputPassword[12] = "";
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::locate(60,14);
+    cout<<"PORFAVOR, INGRESE SU DNI: ";
+    ///agregar cin DNI
     rlutil::locate(60,15);
     cout<<"PORFAVOR, INGRESE SU CONTRASE"<<char (165)<<"A: ";
     rlutil::showcursor();
-    rlutil::locate(73,15);
-  cin >> constrasenaM;
+    rlutil::locate(86,14);
+    cin >> inputDNI;
+    cin.ignore();
+    rlutil::locate(93,15);
+    cin >> inputPassword;
     cin.ignore();
     rlutil::hidecursor();
-    if (constrasenaM==123)
+    if (arc.verificarCredenciales(inputDNI, inputPassword))
     {
         salir=false;
         rlutil::cls();
@@ -48,12 +54,13 @@ do {
     }
     else
       respuesta=  MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
-    if (IDYES)
+    if (respuesta == 6) ///CASE YES
     {
         rlutil::cls();
 
     }
-    else if (IDNO) {
+    else if (respuesta == 7) ///CASE NO
+        {
         salir=false;
         rlutil::cls();
         mostrarMenuPrincipal();
@@ -67,9 +74,9 @@ do {
 //REVISAR COMO LIMPIAR BUFFER
 void pantallaContrasenaC()
 {
-   int respuesta;
-
-bool salir = true;
+    int respuesta = 0;
+    bool salir = true;
+    ArchivoUsuario arc;
 
 do {
 
@@ -84,19 +91,23 @@ do {
     cout<< "ACCESO RESTRINGIDO  -  SOLO PERSONAL AUTORIZADO";
 
 
-  int constrasenaM =123;
-        rlutil::setColor(rlutil::WHITE);
-  rlutil::locate(60,14);
-         cout<<"PORFAVOR, INGRESE SU DNI: ";
-         ///agregar cin DNI
+    char inputDNI[10] = "";
+    char inputPassword[12] = "";
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::locate(60,14);
+    cout<<"PORFAVOR, INGRESE SU DNI: ";
+    ///agregar cin DNI
     rlutil::locate(60,15);
     cout<<"PORFAVOR, INGRESE SU CONTRASE"<<char (165)<<"A: ";
     rlutil::showcursor();
-    rlutil::locate(73,15);
-  cin >> constrasenaM;
-    cin.ignore();
+    rlutil::locate(86,14);
+    cin >> inputDNI;
+    //cin.ignore();
+    rlutil::locate(93,15);
+    cin >> inputPassword;
+    //cin.ignore();
     rlutil::hidecursor();
-    if (constrasenaM==123)
+    if (arc.verificarCredenciales(inputDNI, inputPassword))
     {
         salir=false;
         rlutil::cls();
@@ -104,12 +115,13 @@ do {
     }
     else
       respuesta=  MessageBox(NULL, "¿Desea intentarlo nuevamente?","CONTRASEÑA INCORRECTA", MB_YESNO|MB_ICONERROR);
-    if (IDYES)
+    if (respuesta == 6) ///CASE YES
     {
         rlutil::cls();
 
     }
-    else if (IDNO) {
+    else if (respuesta == 7) ///CASE NO
+        {
         salir=false;
         rlutil::cls();
         mostrarMenuPrincipal();

@@ -26,7 +26,7 @@ void mostrarInformes()
         cout << "F  I  L  T  R  A  R       R  E  C  A  U  D  A  C  I  O  N  E  S";
         rlutil::setColor (rlutil::WHITE);
         pintarOpciones("POR FECHA",10,12, x==0);
-        pintarOpciones("POR ITEMS DE CARTA",40,12, x==30);
+        pintarOpciones("POR TURNO",40,12, x==30);
         pintarOpciones("POR TIPO DE PEDIDO",70,12, x==60);
         pintarOpciones("POR EMPLEADO",100,12, x==90);
         pintarOpciones("VOLVER A MENU PRINCIPAL",130,12, x==120);
@@ -55,8 +55,7 @@ void mostrarInformes()
                 mostrarRecaudacionesPorFecha();
                 break;
             case 30:
-
-                mostrarRecaudacionesPorItemsDeCarta();
+                mostrarRecaudacionesPorTurno();
                 break;
             case 60:
                 mostrarRecaudacionesPorTipoDePedido();
