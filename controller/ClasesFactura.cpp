@@ -59,15 +59,15 @@ const int Producto::getTipo()
 //METHODS
 void Producto::Cargar()
 {
-    rlutil::locate (20,12);
+    rlutil::locate(20,12);
     cout << "NOMBRE: ";
-    cargarCadena(_nombre, 30);
+    cargarCadena(_nombre, 50);
 
-    rlutil::locate (40,12);
+    rlutil::locate(20,14);
     cout << "PRECIO: ";
     cin >> _precio;
 
-    rlutil::locate (80,12);
+    rlutil::locate(20,16);
     cout << "TIPO: (1-ENTRADA | 2-PLATO PRINCIPAL | 3-POSTRE | 4-BEBIDA): ";
     cin >> _tipo;
 
@@ -154,7 +154,7 @@ float controladorProductos::calcularPrecioTotal()
     }
     return acumulador;
 }
-void controladorProductos::cargarProducto(int idProducto, int cant)
+bool controladorProductos::cargarProducto(int idProducto, int cant)
 {
     int i = 0;
 
@@ -162,22 +162,29 @@ void controladorProductos::cargarProducto(int idProducto, int cant)
     ArchivoFactura arcFac;
     ArchivoProducto arcPro;
 
-    while(_vIdsProductos[i] != 0)
-    {
-        if(_vIdsProductos[i] == idProducto)
-        {
-            _vCantPorProductos[i] += cant;
-
-            return;
-        }
-        i++;
-    }
     int pos = arcPro.buscarRegistroPorId(idProducto);
     obj = arcPro.leerRegistro(pos);
 
-    _vIdsProductos[i] = idProducto;
-    _vCantPorProductos[i]+= cant;
-    _vPreciosProductos[i] = obj.getPrecio();
+    if(obj.getDisponibilidad())
+    {
+        while(_vIdsProductos[i] != 0)
+        {
+            if(_vIdsProductos[i] == idProducto)
+            {
+                _vCantPorProductos[i] += cant;
+
+                return true;
+            }
+            i++;
+        }
+        _vIdsProductos[i] = idProducto;
+        _vCantPorProductos[i]+= cant;
+        _vPreciosProductos[i] = obj.getPrecio();
+    }
+    else
+    {
+        return false;
+    }
 }
 bool controladorProductos::quitarProducto(int id, int cant)
 {
