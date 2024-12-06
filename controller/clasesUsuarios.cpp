@@ -111,6 +111,10 @@ void Usuario::cambiarEstado()
 {
     _estado = !_estado;
 }
+void Usuario::cambiarRol()
+{
+    _rol = !_rol;
+}
 /// FIN CLASE USUARIO
 
 /// CLASE CREDENCIAL

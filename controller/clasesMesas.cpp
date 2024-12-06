@@ -611,7 +611,7 @@ void TakeAway::cerrarTakeAway()
     cerrarMesa();
     entregarTakeAway();
     ArchivoTakeAway arcTake;
-    arcTake.eliminarRegistro(_numero - 1);
+    arcTake.eliminarRegistro(_numero);
 }
 void TakeAway::entregarTakeAway()
 {

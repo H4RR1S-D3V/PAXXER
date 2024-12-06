@@ -81,7 +81,7 @@ class Factura
         Factura(int id);
         Factura& operator=(const Factura& otro);
         void actualizarImporteTotal();
-        void cargarItem(int IdProducto, int cant);
+        bool cargarItem(int IdProducto, int cant);
         bool quitarItem(int pos, int cant);
         void mostrarFactura(int i, bool dibujarMarco = false);
         void mostrarFacturaDetalle();

@@ -165,6 +165,11 @@ bool controladorProductos::cargarProducto(int idProducto, int cant)
     int pos = arcPro.buscarRegistroPorId(idProducto);
     obj = arcPro.leerRegistro(pos);
 
+    if(pos < 0)
+    {
+        return false;
+    }
+
     if(obj.getDisponibilidad())
     {
         while(_vIdsProductos[i] != 0)
@@ -183,7 +188,7 @@ bool controladorProductos::cargarProducto(int idProducto, int cant)
     }
     else
     {
-        return false;
+        return false;   /// PRODUCTO NO DISPONIBLE
     }
 }
 bool controladorProductos::quitarProducto(int id, int cant)
@@ -377,17 +382,24 @@ void Factura::actualizarImporteTotal()
 {
     _importeSubTotal = _productos.calcularPrecioTotal();
 }
-void Factura::cargarItem(int idProducto, int cant)
+bool Factura::cargarItem(int idProducto, int cant)
 {
     ArchivoFactura arcFac;
 
-    _productos.cargarProducto(idProducto, cant);
+    if(_productos.cargarProducto(idProducto, cant))
+    {
+        actualizarImporteTotal();
 
-    actualizarImporteTotal();
-
-    /// agregar los cambios en el archivo segun id.
-    arcFac.actualizarRegistro(*this);
+        /// agregar los cambios en el archivo segun id.
+        arcFac.actualizarRegistro(*this);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
+
 bool Factura::quitarItem(int pos, int cant)
 {
     // PEDIR CONTRASENIA

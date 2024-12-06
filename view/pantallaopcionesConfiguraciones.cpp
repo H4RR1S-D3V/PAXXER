@@ -190,7 +190,7 @@ void mostrarEmpleados()
         dibujarBordeSyI(10,posYinicial+j);
 
 
-        pintarOpciones("ELIMINAR EMPLEADO",25,7, x==0);
+        pintarOpciones("MODIFICAR EMPLEADO",25,7, x==0);
         pintarOpciones("AGREGAR EMPLEADO",75,7, x==50);
         pintarOpciones("VOLVER A CONFIGURACIONES",125,7, x==100);
         rlutil:: locate (24+x,7);
@@ -217,6 +217,8 @@ void mostrarEmpleados()
             {
             case 0:
             {
+                opcionesModificarUsuario();
+                /*
                 int id;
                 rlutil:: locate (60,9);
                 cout << "INGRESE ID DE EMPLEADO: ";
@@ -234,8 +236,7 @@ void mostrarEmpleados()
                     rlutil::cls();
                 }
                 mostrarEmpleados();
-
-
+                */
             }
             break;
             case 50:
@@ -251,7 +252,7 @@ void mostrarEmpleados()
                 rlutil:: locate (60,10);
                 cout << "INGRESE NOMBRE DE EMPLEADO: ";
                 rlutil::setCursorVisibility(true);
-                cin >> nombreEmpleado;
+                cargarCadena(nombreEmpleado, 50);
                 rlutil::setCursorVisibility(false);
                 rlutil:: locate (60,11);
                 cout << "INGRESE ROL (1-EMPLEADO | 2-ENCARGADO): ";
