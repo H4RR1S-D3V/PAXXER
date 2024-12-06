@@ -382,7 +382,7 @@ void Factura::actualizarImporteTotal()
 {
     _importeSubTotal = _productos.calcularPrecioTotal();
 }
-void Factura::cargarItem(int idProducto, int cant)
+bool Factura::cargarItem(int idProducto, int cant)
 {
     ArchivoFactura arcFac;
 
@@ -392,15 +392,12 @@ void Factura::cargarItem(int idProducto, int cant)
 
         /// agregar los cambios en el archivo segun id.
         arcFac.actualizarRegistro(*this);
+        return true;
     }
     else
     {
-        //! CAMBIAR A MESSAGE BOX
-        system("cls");
-        cout << "PRODUCTO NO DISPONIBLE";
-        system("pause");
+        return false;
     }
-
 }
 
 bool Factura::quitarItem(int pos, int cant)

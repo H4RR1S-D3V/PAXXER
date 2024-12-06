@@ -14,10 +14,10 @@ void seleccionarTipoPedido()
 {
     int x=0;
     char tipoPedido[10]; //SOLO TEMPORAL-PARA PROBAR
-    rlutil:: locate (94+x,38);
-    cout << char (16);
-    int key=rlutil::getkey();
-    rlutil::locate(94 + x, 38);
+    rlutil:: locate(94+x,38);
+    cout << char(16);
+    int key = rlutil::getkey();
+    rlutil::locate(94+x, 38);
     cout << " ";
     rlutil::locate(95,37);
     cout << "SELECCIONE EL TIPO DE PEDIDO: ";
@@ -294,7 +294,6 @@ void cargarItem(int idFactura)
     int idItem;
     int cantItem;
     int x=0;
-    bool salir=true;
     do
     {
         rlutil::hidecursor();
@@ -339,14 +338,14 @@ void cargarItem(int idFactura)
         {
         case 17:
             x+=30;
-            if (x>120) x=120;
+            if(x>120) x=120;
             break;
         case 16:
             x-=30;
-            if (x<0) x=0;
+            if(x<0) x=0;
             break;
         case 1:
-            switch (x)
+            switch(x)
             {
             case 0://ENTRADA
             {
@@ -374,12 +373,19 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem, cantItem);
-
+                    if(objFac.cargarItem(idItem, cantItem))
+                    {
+                        /// SE CARGA EL ITEM CORRECTAMENTE
+                        rlutil::cls();
+                        return;
+                    }
+                    /// NO DISPONIBLE
+                    rlutil::setColor(rlutil::RED);
+                    rlutil::locate (70, 35);
+                    cout << "ITEM NO DISPONIBLE" << endl;
+                    system("pause");
                     rlutil::cls();
-                    return;
                 }
-                else  rlutil::cls();
                 break;
             }
             case 30://P. PRINCIPAL
@@ -409,12 +415,19 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem, cantItem);
-
+                    if(objFac.cargarItem(idItem, cantItem))
+                    {
+                        /// SE CARGA EL ITEM CORRECTAMENTE
+                        rlutil::cls();
+                        return;
+                    }
+                    /// NO DISPONIBLE
+                    rlutil::setColor(rlutil::RED);
+                    rlutil::locate (70, 35);
+                    cout << "ITEM NO DISPONIBLE" << endl;
+                    system("pause");
                     rlutil::cls();
-                    return;
                 }
-                else  rlutil::cls();
                 break;
             }
             case 60://POSTRE
@@ -443,12 +456,19 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem, cantItem);
-
+                    if(objFac.cargarItem(idItem, cantItem))
+                    {
+                        /// SE CARGA EL ITEM CORRECTAMENTE
+                        rlutil::cls();
+                        return;
+                    }
+                    /// NO DISPONIBLE
+                    rlutil::setColor(rlutil::RED);
+                    rlutil::locate (70, 35);
+                    cout << "ITEM NO DISPONIBLE" << endl;
+                    system("pause");
                     rlutil::cls();
-                    return;
                 }
-                else  rlutil::cls();
                 break;
             }
             case 90://BEBIDA
@@ -477,24 +497,29 @@ void cargarItem(int idFactura)
                     int pos = arcFac.buscarRegistro(idFactura);
 
                     objFac = arcFac.leerRegistro(pos);
-                    objFac.cargarItem(idItem, cantItem);
-
+                    if(objFac.cargarItem(idItem, cantItem))
+                    {
+                        /// SE CARGA EL ITEM CORRECTAMENTE
+                        rlutil::cls();
+                        return;
+                    }
+                    /// NO DISPONIBLE
+                    rlutil::setColor(rlutil::RED);
+                    rlutil::locate (70, 35);
+                    cout << "ITEM NO DISPONIBLE" << endl;
+                    system("pause");
                     rlutil::cls();
-                    return;
                 }
-                else  rlutil::cls();
                 break;
             }
             case 120://VOLVER
                 rlutil::cls();
-                salir=false;
                 return;
             }
             break;
         }
-
     }
-    while (salir==true);
+    while(true);
 }
 
 void quitarItem(int idFactura)
