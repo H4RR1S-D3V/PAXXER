@@ -152,39 +152,56 @@ void mostrarEmpleados()
         cout << "L I S T A D O   D E   E M P L E A D O S";
         rlutil::setColor (rlutil::WHITE);
 
-
-
         dibujarBordeSyI(10, 16);
         dibujarBordeSyI(10, 18);
-        rlutil::locate(30, 17);
-        cout << "NOMBRE";
-        rlutil::locate(80, 17);
-        cout << "ID";
-        rlutil::locate(120, 17);
-        cout << "DNI";
 
+        rlutil::locate(10, 17);
+        cout << "ID";
+        rlutil::locate(25, 17);
+        cout << "NOMBRE";
+        rlutil::locate(75, 17);
+        cout << "DNI";
+        rlutil::locate(90, 17);
+        cout << "ROL";
+        rlutil::locate(120, 17);
+        cout << "ESTADO";
 
         ArchivoUsuario arc;
         int cantEmp=arc.contarRegistros();
-        int posXinicial=25;
+        int posXinicial=10;
         int posYinicial=19;
         int j=0;
         for (int i=0; i < cantEmp; i++)
         {
             Usuario obj;
-            obj=arc.leerRegistro(i);
-            if (obj.getEstado()){
+            obj = arc.leerRegistro(i);
 
-                rlutil::setColor(rlutil::WHITE);
-                rlutil::locate(posXinicial, posYinicial+j);
-                cout<< obj.getNombre();
-                rlutil::locate(posXinicial+55,  posYinicial+j);
-                cout <<obj.getId();
-                rlutil::locate(posXinicial+92,  posYinicial+j);
-                cout <<obj.getDNI();
-
-                j++;
+            rlutil::setColor(rlutil::WHITE);
+            rlutil::locate(posXinicial, posYinicial+i);
+            cout << obj.getId();
+            rlutil::locate(posXinicial+15, posYinicial+i);
+            cout << obj.getNombre();
+            rlutil::locate(posXinicial+65, posYinicial+i);
+            cout << obj.getDNI();
+            rlutil::locate(posXinicial+80, posYinicial+i);
+            if(obj.getRol() == 1)
+            {
+                cout << "EMPLEADO";
             }
+            else
+            {
+                cout << "ENCARGADO";
+            }
+            rlutil::locate(posXinicial+110, posYinicial+i);
+            if(obj.getEstado())
+            {
+                cout << "ACTVIO";
+            }
+            else
+            {
+                cout << "INACTIVO";
+            }
+            j++;
         }
 
         dibujarBordeSyI(10,posYinicial+j);
