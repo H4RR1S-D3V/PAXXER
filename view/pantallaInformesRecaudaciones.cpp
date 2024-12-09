@@ -60,10 +60,6 @@ void mostrarRecaudacionesPorFecha()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "MES";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
@@ -80,10 +76,14 @@ void mostrarRecaudacionesPorFecha()
                     cout << "Por favor ingrese un mes valido";
                 } else {
                 ///FETCH
-                int registros = arc.listarRegistrosPorMes(valor);
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
-                }
+                float recaudacion = arc.listarRegistrosPorMes(valor);
+                rlutil:: locate (40,20);
+                cout << "MES " << valor << "      ";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION: $" << recaudacion << "      ";
                 break;
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                }
             }
             case 35:{
                 int valor;
@@ -92,10 +92,6 @@ void mostrarRecaudacionesPorFecha()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "A"<< char(165)<< "O";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
@@ -112,8 +108,12 @@ void mostrarRecaudacionesPorFecha()
                     cout << "Por favor ingrese un a"<< char(164) <<"o valido";
                 } else {
                 ///FETCH
-                int registros = arc.listarRegistrosPorAnio(valor);
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorAnio(valor);
+                rlutil:: locate (40,20);
+                cout << "A"<< char(165)<< "O: " << valor << "      ";
+                rlutil:: locate(100,20);
+                cout << "RECAUDACION: $" << recaudacion << "       ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 }
                 break;
             }
@@ -175,16 +175,16 @@ void mostrarRecaudacionesPorTurno()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "MANIANA";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
                 ///FETCH
-                int registros = arc.listarRegistrosPorTurno(1); /// 1-MANIANA / 2-TARDE / 3-NOCHE
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorTurno(1); /// 1-MANIANA / 2-TARDE / 3-NOCHE
+                rlutil:: locate (40,20);
+                cout << "MANIANA   ";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION: $" << recaudacion << "    ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 break;
                 }
             case 20:{
@@ -193,16 +193,16 @@ void mostrarRecaudacionesPorTurno()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "TARDE";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
                 ///FETCH
-                int registros = arc.listarRegistrosPorTurno(2); /// 1-MANIANA / 2-TARDE / 3-NOCHE
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorTurno(2); /// 1-MANIANA / 2-TARDE / 3-NOCHE
+                rlutil:: locate (40,20);
+                cout << "TARDE   ";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION: $" << recaudacion << "   ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 break;
                 }
             case 40:{
@@ -211,16 +211,16 @@ void mostrarRecaudacionesPorTurno()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "MANIANA";
-                rlutil:: locate (100,20);
-                cout << "NOCHE";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
                 ///FETCH
-                int registros = arc.listarRegistrosPorTurno(3); /// 1-MANIANA / 2-TARDE / 3-NOCHE
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorTurno(3); /// 1-MANIANA / 2-TARDE / 3-NOCHE
+                rlutil:: locate (40,20);
+                cout << "NOCHE    ";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION: $" << recaudacion << "    ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 break;
                 }
             case 60:
@@ -286,16 +286,16 @@ void mostrarRecaudacionesPorTipoDePedido()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "LOCAL";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
                 ///FETCH
-                int registros = arc.listarRegistrosPorTipo(1); /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorTipo(1); /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+                rlutil::locate(40,20);
+                cout << "LOCAL   ";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION: $" << recaudacion << "      ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 break;
                 }
 
@@ -305,16 +305,16 @@ void mostrarRecaudacionesPorTipoDePedido()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "DELIVERY";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
                 ///FETCH
-                int registros = arc.listarRegistrosPorTipo(2); /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorTipo(2); /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+                rlutil:: locate (40,20);
+                cout << "DELIVERY   ";
+                rlutil:: locate (100,20);
+                cout << "RECAUDACION: $" << recaudacion << "    ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 break;
                 }
             case 60:
@@ -324,16 +324,16 @@ void mostrarRecaudacionesPorTipoDePedido()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "TAKE AWAY";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
                 ///FETCH
-                int registros = arc.listarRegistrosPorTipo(3); /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorTipo(3); /// 1-LOCAL / 2-DELIVERY / 3-TAKEAWAY
+                rlutil::locate(40,20);
+                cout << "TAKE AWAY";
+                rlutil::locate(100,20);
+                cout << "RECAUDACION: $" << recaudacion << "     ";
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 break;
                 }
             case 90:{
@@ -394,10 +394,6 @@ void mostrarRecaudacionesPorEmpleado()
                 dibujarBordesDeI (10,20,20);
                 dibujarBordesDeI (160,20,20);
                 rlutil::setColor (rlutil::BROWN);
-                rlutil:: locate (40,20);
-                cout << "ID";
-                rlutil:: locate (100,20);
-                cout << "RECAUDACION";
                 /// LIMPIAR TABLA
                 int cantRegistrosTotal = arc.contarRegistros();
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
@@ -414,8 +410,12 @@ void mostrarRecaudacionesPorEmpleado()
                     cout << "Por favor ingrese una ID valida";
                 } else {
                 ///FETCH
-                int registros = arc.listarRegistrosPorResponsableID(valor);
-                if (registros == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                float recaudacion = arc.listarRegistrosPorResponsableID(valor);
+                rlutil:: locate (40,20);
+                cout << "ID: " << valor;
+                rlutil::locate(100,20);
+                cout << "RECAUDACION: $" << recaudacion;
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
                 }
                 break;
                 }

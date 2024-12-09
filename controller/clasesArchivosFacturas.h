@@ -38,11 +38,11 @@ class ArchivoFactura
         bool listarRegistros();
         bool actualizarRegistro(Factura factura);
         int buscarRegistro(int id);
-        int listarRegistrosPorResponsableID(int idEmpleado);
-        int listarRegistrosPorTipo(int tipoServicio);
-        int listarRegistrosPorTurno(int turno);
-        int listarRegistrosPorAnio(int anio);
-        int listarRegistrosPorMes(int mes);
+        float listarRegistrosPorResponsableID(int idEmpleado);
+        float listarRegistrosPorTipo(int tipoServicio);
+        float listarRegistrosPorTurno(int turno);
+        float listarRegistrosPorAnio(int anio);
+        float listarRegistrosPorMes(int mes);
         void filtrarRegistrosPorTipo(int tipo);
         void filtrarRegistrosPorEstado(bool estado);
 
