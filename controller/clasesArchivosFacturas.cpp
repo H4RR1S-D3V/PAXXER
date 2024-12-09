@@ -109,8 +109,10 @@ bool ArchivoFactura::actualizarRegistro(Factura factura)
     fclose(p);
     return escribio;
 }
-/// PROBAR DE PASAR LOS FILTRADOS A UNA SOLA FUNCION
-int ArchivoFactura::listarRegistrosPorResponsableID(int idEmpleado)
+/// LOS LISTADOS POR FILTRO DEVUELVEN LA RECAUDACION TOTAL DE TODAS LAS CONCURRENCIAS
+/// SI LA FACTURA AUN NO ESTA CERRADA DEVUELVE EL IMPORTE SUB TOTAL
+/// SI YA ESTA CERRADA DEVUELVE EL TOTAL
+float ArchivoFactura::listarRegistrosPorResponsableID(int idEmpleado)
 {
     FILE *p = fopen(_nombre, "rb");
     if(p == nullptr)
@@ -118,6 +120,7 @@ int ArchivoFactura::listarRegistrosPorResponsableID(int idEmpleado)
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return -1;
     }
+    float recaudacion = 0;
     Factura obj;
     int cantRegistros = contarRegistros();
     int j = 0;
@@ -128,12 +131,20 @@ int ArchivoFactura::listarRegistrosPorResponsableID(int idEmpleado)
         {
             j++;
             obj.mostrarFactura(7+j);
+            if(obj.getImporteTotal() > 0)
+            {
+                recaudacion += obj.getImporteTotal();
+            }
+            else
+            {
+                recaudacion += obj.getImporteSubTotal();
+            }
         }
     }
     fclose(p);
-    return j;
+    return recaudacion;
 }
-int ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
+float ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
 {
     FILE *p = fopen(_nombre, "rb");
     if(p == nullptr)
@@ -141,6 +152,7 @@ int ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return 0;
     }
+    float recaudacion = 0;
     Factura obj;
     int cantRegistros = contarRegistros();
     int j = 0;
@@ -151,12 +163,20 @@ int ArchivoFactura::listarRegistrosPorTipo(int tipoServicio)
         {
             j++;
             obj.mostrarFactura(7+j);
+            if(obj.getImporteTotal() > 0)
+            {
+                recaudacion += obj.getImporteTotal();
+            }
+            else
+            {
+                recaudacion += obj.getImporteSubTotal();
+            }
         }
     }
     fclose(p);
-    return j;
+    return recaudacion;
 }
-int ArchivoFactura::listarRegistrosPorTurno(int turno)
+float ArchivoFactura::listarRegistrosPorTurno(int turno)
 {
     FILE *p = fopen(_nombre, "rb");
     if(p == nullptr)
@@ -164,6 +184,7 @@ int ArchivoFactura::listarRegistrosPorTurno(int turno)
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return -1;
     }
+    float recaudacion = 0;
     Factura obj;
     int cantRegistros = contarRegistros();
     int j=0;
@@ -174,12 +195,20 @@ int ArchivoFactura::listarRegistrosPorTurno(int turno)
         {
             j++;
             obj.mostrarFactura(7+j);
+            if(obj.getImporteTotal() > 0)
+            {
+                recaudacion += obj.getImporteTotal();
+            }
+            else
+            {
+                recaudacion += obj.getImporteSubTotal();
+            }
         }
     }
     fclose(p);
-    return j;
+    return recaudacion;
 }
-int ArchivoFactura::listarRegistrosPorAnio(int anio)
+float ArchivoFactura::listarRegistrosPorAnio(int anio)
 {
     FILE *p = fopen(_nombre, "rb");
     if(p == nullptr)
@@ -187,6 +216,7 @@ int ArchivoFactura::listarRegistrosPorAnio(int anio)
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return 0;
     }
+    float recaudacion = 0;
     Factura obj;
     int cantRegistros = contarRegistros();
     int j = 0;
@@ -197,12 +227,20 @@ int ArchivoFactura::listarRegistrosPorAnio(int anio)
         {
             j++;
             obj.mostrarFactura(7+j);
+            if(obj.getImporteTotal() > 0)
+            {
+                recaudacion += obj.getImporteTotal();
+            }
+            else
+            {
+                recaudacion += obj.getImporteSubTotal();
+            }
         }
     }
     fclose(p);
-    return j;
+    return recaudacion;
 }
-int ArchivoFactura::listarRegistrosPorMes(int mes)
+float ArchivoFactura::listarRegistrosPorMes(int mes)
 {
     FILE *p = fopen(_nombre, "rb");
     if(p == nullptr)
@@ -210,6 +248,7 @@ int ArchivoFactura::listarRegistrosPorMes(int mes)
         std::cout << "ERROR AL ABRIR EL ARCHIVO" << std::endl;
         return 0;
     }
+    float recaudacion = 0;
     Factura obj;
     int cantRegistros = contarRegistros();
     int j = 0;
@@ -220,10 +259,18 @@ int ArchivoFactura::listarRegistrosPorMes(int mes)
         {
             j++;
             obj.mostrarFactura(7+j);
+            if(obj.getImporteTotal() > 0)
+            {
+                recaudacion += obj.getImporteTotal();
+            }
+            else
+            {
+                recaudacion += obj.getImporteSubTotal();
+            }
         }
     }
     fclose(p);
-    return j;
+    return recaudacion;
 }
 /// FIN ARCHIVO FACTURA
 
