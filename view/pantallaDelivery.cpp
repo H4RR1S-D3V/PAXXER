@@ -48,10 +48,10 @@ void pantallaDelivery()
 
         /// MEN� DE OPCIONES
         rlutil::setColor(rlutil::WHITE);
-        rlutil::locate(29+x,8);
+        rlutil::locate(39+x,8);
         cout << char (16);
         int key = rlutil::getkey();
-        rlutil::locate(29+x, 8);
+        rlutil::locate(39+x, 8);
         cout << " ";
         switch(key)
         {

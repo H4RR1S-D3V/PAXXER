@@ -120,25 +120,10 @@ void Local::cargarLocal()
 
 
         ///PEDIR CONFIRMACION Y QUE ESO LLEVE A MOSTRAR VISTA MESA
-        rlutil::locate(40,16);
-        cout << "CONFIRMA QUE LOS DATOS INGRESADOS SON CORRECTOS?" <<endl;
-        rlutil::setColor(rlutil::GREEN);
-        rlutil::locate(40,17);
-        cout << "Y";
-        rlutil::setColor(rlutil::WHITE);
-        cout << "/";
-        rlutil::setColor(rlutil::RED);
-        cout << "N";
-        rlutil::setColor(rlutil::WHITE);
-        cout<< " - 0 PARA VOLVER";
-
-
-        rlutil:: locate (77,18);
-        char opcion;
-        cin >> opcion;
-        switch (tolower(opcion))
+        int respuesta = MessageBox(NULL, "LOS DATOS INGRESADOS SON CORRECTOS?", "VALIDACION DATOS", MB_YESNOCANCEL);
+        switch (respuesta)
         {
-        case 'y': //si
+        case 6: //si
         {
 
             rlutil::cls();
@@ -155,13 +140,13 @@ void Local::cargarLocal()
             return;
             break;
         }
-        case 'n': //no
+        case 7: //no
         {
             rlutil::cls();
             this->cargarLocal();
             break;
         }
-        case '0'://volver
+        case 2://volver
         {
             rlutil::cls();
             salir=false;
@@ -316,7 +301,12 @@ Delivery::Delivery(int num)
 void Delivery::cargarDelivery()
 {
     cargarMesa();
+    ArchivoFactura arc;
+    Factura obj;
 
+    do{
+
+    limpiarDesdePosicion(10,10,90,8);
     rlutil::locate(10, 10);
     cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
     cargarCadena(_telefonoCliente, 20);
@@ -330,14 +320,13 @@ void Delivery::cargarDelivery()
     cout << "INGRESE EL DOMICILIO A ENTREGAR: " << endl;
     _direccionEntrega.Cargar();
 
-    ArchivoFactura arc;
-    Factura obj;
 
     int pos = arc.buscarRegistro(_idFactura);
     obj = arc.leerRegistro(pos);
     obj.setTurno(horaActual());
     obj.setTipo(2);
     obj.setIdEmpleado(_deliveryAsignado);
+    } while (MessageBox(NULL, "LOS DATOS INGRESADOS SON CORRECTOS?", "CONFIRMACION DATOS", MB_YESNO) == 7);
 
     arc.actualizarRegistro(obj);
 }
@@ -373,6 +362,29 @@ void Delivery::mostrarDeliveryDetalle()
     int x = 0;
     do
     {
+        rlutil:: locate (35,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "DELIVERY NRO: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _numero;
+
+        rlutil:: locate (70,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "TELEFONO: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _telefonoCliente;
+
+        rlutil:: locate (105,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "DIRECCION: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        _direccionEntrega.Mostrar();
+
+        rlutil::setColor(rlutil::BROWN);
+        dibujarBordeSyI(10,6);
+
+
+
         rlutil::setColor(rlutil::WHITE);
         pintarOpciones("CARGAR ITEM",30, 8, x==0);
         pintarOpciones("QUITAR ITEM",60, 8,x==30);
@@ -447,7 +459,7 @@ void Delivery::cerrarDelivery()
     entregarDelivery();
 
     ArchivoDelivery arc;
-    arc.eliminarRegistro(_numero - 1);
+    arc.eliminarRegistro(_numero);
 }
 void Delivery::entregarDelivery()
 {
