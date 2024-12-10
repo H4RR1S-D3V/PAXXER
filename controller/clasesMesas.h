@@ -24,13 +24,13 @@ class Mesa
         void cargarMesa();
         virtual void abrirMesa();
         void mostrarMesa();
-        virtual void cerrarMesa();
+        virtual bool cerrarMesa();
 };
 
 class Local : public Mesa
 {
     private:
-        std::string _horaApertura;
+        int _horaApertura[2] = {0,0};
         int _empleadoAsignado;
         int _comensales;
     public:
@@ -61,7 +61,7 @@ class Delivery : public Mesa
         Delivery();
         Delivery(int num);
         void abrirMesa();
-        void cerrarDelivery();
+        bool cerrarDelivery();
         void cargarDelivery();
         void mostrarDelivery(int y);
         void mostrarDeliveryDetalle();
@@ -85,7 +85,7 @@ class TakeAway : public Mesa
         TakeAway();
         TakeAway(int num);
         void abrirMesa();
-        void cerrarTakeAway();
+        bool cerrarTakeAway();
         void cargarTakeAway();
         void mostrarTakeAway(int y);
         void mostrarTakeAwayDetalle();

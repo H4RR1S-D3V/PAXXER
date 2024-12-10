@@ -300,15 +300,13 @@ void Factura::setIdEmpleado(int idEmpleado)
 {
     _idEmpleado = idEmpleado;
 }
-void Factura::setTurno(string horaString)
+void Factura::setTurno(int horaString)
 {
-
-    int hora = stoi(horaString.substr(0, 2));
-    if(hora >= 9 && hora <= 14)
+    if(horaString >= 9 && horaString <= 14)
     {
         _turno = 1;
     }
-    else if (hora >= 15 && hora <= 20)
+    else if (horaString >= 15 && horaString <= 20)
     {
         _turno = 2;
     }
@@ -433,7 +431,12 @@ void Factura::mostrarFactura(int i, bool dibujarMarco)
     rlutil::locate(12, 11+i+3);
     cout<<"NRO. FACTURA: "<< _id;
     rlutil::locate(40, 11+i+3);
-    cout<<"ID EMPLEADO: "<< _idEmpleado;
+    cout<<"ID EMPLEADO: ";
+    if (_idEmpleado < 0 ){
+            cout<< "-";
+    } else {
+    cout << _idEmpleado;
+    }
     rlutil::locate(60, 11+i+3);
     cout<<"TURNO: "<< _turno;
     rlutil::locate(75, 11+i+3);
@@ -460,16 +463,10 @@ void Factura::aplicarDescuento(int tipo, float descuento)
 bool Factura::preguntarPorDescuento()
 {
     int opcion;
-
-    rlutil::locate(60, 36);
-    cout << "DESEA APLICAR AlGUN DESCUENTO? (1-SI 0-NO) ";
-    rlutil::locate(60, 37);
-    cout << "UNA VEZ FINALICE PRESIONE ENTER PARA CONTINUAR";
-    rlutil::locate(80, 38);
+    int respuesta = MessageBox(NULL ,"DESEA APLICAR DESCUENTO?", "CONSULTA DESCUENTO", MB_YESNOCANCEL);
     rlutil::setColor(rlutil::WHITE);
-    cin >> opcion;
 
-    if(opcion)
+    if(respuesta == 6) //BOTON SI
     {
         float descuento;
 
@@ -494,16 +491,19 @@ bool Factura::preguntarPorDescuento()
             rlutil::setColor(rlutil::WHITE);
             cin >> descuento;
 
-            if(descuento > _importeSubTotal || descuento < 0)
+            if(descuento > _importeSubTotal || descuento < 1 || cin.fail())
             {
                 rlutil::setColor(rlutil::BROWN);
                 borrarLinea(60, 36);
                 rlutil::locate(60, 36);
-                cout << "IMPORTE INVALIDO";
+                MessageBox(NULL, "OPCION INVALIDA", "ERROR OPCION", MB_OK);
+                //cout << "IMPORTE INVALIDO";
                 borrarLinea(60, 38);
                 rlutil::locate(80, 38);
                 rlutil::setColor(rlutil::WHITE);
-                system("pause");
+                cin.clear();
+                cin.ignore(1000, '\n');
+                preguntarPorDescuento();
             }
             else
             {
@@ -521,16 +521,19 @@ bool Factura::preguntarPorDescuento()
 
             cin >> descuento;
 
-            if(descuento > 100 || descuento < 0)
+            if(descuento > 100 || descuento < 1 || cin.fail())
             {
                 rlutil::setColor(rlutil::BROWN);
                 borrarLinea(60, 36);
                 rlutil::locate(60, 36);
-                cout << "IMPORTE INVALIDO";
+                MessageBox(NULL, "IMPORTE INVALIDO", "ERROR IMPORTE", MB_OK);
+                //cout << "IMPORTE INVALIDO";
                 borrarLinea(60, 38);
                 rlutil::locate(80, 38);
                 rlutil::setColor(rlutil::WHITE);
-                system("pause");
+                cin.clear();
+                cin.ignore(1000, '\n');
+                preguntarPorDescuento();
             }
             else
             {
@@ -541,16 +544,22 @@ bool Factura::preguntarPorDescuento()
             rlutil::setColor(rlutil::BROWN);
             borrarLinea(60, 36);
             rlutil::locate(60, 36);
-            cout << "INGRESE UNA OPCOIN VALIDA";
+            MessageBox(NULL, "OPCION INVALIDA", "ERROR OPCION", MB_OK);
+            cout << "INGRESE UNA OPCION VALIDA";
             borrarLinea(60, 38);
             rlutil::locate(80, 38);
             rlutil::setColor(rlutil::WHITE);
-            system("pause");
+            cin.clear();
+            cin.ignore(1000, '\n');
+            preguntarPorDescuento();
         }
     }
-    else
+    else if (respuesta == 7)
     {
         _importeTotal = _importeSubTotal;
+    }
+    else {
+        return false;
     }
 
     system("cls");
@@ -560,5 +569,6 @@ bool Factura::preguntarPorDescuento()
     arc.actualizarRegistro(*this);
     rlutil::locate(60, 36);
     system("pause");
+    return true;
 }
 /// FIN CLASE FACTURA

@@ -60,7 +60,23 @@ void mostrarConfigurarCarta()
             rlutil::locate(posXinicial, posYinicial+j);
             cout<< obj.getId();
             rlutil::locate(posXinicial+13,  posYinicial+j);
-            cout <<obj.getTipo();
+            switch(obj.getTipo()){
+                case 1:
+                    cout << "Entrada";
+                    break;
+                case 2:
+                    cout << "Principal";
+                    break;
+                case 3:
+                    cout << "Postre";
+                    break;
+                case 4:
+                    cout << "Bebida";
+                    break;
+                default:
+                    cout << "Error";
+                    break;
+                }
             rlutil::locate(posXinicial+50,  posYinicial+j);
             cout <<obj.getNombre();
             rlutil::locate(posXinicial+107,  posYinicial+j);

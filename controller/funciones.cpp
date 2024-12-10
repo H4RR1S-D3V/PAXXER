@@ -9,13 +9,16 @@
 
 using namespace std;
 
-string horaActual(){
+int horaActual(){
 Tiempo tiempo;
     int hora = tiempo.getHora();
+    return hora;
+}
+
+int minutosActual(){
+Tiempo tiempo;
     int mins = tiempo.getMinutos();
-    string HHMM = (hora < 10 ? "0" : "") + to_string(hora) + ":" +
-                       (mins < 10 ? "0" : "") + to_string(mins);
-return HHMM;
+    return mins;
 }
 
 Fecha fechaActual(){

@@ -104,6 +104,8 @@ void opcionesModificarItem()
             if(x<0) x=0;
             break;
         case 1:
+            limpiarDesdePosicion(40,10,100,5);
+
             switch (x)
             {
             case 0:     /// ACTUALIZAR PRECIO
@@ -123,7 +125,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistroPorId(idItem) == -2)
@@ -131,7 +133,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO ITEM CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
 
@@ -148,7 +150,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,15);
                     cout << "INGRESE UN VALOR VALIDO: ";
-                    system("pause");
+
                     break;
                 }
 
@@ -181,7 +183,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistroPorId(idItem) == -2)
@@ -189,7 +191,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO ITEM CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
                 rlutil::setColor(rlutil::WHITE);
@@ -227,7 +229,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistroPorId(idItem) == -2)
@@ -235,7 +237,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO ITEM CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
 
@@ -251,7 +253,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,15);
                     cout << "INGRESE UN TIPO VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 int resultado = MessageBox(NULL, "Desea cambiar el tipo de este item de la carta?", "CAMBIAR TIPO ITEM", MB_YESNO|MB_ICONQUESTION);
@@ -282,7 +284,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistroPorId(idItem) == -2)
@@ -290,7 +292,7 @@ void opcionesModificarItem()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO ITEM CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
 
@@ -331,7 +333,7 @@ void opcionesModificarUsuario()
         pintarOpciones("ROL",80,9, x==40);
         pintarOpciones("ESTADO",100,9, x==60);
         pintarOpciones("VOLVER",120,9, x==80);
-
+        limpiarDesdePosicion(40,10,100,5);
         rlutil::locate(39+x,9);
         cout << char(16);
         int key = rlutil::getkey();
@@ -349,6 +351,8 @@ void opcionesModificarUsuario()
             if(x<0) x=0;
             break;
         case 1:
+            limpiarDesdePosicion(40,10,100,5);
+
             switch (x)
             {
             case 0:     /// ACTUALIZAR DNI
@@ -367,7 +371,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistro(idUsuario) == -2)
@@ -375,7 +379,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO USUARIO CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
 
@@ -416,7 +420,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistro(idUsuario) == -2)
@@ -424,7 +428,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO USUARIO CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
                 rlutil::setColor(rlutil::WHITE);
@@ -462,7 +466,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate(40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistro(idUsuario) == -2)
@@ -470,7 +474,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO USUARIO CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
 
@@ -505,7 +509,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "INGRESE UN ID VALIDO: ";
-                    system("pause");
+
                     break;
                 }
                 else if(arc.buscarRegistro(idUsuario) == -2)
@@ -513,7 +517,7 @@ void opcionesModificarUsuario()
                     rlutil::setColor(rlutil::RED);
                     rlutil::locate (40,13);
                     cout << "NO SE ENCONTRO USUARIO CON EL ID SELECCIONADO: ";
-                    system("pause");
+
                     break;
                 }
 
