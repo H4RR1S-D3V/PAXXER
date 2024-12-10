@@ -64,7 +64,7 @@ class Factura
         void setId(int id);
         void setTipo(const int tipo);
         void setIdEmpleado(int idEmpleado);
-        void setTurno(std::string horaString);
+        void setTurno(int horaString);
         void setImporteTotal(float monto);
         void setImporteSubTotal(float monto);
         ///GETTERS

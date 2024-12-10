@@ -15,12 +15,18 @@ void pantallaTakeAway()
     do
     {
         rlutil::hidecursor();
+        rlutil::setColor (rlutil::LIGHTCYAN);
+        dibujarBordesPantallas(42,3);
+        dibujarBordesPantallas(42,5);
+        rlutil::setColor (rlutil::BROWN);
+        rlutil::locate(75, 4);
+        cout << "T A K E - A W A Y";
 
         /// OPCIONES
         rlutil::setColor(rlutil::WHITE);
-        pintarOpciones("AGREGAR TAKEAWAY",40, 8, x==0);
-        pintarOpciones("ABRIR TAKEAWAY",80, 8,x==40);
-        pintarOpciones("VOLVER A MAPA MESAS",120, 8, x==80);
+        pintarOpciones("ABRIR TAKEAWAY",35, 8,x==0);
+        pintarOpciones("AGREGAR TAKEAWAY",75, 8, x==40);
+        pintarOpciones("VOLVER A MAPA MESAS",115, 8, x==80);
 
         /// CUADRO
         rlutil::setColor(rlutil::MAGENTA);
@@ -48,10 +54,10 @@ void pantallaTakeAway()
 
         /// MENU DE OPCIONES
         rlutil::setColor(rlutil::WHITE);
-        rlutil::locate(39+x,8);
+        rlutil::locate(34+x,8);
         cout << char(16);
         int key = rlutil::getkey();
-        rlutil::locate(39+x, 8);
+        rlutil::locate(34+x, 8);
         cout << " ";
         switch (key)
         {
@@ -66,7 +72,7 @@ void pantallaTakeAway()
         case 1:
             switch (x)
             {
-            case 0:     //AGREGAR TAKE AWAY
+            case 40:     //AGREGAR TAKE AWAY
             {
                 int cantRegistros = arc.contarRegistros();
                 TakeAway obj(cantRegistros + 1);
@@ -76,7 +82,7 @@ void pantallaTakeAway()
                 obj.abrirMesa();
                 break;
             }
-            case 40:    //ABRIR TAKEAWAY
+            case 0:    //ABRIR TAKEAWAY
             {
                 int pos;
                 rlutil::locate (10,10);
@@ -89,6 +95,8 @@ void pantallaTakeAway()
                     rlutil::locate(10, 9);
                     rlutil::setColor(rlutil::RED);
                     cout << "TAKEAWAY INVALIDO, INGRESE NUEVAMENTE" << endl;
+                    cin.clear();
+                    cin.ignore(1000, '\n');
                     break;
                 }
                 TakeAway obj;

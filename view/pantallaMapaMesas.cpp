@@ -11,6 +11,7 @@ using namespace std;
 #include "../controller/clasesArchivosMesas.h"
 #include "pantallaDelivery.h"
 #include "pantallaTakeAway.h"
+#include "cmath"
 
 
 
@@ -69,7 +70,7 @@ void mostrarMapaMesas()
         dibujarBordeSyI(11,15);
 
 
-
+        rlutil::hidecursor();
         rlutil::locate(50,16);
         rlutil::setColor(rlutil::GREEN);
         cout <<"DISPONIBLE";
@@ -88,12 +89,12 @@ void mostrarMapaMesas()
         pintarOpciones("VOLVER A MENU PRINCIPAL",120,8,x==90);
 
         rlutil:: locate (29+x,8);
+
         cout << char (16);
         int key=rlutil::getkey();
         rlutil::locate(29 + x,8);
         cout << " ";
 
-        int nroMesaSeleccionada;
 
         switch (key)
         {
@@ -110,6 +111,7 @@ void mostrarMapaMesas()
             {
             case 0:///INICIA PEDIDO LOCAL
             {
+                int nroMesaSeleccionada;
                 //pedir nro mesa
                 rlutil:: locate (55,10);
                 cout << "PORFAVOR ESCRIBA EL NUMERO DE MESA A SELECCIONAR";
@@ -118,11 +120,23 @@ void mostrarMapaMesas()
                 rlutil::showcursor();
                 rlutil:: locate (78,11);
                 cin >> nroMesaSeleccionada;
+                if (cin.fail()){
+                    cin.clear(); // Limpiar estado de error
+                    cin.ignore(1000, '\n'); // Limpiar el buffer
+                    MessageBox(NULL, "POR FAVOR INGRESE UN NUMERO VALIDO", "ERROR DE ENTRADA", MB_OK);
+                    mostrarMapaMesas();
+
+                }else if (nroMesaSeleccionada < 1 || nroMesaSeleccionada > cantMesas){
+                    cout <<nroMesaSeleccionada;
+                    MessageBox(NULL, "EL VALOR INGRESADO NO ES CORRECTO O NO CORRESPONDE A UN NUMERO DE MESA", "ERROR SELECCION MESA", MB_OK);
+                    mostrarMapaMesas();
+                } else {
                 rlutil::cls();
                 salir=false;
                 Local obj;
                 obj = arcMesa.leerRegistro(nroMesaSeleccionada-1);
                 obj.abrirMesa();
+                }
                 break;
             }
             case 30:///DIRIGE A PANTALLA DELIVERIES

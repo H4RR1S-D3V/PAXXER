@@ -48,7 +48,7 @@ Mesa::Mesa(int numero)
 
 }
 void Mesa::abrirMesa() {}
-void Mesa::cerrarMesa()
+bool Mesa::cerrarMesa()
 {
     Factura objFac;
     ArchivoFactura arcFac;
@@ -56,7 +56,7 @@ void Mesa::cerrarMesa()
     int pos = arcFac.buscarRegistro(_idFactura);
     objFac = arcFac.leerRegistro(pos);
 
-    objFac.preguntarPorDescuento();
+    return objFac.preguntarPorDescuento();
 }
 void Mesa::cargarMesa()
 {
@@ -127,12 +127,13 @@ void Local::cargarLocal()
         {
 
             rlutil::cls();
-            _horaApertura = horaActual();
+            _horaApertura[0] = horaActual() /*horaActual()*/;
+            _horaApertura[1] = minutosActual();
 
             /// buscar factura y pasar hora para calcular turno
             int pos = archiFac.buscarRegistro(_idFactura);
             obj = archiFac.leerRegistro(pos);
-            obj.setTurno(_horaApertura);
+            obj.setTurno(_horaApertura[0]);
             obj.setIdEmpleado(_empleadoAsignado);
             obj.setTipo(1);
 
@@ -178,7 +179,7 @@ void Local::mostrarLocal()
         rlutil::locate(80, 4);
         cout <<"HORA APERTURA";
         rlutil::locate(80, 5);
-        cout << _horaApertura;
+        cout << _horaApertura[0] << ":" << _horaApertura[1];
         rlutil::locate(110, 4);
         cout <<"CANT. COMENSALES";
         rlutil::locate(121, 5);
@@ -263,19 +264,21 @@ void Local::liberarMesa()
 
     _disponible = true;
     _idFactura = -1;
-    _horaApertura = -1;
+    _horaApertura[0] = 0;
+    _horaApertura[1] = 0;
+
     _comensales = -1;
     _empleadoAsignado = -1;
 }
 void Local::cerrarLocal()
 {
-    cerrarMesa();
-
+    if (cerrarMesa()){
     ArchivoMesasLocal arcLocal;
     liberarMesa();
     arcLocal.actualizarMesa(*this);
 
     mostrarMapaMesas();
+    }
 }
 /// FIN CLASE HEREDADA LOCAL
 
@@ -323,7 +326,7 @@ void Delivery::cargarDelivery()
 
     int pos = arc.buscarRegistro(_idFactura);
     obj = arc.leerRegistro(pos);
-    obj.setTurno(horaActual());
+    obj.setTurno(_horaEntrega);
     obj.setTipo(2);
     obj.setIdEmpleado(_deliveryAsignado);
     } while (MessageBox(NULL, "LOS DATOS INGRESADOS SON CORRECTOS?", "CONFIRMACION DATOS", MB_YESNO) == 7);
@@ -362,13 +365,19 @@ void Delivery::mostrarDeliveryDetalle()
     int x = 0;
     do
     {
-        rlutil:: locate (35,5);
+        rlutil:: locate (15,5);
         rlutil::setColor(rlutil::BROWN);
         cout << "DELIVERY NRO: ";
         rlutil::setColor(rlutil::LIGHTCYAN);
         cout << _numero;
 
-        rlutil:: locate (70,5);
+        rlutil:: locate (45,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "HORA DE ENTREGA: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _horaEntrega;
+
+        rlutil:: locate (73,5);
         rlutil::setColor(rlutil::BROWN);
         cout << "TELEFONO: ";
         rlutil::setColor(rlutil::LIGHTCYAN);
@@ -431,9 +440,10 @@ void Delivery::mostrarDeliveryDetalle()
                 quitarItem(_idFactura);
                 break;
             case 60://CERRAR MESA
-                cerrarDelivery();
+                if(cerrarDelivery()){
                 rlutil::cls();
                 pantallaDelivery();
+                }
                 break;
             case 90://VOLVER
                 rlutil::cls();
@@ -453,13 +463,17 @@ void Delivery::abrirMesa()
     obj = arcDel.leerRegistro(pos);
     obj.mostrarDeliveryDetalle();
 }
-void Delivery::cerrarDelivery()
+bool Delivery::cerrarDelivery()
 {
-    cerrarMesa();
+    if (cerrarMesa()){
+
     entregarDelivery();
 
     ArchivoDelivery arc;
     arc.eliminarRegistro(_numero);
+    return true;
+    }
+    return false;
 }
 void Delivery::entregarDelivery()
 {
@@ -548,6 +562,33 @@ void TakeAway::mostrarTakeAwayDetalle()
     int x = 0;
     do
     {
+        rlutil:: locate (15,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "PEDIDO NRO: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _numero;
+
+        rlutil:: locate (45,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "HORA DE RETIRO: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _horaRetiro;
+
+        rlutil:: locate (73,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "TELEFONO: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _telefonoCliente;
+
+        rlutil:: locate (105,5);
+        rlutil::setColor(rlutil::BROWN);
+        cout << "NOMBRE CLIENTE: ";
+        rlutil::setColor(rlutil::LIGHTCYAN);
+        cout << _nombreCliente;
+
+        rlutil::setColor(rlutil::BROWN);
+        dibujarBordeSyI(10,6);
+
         rlutil::setColor(rlutil::WHITE);
         pintarOpciones("CARGAR ITEM",30, 8, x==0);
         pintarOpciones("QUITAR ITEM",60, 8,x==30);
@@ -594,9 +635,10 @@ void TakeAway::mostrarTakeAwayDetalle()
                 quitarItem(_idFactura);
                 break;
             case 60://CERRAR MESA
-                cerrarTakeAway();
+                if (cerrarTakeAway()){
                 rlutil::cls();
                 pantallaTakeAway();
+                }
                 break;
             case 90://VOLVER
                 rlutil::cls();
@@ -618,12 +660,15 @@ void TakeAway::abrirMesa()
 
     return;
 }
-void TakeAway::cerrarTakeAway()
+bool TakeAway::cerrarTakeAway()
 {
-    cerrarMesa();
+    if (cerrarMesa()){
+
     entregarTakeAway();
     ArchivoTakeAway arcTake;
     arcTake.eliminarRegistro(_numero);
+    return true;
+    } return false;
 }
 void TakeAway::entregarTakeAway()
 {

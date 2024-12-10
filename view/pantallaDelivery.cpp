@@ -14,13 +14,21 @@ void pantallaDelivery()
     int x = 0;
     do
     {
+
         rlutil::hidecursor();
+        rlutil::setColor (rlutil::LIGHTCYAN);
+        dibujarBordesPantallas(42,3);
+        dibujarBordesPantallas(42,5);
+        rlutil::setColor (rlutil::BROWN);
+        rlutil::locate(75, 4);
+        cout << "D E L I V E R Y";
+
 
         /// OPCIONES
         rlutil::setColor(rlutil::WHITE);
-        pintarOpciones("AGREGAR DELIVERY",40, 8, x==0);
-        pintarOpciones("ABRIR DELIVERY",80, 8,x==40);
-        pintarOpciones("VOLVER A MAPA MESAS",120, 8, x==80);
+        pintarOpciones("ABRIR DELIVERY",35, 8,x==0);
+        pintarOpciones("AGREGAR DELIVERY",75, 8, x==40);
+        pintarOpciones("VOLVER A MAPA MESAS",115, 8, x==80);
 
         /// CUADRO
         rlutil::setColor(rlutil::MAGENTA);
@@ -48,10 +56,10 @@ void pantallaDelivery()
 
         /// MEN� DE OPCIONES
         rlutil::setColor(rlutil::WHITE);
-        rlutil::locate(39+x,8);
+        rlutil::locate(34+x,8);
         cout << char (16);
         int key = rlutil::getkey();
-        rlutil::locate(39+x, 8);
+        rlutil::locate(34+x, 8);
         cout << " ";
         switch(key)
         {
@@ -66,33 +74,36 @@ void pantallaDelivery()
         case 1:
             switch(x)
             {
-            case 0:     //AGREGAR DELIVERY
-            {
-                int cantRegistros = arc.contarRegistros();
-                Delivery obj(cantRegistros + 1);
-                obj.cargarDelivery();
-                arc.agregarRegistro(obj);
-                rlutil::cls();
-                obj.abrirMesa();
-                break;
-            }
-            case 40:    //ABRIR DELIVERY
+
+            case 0:    //ABRIR DELIVERY
             {
                 int pos;
                 rlutil::locate (10,10);
                 cout << "INGRESE DELIVERY A ABRIR: ";
                 cin >> pos;
 
-                if(pos > arc.contarRegistros() || pos < 1)
+                if(pos > arc.contarRegistros() || pos < 1 || cin.fail())
                 {
                     rlutil::cls();
                     rlutil::locate(10, 9);
                     rlutil::setColor(rlutil::RED);
                     cout << "DELIVERY INVALIDO, INGRESE NUEVAMENTE" << endl;
+                    cin.clear();
+                    cin.ignore(1000, '\n');
                     break;
                 }
                 Delivery obj;
                 obj = arc.leerRegistro(pos-1);
+                rlutil::cls();
+                obj.abrirMesa();
+                break;
+            }
+            case 40:     //AGREGAR DELIVERY
+            {
+                int cantRegistros = arc.contarRegistros();
+                Delivery obj(cantRegistros + 1);
+                obj.cargarDelivery();
+                arc.agregarRegistro(obj);
                 rlutil::cls();
                 obj.abrirMesa();
                 break;

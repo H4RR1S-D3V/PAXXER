@@ -4,7 +4,9 @@
 
 #include "clasesAuxiliares.h"
 
-std::string horaActual();
+int horaActual();
+
+int minutosActual();
 
 Fecha fechaActual();
 
