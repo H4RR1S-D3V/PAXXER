@@ -121,16 +121,27 @@ void mostrarConfigurarCarta()
             {
                 Producto obj;
                 obj.Cargar();
-                arc.agregarRegistro(obj);
-                MessageBox(NULL,"Item agregado exitosamente", "OPERACION EXITOSA", MB_OK|MB_ICONINFORMATION);
+                /// llamar a validar item
+                if(arc.validarItemRepetido(obj.getNombre()))
+                {
+                    arc.agregarRegistro(obj);
+                    MessageBox(NULL,"Item agregado exitosamente", "OPERACION EXITOSA", MB_OK|MB_ICONINFORMATION);
 
-                rlutil::cls();
-                mostrarConfigurarCarta();
-                //ELSE IF (SI LA OPERACION NO FUE EXITOSA SE MUESTRA)
-                //SELECCION=MessageBox(NULL,"No fue posible agregar el item. Desea intentarlo nuevamente?", "OPERACION FALLIDA", MB_OKCANCEL|MB_ICONINFORMATION);
-                //if -->si==configurarCarta();
-                //no--> VUELVE A CONFIGURACIONES
-
+                    rlutil::cls();
+                    mostrarConfigurarCarta();
+                    //ELSE IF (SI LA OPERACION NO FUE EXITOSA SE MUESTRA)
+                    //SELECCION=MessageBox(NULL,"No fue posible agregar el item. Desea intentarlo nuevamente?", "OPERACION FALLIDA", MB_OKCANCEL|MB_ICONINFORMATION);
+                    //if -->si==configurarCarta();
+                    //no--> VUELVE A CONFIGURACIONES
+                }
+                else
+                {
+                    rlutil::cls();
+                    mostrarConfigurarCarta();
+                    rlutil::locate(20,20);
+                    rlutil::setColor(rlutil::RED);
+                    cout << "ITEM EXISTENTE" << endl;
+                }
                 break;
             }
             case 30:    ///MODIFICAR ITEM

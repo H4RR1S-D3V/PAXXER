@@ -19,6 +19,7 @@ public:
     bool listarRegistros();
     bool modificarNombreRegistro(const char *nombre, int id);
     bool modificarTipoRegistro(const int tipo, int id);
+    bool validarItemRepetido(const char* nombre);
     void listarRegistrosPorNombre(const char *nombre);
     void listarRegistrosPorTipo(const int tipo);
     bool filtrarRegistrosPorEstado(int);
