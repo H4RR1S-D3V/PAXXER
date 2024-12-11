@@ -332,9 +332,36 @@ void Delivery::cargarDelivery()
         rlutil::locate(10, 10);
         cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
         cargarCadena(_telefonoCliente, 20);
+
+
         rlutil::locate(10, 11);
         cout << "INGRESE EL ID DEL DELIVERY ASIGNADO: ";
-        cin >> _deliveryAsignado;
+        int id;
+        cin >> id;
+
+        ArchivoUsuario arcUs;
+        Usuario objUs;
+        int posUs = arcUs.buscarRegistro(id);
+        objUs = arcUs.leerRegistro(posUs);
+
+        while(!objUs.getEstado() || arcUs.buscarRegistro(id) == -2)
+        {
+            rlutil::setColor(rlutil::RED);
+            rlutil::locate(10,11);
+            cout << "ID DE USUARIO NO DISPONIBLE, INTENTE NUEVAMENTE: ";
+            rlutil::locate(59,11);
+            cout << "     ";
+            rlutil::locate(59,11);
+            cin >> id;
+            posUs = arcUs.buscarRegistro(id);
+            objUs = arcUs.leerRegistro(posUs);
+        }
+        rlutil::setColor(rlutil::WHITE);
+        _deliveryAsignado = id;
+
+
+
+
         rlutil::locate(10, 12);
         cout << "INGRESE LA HORA DE ENTREGA: ";
         cin >> _horaEntrega;
