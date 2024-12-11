@@ -6,6 +6,7 @@
 #include "ClasesFactura.h"
 #include "clasesArchivosMesas.h"
 #include "clasesArchivosFacturas.h"
+#include "clasesArchivosUsuarios.h"
 #include "funciones.h"
 
 #include "../view/funcionesDibujar.h"
@@ -107,17 +108,33 @@ void Local::cargarLocal()
         rlutil::setColor(rlutil::WHITE);
 
 
-        cout << "PORFAVOR INGRESE SU ID DE EMPLEADO: ";
-        rlutil::locate (40,13);
-        cin >> _empleadoAsignado;
+        cout << "POR FAVOR INGRESE SU ID DE EMPLEADO: ";
+        rlutil::locate(40,13);
+        int id;
+        cin >> id;
 
+        ArchivoUsuario arc;
+        Usuario objUs;
+        int pos = arc.buscarRegistro(id);
+        objUs = arc.leerRegistro(pos);
 
+        while(!objUs.getEstado() || arc.buscarRegistro(id) == -2)
+        {
+            rlutil::setColor(rlutil::RED);
+            rlutil::locate(40,13);            cout << "ID DE USUARIO NO DISPONIBLE, INTENTE NUEVAMENTE: ";
+            rlutil::locate(89,13);
+            cout << "     ";
+            rlutil::locate(89,13);
+            cin >> id;
+            pos = arc.buscarRegistro(id);
+            objUs = arc.leerRegistro(pos);
+        }
+        rlutil::setColor(rlutil::WHITE);
+        _empleadoAsignado = id;
         rlutil::locate(40,14);
-        cout << "PORFAVOR INGRESE LA CANTIDAD DE COMENSALES: ";
+        cout << "POR FAVOR INGRESE LA CANTIDAD DE COMENSALES: ";
         rlutil::locate(40,15);
         cin >> _comensales;
-
-
 
         ///PEDIR CONFIRMACION Y QUE ESO LLEVE A MOSTRAR VISTA MESA
         int respuesta = MessageBox(NULL, "LOS DATOS INGRESADOS SON CORRECTOS?", "VALIDACION DATOS", MB_YESNOCANCEL);
@@ -272,12 +289,13 @@ void Local::liberarMesa()
 }
 void Local::cerrarLocal()
 {
-    if (cerrarMesa()){
-    ArchivoMesasLocal arcLocal;
-    liberarMesa();
-    arcLocal.actualizarMesa(*this);
+    if (cerrarMesa())
+    {
+        ArchivoMesasLocal arcLocal;
+        liberarMesa();
+        arcLocal.actualizarMesa(*this);
 
-    mostrarMapaMesas();
+        mostrarMapaMesas();
     }
 }
 /// FIN CLASE HEREDADA LOCAL
@@ -307,29 +325,31 @@ void Delivery::cargarDelivery()
     ArchivoFactura arc;
     Factura obj;
 
-    do{
+    do
+    {
 
-    limpiarDesdePosicion(10,10,90,8);
-    rlutil::locate(10, 10);
-    cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
-    cargarCadena(_telefonoCliente, 20);
-    rlutil::locate(10, 11);
-    cout << "INGRESE EL ID DEL DELIVERY ASIGNADO: ";
-    cin >> _deliveryAsignado;
-    rlutil::locate(10, 12);
-    cout << "INGRESE LA HORA DE ENTREGA: ";
-    cin >> _horaEntrega;
-    rlutil::locate(10, 13);
-    cout << "INGRESE EL DOMICILIO A ENTREGAR: " << endl;
-    _direccionEntrega.Cargar();
+        limpiarDesdePosicion(10,10,90,8);
+        rlutil::locate(10, 10);
+        cout << "INGRESE EL TELEFONO DEL CLIENTE: ";
+        cargarCadena(_telefonoCliente, 20);
+        rlutil::locate(10, 11);
+        cout << "INGRESE EL ID DEL DELIVERY ASIGNADO: ";
+        cin >> _deliveryAsignado;
+        rlutil::locate(10, 12);
+        cout << "INGRESE LA HORA DE ENTREGA: ";
+        cin >> _horaEntrega;
+        rlutil::locate(10, 13);
+        cout << "INGRESE EL DOMICILIO A ENTREGAR: " << endl;
+        _direccionEntrega.Cargar();
 
 
-    int pos = arc.buscarRegistro(_idFactura);
-    obj = arc.leerRegistro(pos);
-    obj.setTurno(_horaEntrega);
-    obj.setTipo(2);
-    obj.setIdEmpleado(_deliveryAsignado);
-    } while (MessageBox(NULL, "LOS DATOS INGRESADOS SON CORRECTOS?", "CONFIRMACION DATOS", MB_YESNO) == 7);
+        int pos = arc.buscarRegistro(_idFactura);
+        obj = arc.leerRegistro(pos);
+        obj.setTurno(_horaEntrega);
+        obj.setTipo(2);
+        obj.setIdEmpleado(_deliveryAsignado);
+    }
+    while (MessageBox(NULL, "LOS DATOS INGRESADOS SON CORRECTOS?", "CONFIRMACION DATOS", MB_YESNO) == 7);
 
     arc.actualizarRegistro(obj);
 }
@@ -440,9 +460,10 @@ void Delivery::mostrarDeliveryDetalle()
                 quitarItem(_idFactura);
                 break;
             case 60://CERRAR MESA
-                if(cerrarDelivery()){
-                rlutil::cls();
-                pantallaDelivery();
+                if(cerrarDelivery())
+                {
+                    rlutil::cls();
+                    pantallaDelivery();
                 }
                 break;
             case 90://VOLVER
@@ -465,13 +486,14 @@ void Delivery::abrirMesa()
 }
 bool Delivery::cerrarDelivery()
 {
-    if (cerrarMesa()){
+    if (cerrarMesa())
+    {
 
-    entregarDelivery();
+        entregarDelivery();
 
-    ArchivoDelivery arc;
-    arc.eliminarRegistro(_numero);
-    return true;
+        ArchivoDelivery arc;
+        arc.eliminarRegistro(_numero);
+        return true;
     }
     return false;
 }
@@ -635,9 +657,10 @@ void TakeAway::mostrarTakeAwayDetalle()
                 quitarItem(_idFactura);
                 break;
             case 60://CERRAR MESA
-                if (cerrarTakeAway()){
-                rlutil::cls();
-                pantallaTakeAway();
+                if (cerrarTakeAway())
+                {
+                    rlutil::cls();
+                    pantallaTakeAway();
                 }
                 break;
             case 90://VOLVER
@@ -662,13 +685,15 @@ void TakeAway::abrirMesa()
 }
 bool TakeAway::cerrarTakeAway()
 {
-    if (cerrarMesa()){
+    if (cerrarMesa())
+    {
 
-    entregarTakeAway();
-    ArchivoTakeAway arcTake;
-    arcTake.eliminarRegistro(_numero);
-    return true;
-    } return false;
+        entregarTakeAway();
+        ArchivoTakeAway arcTake;
+        arcTake.eliminarRegistro(_numero);
+        return true;
+    }
+    return false;
 }
 void TakeAway::entregarTakeAway()
 {
