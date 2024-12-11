@@ -305,6 +305,20 @@ void ArchivoProducto::listarRegistrosPorTipo(const int tipo)
         }
     }
 }
+bool ArchivoProducto::validarItemRepetido(const char* nombre)
+{
+    ArchivoProducto arc;
+    Producto obj;
+    for (int i = 0; i < arc.contarRegistros(); i++)
+    {
+        obj = arc.leerRegistro(i);
+        if(!strcmp(nombre, obj.getNombre()))
+        {
+            return false;
+        }
+    }
+    return true;
+}
 void ArchivoProducto::listarRegistrosPorNombre(const char *nombre)
 {
     // PROBAR IMPLEMENTAR GETCHAR() O GETCH() PARA ACTUALIZAR EN TIEMPO REAL
