@@ -109,7 +109,6 @@ int ArchivoMesasLocal::setearCantMesas(int cant)
             fwrite(&obj, sizeof obj, 1, p);
         }
     } else {
-        fclose(p);
         return 0;
     }
 
