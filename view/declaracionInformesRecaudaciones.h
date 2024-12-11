@@ -5,3 +5,4 @@ void mostrarRecaudacionesPorFecha();
 void mostrarRecaudacionesPorTurno();
 void mostrarRecaudacionesPorTipoDePedido();
 void mostrarRecaudacionesPorEmpleado();
+void mostrarFacturaPorID();

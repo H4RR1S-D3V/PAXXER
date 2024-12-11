@@ -9,6 +9,7 @@ using namespace std;
 #include "menuPrincipal.h"
 #include "../controller/clasesArchivosFacturas.h"
 #include "../controller/clasesArchivosUsuarios.h"
+#include "../controller/ClasesFactura.h"
 
 
 void mostrarRecaudacionesPorFecha()
@@ -71,9 +72,11 @@ void mostrarRecaudacionesPorFecha()
                 rlutil::hidecursor();
                 /// LIMPIAR TABLA
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
-                if (valor < 1 || valor > 12){
+                if (valor < 1 || valor > 12 || cin.fail()){
                     rlutil::locate(70,24);
                     cout << "Por favor ingrese un mes valido";
+                    cin.clear();
+                    cin.ignore(1000,'\n');
                 } else {
                 ///FETCH
                 float recaudacion = arc.listarRegistrosPorMes(valor);
@@ -103,9 +106,11 @@ void mostrarRecaudacionesPorFecha()
                 rlutil::hidecursor();
                 /// LIMPIAR TABLA
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
-                if (valor < 1990 || valor > 4000){
+                if (valor < 1990 || valor > 4000 || cin.fail()){
                     rlutil::locate(70,24);
                     cout << "Por favor ingrese un a"<< char(164) <<"o valido";
+                    cin.clear();
+                    cin.ignore(1000,'\n');
                 } else {
                 ///FETCH
                 float recaudacion = arc.listarRegistrosPorAnio(valor);
@@ -256,7 +261,11 @@ void mostrarRecaudacionesPorTipoDePedido()
         pintarOpciones("POR TAKE AWAY",80,17, x==60);
         pintarOpciones("VOLVER A INFORMES",110,17, x==90);
 
+        rlutil:: locate (19+(x),17);
+            cout <<char (16);
         int key=rlutil::getkey();
+            rlutil:: locate (19+(x),17);
+            cout << " ";
         switch (key)
         {
         case 17:
@@ -350,6 +359,7 @@ void mostrarRecaudacionesPorTipoDePedido()
 
 void mostrarRecaudacionesPorEmpleado()
 {
+
     ArchivoFactura arc;
     int x=0;
     bool salir=true;
@@ -364,22 +374,27 @@ void mostrarRecaudacionesPorEmpleado()
         cout << "R E C A U D A C I O N E S   P O R   E M P L E A D O S";
         rlutil::setColor (rlutil::WHITE);
         pintarOpciones("POR ID",50,17, x==0);
-        pintarOpciones("VOLVER A INFORMES",90,17, x==30);
+        pintarOpciones("VOLVER A INFORMES",90,17, x==40);
 
 
+        rlutil:: locate (49+(x),17);
+            cout <<char (16);
         int key=rlutil::getkey();
+            rlutil:: locate (49+(x),17);
+            cout << " ";
+
         switch (key)
         {
         case 17:
-            rlutil:: locate (29+(x),17);
+            rlutil:: locate (49+(x),17);
             cout << " ";
-            x+=30;
-            if (x>30) x=30;
+            x+=40;
+            if (x>40) x=40;
             break;
         case 16:
-            rlutil:: locate (29+(x),17);
+            rlutil:: locate (49+(x),17);
             cout << " ";
-            x-=30;
+            x-=40;
             if (x<0) x=0;
             break;
 
@@ -405,9 +420,11 @@ void mostrarRecaudacionesPorEmpleado()
                 rlutil::hidecursor();
                 /// LIMPIAR TABLA
                 limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
-                if (valor < 1){
+                if (valor < 1 || cin.fail()){
                     rlutil::locate(70,24);
                     cout << "Por favor ingrese una ID valida";
+                    cin.clear();
+                    cin.ignore(1000,'\n');
                 } else {
                 ///FETCH
                 float recaudacion = arc.listarRegistrosPorResponsableID(valor);
@@ -416,6 +433,107 @@ void mostrarRecaudacionesPorEmpleado()
                 rlutil::locate(100,20);
                 cout << "RECAUDACION: $" << recaudacion;
                 if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                }
+                break;
+                }
+            case 40:
+                rlutil::cls();
+                salir=false;
+                break;
+
+            }
+            break;
+        }
+    }
+    while (salir==true);
+}
+
+void mostrarFacturaPorID()
+{
+ArchivoFactura arc;
+
+    bool abierto = false;
+    int x=0;
+    bool salir=true;
+    do
+    {
+
+        rlutil::hidecursor();
+        rlutil::setColor (rlutil::LIGHTCYAN);
+        dibujarBordesPantallas(42,abierto ? 6 : 16);
+        rlutil::setColor (rlutil::BROWN);
+        rlutil:: locate (70, abierto? 5 : 15);
+        cout << "A B R I R   F A C T U R A";
+        rlutil::setColor (rlutil::WHITE);
+        pintarOpciones("POR ID",60,abierto ? 7 : 17, x==0);
+        pintarOpciones("VOLVER A INFORMES",90, abierto ? 7 : 17, x==30);
+
+
+        rlutil:: locate (59+(x),abierto ? 7 : 17);
+            cout <<char (16);
+        int key=rlutil::getkey();
+            rlutil:: locate (59+(x),abierto ? 7 : 17);
+            cout << " ";
+        switch (key)
+        {
+        case 17:
+            rlutil:: locate (59+(x),abierto ? 7 : 17);
+            cout << " ";
+            x+=30;
+            if (x>30) x=30;
+            break;
+        case 16:
+            rlutil:: locate (59+(x),abierto ? 7 : 17);
+            cout << " ";
+            x-=30;
+            if (x<0) x=0;
+            break;
+
+        case 1:
+            switch (x)
+            {
+            case 0:
+                {
+                int valor;
+                rlutil::setColor (rlutil::BROWN);
+                /// LIMPIAR TABLA
+                /*
+                int cantRegistrosTotal = arc.contarRegistros();
+                limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
+                */
+                limpiarDesdePosicion(50, abierto ? 9 : 19, 250, 1);
+                rlutil:: locate (50,abierto ? 9 : 19);
+                cout << "INGRESE EL ID DE LA FACTURA QUE QUIERE VER:";
+                rlutil:: locate (94,abierto ? 9 : 19);
+                rlutil::showcursor();
+                cin >> valor;
+                rlutil::hidecursor();
+                /// LIMPIAR TABLA
+                //limpiarDesdePosicion(11, 22, 149, cantRegistrosTotal);
+                if (valor < 1 || cin.fail()){
+                    limpiarDesdePosicion(50, abierto ? 9 : 19, 250, 1);
+                    rlutil::locate(70, abierto ? 9 : 19);
+                    cout << "Por favor ingrese una ID valida";
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                } else {
+                ///FETCH
+                Factura obj;
+                obj = arc.leerRegistro(valor-1);
+                rlutil::cls();
+                obj.mostrarFacturaDetalle();
+                ///NUEVO MENU DE FACTURA
+                abierto = true;
+
+
+                //float recaudacion = arc.listarRegistrosPorResponsableID(valor);
+                /*
+                rlutil:: locate (40,20);
+                cout << "ID: " << valor;
+                rlutil::locate(100,20);
+                cout << "RECAUDACION: $" << recaudacion;
+                if (recaudacion == 0) {rlutil::locate(58,24); cout << "No se encontraron registros con el criterio ingresado";}
+                    */
                 }
                 break;
                 }
@@ -429,4 +547,5 @@ void mostrarRecaudacionesPorEmpleado()
         }
     }
     while (salir==true);
+
 }
