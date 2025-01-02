@@ -3,7 +3,7 @@
 
 Sistema de gestión para restaurantes. Proyecto colaborativo para Trabajo Practico Integrador de Programación II de la Tecnicatura Universitaria en Programación en UTN FRGP.
 
-## Descripción
+## Descripción 📄
 Este proyecto es un sistema de gestión para restaurantes. Las consignas eran realizar un sistema gestor realizado con Clases en C++.
 Entre las funcionalidades de esta aplicación de terminal podemos encontrar:
 - Alta Baja, Modificación y Consulta de:
@@ -23,7 +23,7 @@ Entre las funcionalidades de esta aplicación de terminal podemos encontrar:
 	- Aplicar descuentos
 	- Visualizar información de la mesa (Detalle de la factura, Hora de apertura/entrega, Nro de mesa/Pedido.
 	
-## Aplicación Lista para usar
+## Aplicación Lista para usar ⬇️
 Si solo quieres acceder a la última versión estable de **PAXXER**, puedes descargarlo [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases/tag/v1). 
 
 ## Comenzando 🚀
