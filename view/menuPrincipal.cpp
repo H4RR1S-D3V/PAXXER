@@ -52,28 +52,23 @@ void mostrarMenuPrincipal()
         pintarOpciones("CONFIGURACION", 80, 30, y==6);
         pintarOpciones("SALIR", 84, 32, y==8);
 
-        rlutil::locate(78,24+(y));
-        cout << char (26);
-        rlutil::locate(95,24+(y));
-        cout << char (27);
-
         int key=rlutil::getkey();
 
         switch (key)
         {
         case 14:
-            rlutil::locate(78,24+(y));
+            /*rlutil::locate(78,24+(y));
             cout << " ";
             rlutil::locate(95,24+(y));
-            cout << " ";
+            cout << " ";*/
             y -= 2;
             if (y < 0) y = 0;
             break;
         case 15:
-            rlutil::locate(78,24+(y));
+            /*rlutil::locate(78,24+(y));
             cout << " ";
             rlutil::locate(95,24+(y));
-            cout << " ";
+            cout << " ";*/
             y += 2;
             if (y > 8) y = 8;
             break;
