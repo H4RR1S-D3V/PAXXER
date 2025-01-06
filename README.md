@@ -36,7 +36,7 @@ Si por el contrario estás interesado en acceder al código de PAXXER, sigue est
 
 
 ### Instalación 🔧
-Puedes acceder al código fuente desde [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases/tag/v1), o bien clonar este repositorio.
+Puedes acceder al código fuente desde [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases), o bien clonar este repositorio.
 
 
 
