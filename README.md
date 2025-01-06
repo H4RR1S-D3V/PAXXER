@@ -24,7 +24,7 @@ Entre las funcionalidades de esta aplicación de terminal podemos encontrar:
 	- Visualizar información de la mesa (Detalle de la factura, Hora de apertura/entrega, Nro de mesa/Pedido.
 	
 ## Aplicación Lista para usar ⬇️
-Si solo quieres acceder a la última versión estable de **PAXXER**, puedes descargarlo [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases/tag/v1). 
+Si solo quieres acceder a la última versión estable de **PAXXER**, puedes descargarlo [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases). 
 
 ## Comenzando 🚀
 Si por el contrario estás interesado en acceder al código de PAXXER, sigue estas instrucciones:
@@ -36,7 +36,7 @@ Si por el contrario estás interesado en acceder al código de PAXXER, sigue est
 
 
 ### Instalación 🔧
-Puedes acceder al código fuente desde [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases/tag/v1), o bien clonar este repositorio.
+Puedes acceder al código fuente desde [AQUÍ](https://github.com/H4RR1S-D3V/PAXXER/releases), o bien clonar este repositorio.
 
 
 
